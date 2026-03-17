@@ -23,10 +23,11 @@ public class VT_Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        /// Tạo hiệu ứng va chạm tại điểm va chạm
         CreateImpactFX(collision);
 
-        //rb.constraints = RigidbodyConstraints.FreezeAll;
-        Destroy(gameObject);
+        /// Trả viên đạn về Object Pool sau khi va chạm để tái sử dụng
+        VT_ObjectPool.instance.ReturnObject(gameObject);
     }
 
     private void CreateImpactFX(Collision collision)

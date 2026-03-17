@@ -106,15 +106,16 @@ public class VT_PlayerWeaponController : MonoBehaviour
 
         currentWeapon.bulletsInMagazine--; /// Giảm số lượng đạn khi bắn
 
-        GameObject newBullet = Instantiate(bulletPrefab, gunPoint.position,
-            Quaternion.LookRotation(gunPoint.forward));
+        /// Tạo viên đạn mới tại điểm bắn với hướng bắn
+        GameObject newBullet = VT_ObjectPool.instance.GetObject(); /// Lấy viên đạn từ Object Pool
+        newBullet.transform.position = gunPoint.position; /// Đặt vị trí của viên đạn tại điểm bắn
+        newBullet.transform.rotation = Quaternion.LookRotation(gunPoint.forward); /// Đặt hướng của viên đạn theo hướng của điểm bắn
 
+        /// Điều chỉnh tốc độ của viên đạn dựa trên thông số bulletSpeed của vũ khí hiện tại
         Rigidbody newBulletRigidbody = newBullet.GetComponent<Rigidbody>();
 
         newBulletRigidbody.mass = REFERENCE_BULLET_SPEED / bulletSpeed; /// Điều chỉnh khối lượng để đạt được tốc độ mong muốn
         newBulletRigidbody.velocity = BulletDirection() * bulletSpeed;
-
-        Destroy(newBullet, 10);
 
         /// Kích hoạt trigger "VT_Fire" trong Animator để phát animation bắn
         Animator animator = GetComponentInChildren<Animator>();
