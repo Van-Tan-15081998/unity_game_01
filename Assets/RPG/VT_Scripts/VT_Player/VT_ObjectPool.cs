@@ -1,74 +1,79 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class VT_ObjectPool : MonoBehaviour
 {
-    public static VT_ObjectPool instance { get; private set; }
+    public static VT_ObjectPool instance;
 
-    [SerializeField] private GameObject objectPrefab; // Prefab của đối tượng cần pool
     [SerializeField] private int poolSize = 10;
 
-    private Queue<GameObject> objectPool;
+    private Dictionary<GameObject, Queue<GameObject>> poolDictionary =
+        new Dictionary<GameObject, Queue<GameObject>>();
 
     private void Awake()
     {
         if (instance == null)
-        {
-            instance = this; /// Gán instance của ObjectPool khi lần đầu tiên Awake được gọi
-        }
+            instance = this;
         else
+            Destroy(gameObject);
+    }
+
+    public GameObject GetObject(GameObject prefab)
+    {
+        if (poolDictionary.ContainsKey(prefab) == false)
         {
-            Destroy(gameObject); /// Nếu đã có một instance tồn tại, hủy GameObject này để đảm bảo chỉ có một instance duy nhất
+            InitializeNewPool(prefab);
         }
 
+        if (poolDictionary[prefab].Count == 0)
+            CreateNewObject(prefab); // if all objects of this type are in uise, create a new one.
 
+        GameObject objectToGet = poolDictionary[prefab].Dequeue();
+        objectToGet.SetActive(true);
+        objectToGet.transform.parent = null;
+
+        return objectToGet;
     }
 
-    private void Start()
+    public void ReturnObject(GameObject objectToReturn, float delay = .001f)
     {
-        /// Khởi tạo hàng đợi để lưu trữ các đối tượng trong pool
-        objectPool = new Queue<GameObject>();
-
-        /// Khởi tạo pool
-        CreateInitialPool();
+        StartCoroutine(DelayReturn(delay, objectToReturn));
     }
 
-    public GameObject GetObject()
+    private IEnumerator DelayReturn(float delay, GameObject objectToReturn)
     {
-        if (objectPool.Count == 0)
-        {
-            CreateNewObject(); /// Tạo thêm đối tượng nếu pool đã hết
-        }
+        yield return new WaitForSeconds(delay);
 
-        GameObject obj = objectPool.Dequeue(); /// Lấy đối tượng từ pool
-        obj.SetActive(true); /// Kích hoạt đối tượng trước khi trả về
-
-        ///
-        obj.transform.parent = null; /// Đặt đối tượng ra khỏi hierarchy của ObjectPool để nó có thể hoạt động độc lập trong scene
-
-        return obj;
-
+        ReturnToPool(objectToReturn);
     }
 
-    public void ReturnObject(GameObject obj)
+    private void ReturnToPool(GameObject objectToReturn)
     {
-        obj.SetActive(false); /// Vô hiệu hóa đối tượng trước khi trả về pool
-        objectPool.Enqueue(obj); /// Thêm đối tượng trở lại pool
-        obj.transform.parent = transform; /// Đặt đối tượng trở lại làm con của ObjectPool để tổ chức trong hierarchy
+        GameObject originalPrefab = objectToReturn.GetComponent<VT_PooledObject>().originalPrefab;
+
+        objectToReturn.SetActive(false);
+        objectToReturn.transform.parent = transform;
+
+        poolDictionary[originalPrefab].Enqueue(objectToReturn);
     }
 
-    public void CreateInitialPool()
+    private void InitializeNewPool(GameObject prefab)
     {
+        poolDictionary[prefab] = new Queue<GameObject>();
+
         for (int i = 0; i < poolSize; i++)
         {
-            CreateNewObject();
+            CreateNewObject(prefab);
         }
     }
 
-    private void CreateNewObject()
+    private void CreateNewObject(GameObject prefab)
     {
-        GameObject obj = Instantiate(objectPrefab, transform);
-        obj.SetActive(false); /// Vô hiệu hóa đối tượng sau khi tạo
-        objectPool.Enqueue(obj); /// Thêm đối tượng vào pool
+        GameObject newObject = Instantiate(prefab, transform);
+        newObject.AddComponent<VT_PooledObject>().originalPrefab = prefab;
+        newObject.SetActive(false);
+
+        poolDictionary[prefab].Enqueue(newObject);
     }
 }

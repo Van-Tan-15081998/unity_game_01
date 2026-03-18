@@ -6,7 +6,6 @@ public class VT_PlayerWeaponVisuals : MonoBehaviour
     private VT_Player player;
 
     private Animator anim;
-    private bool isGrabbingWeapon; // Biến để theo dõi trạng thái đang thực hiện animation lấy vũ khí
 
     #region Gun Transforms region
     //[SerializeField] private Transform[] gunTransforms;
@@ -55,7 +54,7 @@ public class VT_PlayerWeaponVisuals : MonoBehaviour
         //SwitchOn(pistol);
 
         ///
-        backupWeaponModels = GetComponentsInChildren<VT_BackupWeaponModel>(true);   
+        backupWeaponModels = GetComponentsInChildren<VT_BackupWeaponModel>(true);
     }
 
     private void Update()
@@ -65,7 +64,7 @@ public class VT_PlayerWeaponVisuals : MonoBehaviour
         UpdateRigWeight();
         UpdateLeftHandIKWeight();
     }
-   
+
     /// <summary>
     /// TODO: Phương thức để lấy thông tin về vũ khí hiện tại của player
     /// </summary>
@@ -84,16 +83,16 @@ public class VT_PlayerWeaponVisuals : MonoBehaviour
         return weaponModel;
     }
 
+    public void PlayFireAnimation()
+    {
+        anim.SetTrigger("VT_Fire");
+    }
+
     /// <summary>
     /// TODO: 
     /// </summary>
     public void PlayReloadAnimation()
     {
-        if (isGrabbingWeapon)
-        {
-            return; /// Không phát animation reload nếu đang thực hiện animation lấy vũ khí
-        }
-
         float reloadSpeed = player.weapon.CurrentWeapon().reloadSpeed;
 
         anim.SetTrigger("VT_Reload");
@@ -123,16 +122,6 @@ public class VT_PlayerWeaponVisuals : MonoBehaviour
         anim.SetTrigger("VT_EquipWeapon");
         anim.SetFloat("VT_EquipSpeed", equipmentSpeed);
 
-        SetBusyEquipingWeaponTo(true);
-    }
-
-    /// <summary>
-    /// TODO: 
-    /// </summary>
-    public void SetBusyEquipingWeaponTo(bool busy)
-    {
-        isGrabbingWeapon = busy;
-        anim.SetBool("VT_BusyEquipingWeapon", isGrabbingWeapon);
     }
 
     /// <summary>
@@ -154,7 +143,7 @@ public class VT_PlayerWeaponVisuals : MonoBehaviour
         {
             SwitchOnBackupWeaponModel();
         }
-        
+
         SwitchAnimationLayer(animationLayerIndex);
 
         CurrentWeaponModel().gameObject.SetActive(true);
@@ -180,22 +169,48 @@ public class VT_PlayerWeaponVisuals : MonoBehaviour
         foreach (VT_BackupWeaponModel gun in backupWeaponModels)
         {
             // Tắt tất cả các loại súng
-            gun.gameObject.SetActive(false);
+            gun.Activate(false);
         }
     }
 
 
     public void SwitchOnBackupWeaponModel()
     {
-       VT_WeaponType weaponType = player.weapon.BackupWeapon().weaponType;
+        SwitchOffBackupWeaponModels();
+
+        VT_BackupWeaponModel lowHangWeapon = null;
+        VT_BackupWeaponModel backHangWeapon = null;
+        VT_BackupWeaponModel sideHangWeapon = null;
+
+
+        //VT_WeaponType weaponType = player.weapon.BackupWeapon().weaponType;
 
         foreach (VT_BackupWeaponModel backupModel in backupWeaponModels)
         {
-            if (backupModel.weaponType == weaponType)
+            if (backupModel.weaponType == player.weapon.CurrentWeapon().weaponType)
             {
-                backupModel.gameObject.SetActive(true);
+                continue;
+            }
+
+            if (player.weapon.WeaponInSlots(backupModel.weaponType) != null) { 
+                if (backupModel.HangTypeIs(HangType.LowBackHang))
+                {
+                    lowHangWeapon = backupModel;
+                }
+                if (backupModel.HangTypeIs(HangType.BackHang))
+                {
+                    backHangWeapon = backupModel;
+                }
+                if (backupModel.HangTypeIs(HangType.SideHang))
+                {
+                    sideHangWeapon = backupModel;
+                }
             }
         }
+
+        lowHangWeapon?.Activate(true);
+        backHangWeapon?.Activate(true);
+        sideHangWeapon?.Activate(true);
     }
 
     /// <summary>

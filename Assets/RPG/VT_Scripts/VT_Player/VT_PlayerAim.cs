@@ -48,13 +48,33 @@ public class VT_PlayerAim : MonoBehaviour
         UpdateCameraPosition();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void UpdateAimVisuals()
     {
+        ///
+        /// Bật hoặc tắt LineRenderer dựa trên trạng thái sẵn sàng của vũ khí
+        aimLaser.enabled = player.weapon.WeaponReady();
+
+        if (aimLaser.enabled == false)
+        {
+            return; /// Nếu vũ khí không sẵn sàng, không cần cập nhật visuals
+        }
+
+        ///
+        ///
+        VT_WeaponModel weaponModel = player.weaponVisuals.CurrentWeaponModel();
+        weaponModel.transform.LookAt(aim); /// Hướng vũ khí về phía điểm ngắm
+        weaponModel.gunPoint.LookAt(aim); /// Hướng gunPoint về phía điểm ngắm để đảm bảo đường đạn chính xác
+
+        ///
+        ///
         Transform gunPoint = player.weapon.GunPoint();
         Vector3 laserDirection = player.weapon.BulletDirection();
 
         float laserTipLenght = .5f;
-        float gunDistance = 4f;
+        float gunDistance = player.weapon.CurrentWeapon().gunDistance;
 
         Vector3 endPoint = gunPoint.position + laserDirection * gunDistance;
 
@@ -70,6 +90,9 @@ public class VT_PlayerAim : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void UpdateAimPosition()
     {
         Transform target = Target();
@@ -99,6 +122,10 @@ public class VT_PlayerAim : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public Transform Target()
     {
         Transform target = null;    

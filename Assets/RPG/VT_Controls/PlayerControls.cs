@@ -147,6 +147,33 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Equip Slot - 3"",
+                    ""type"": ""Button"",
+                    ""id"": ""b374d8da-ba82-4083-b008-815ab6fbc970"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Equip Slot - 4"",
+                    ""type"": ""Button"",
+                    ""id"": ""a83062cc-292b-4184-a072-dabb956c8d25"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Equip Slot - 5"",
+                    ""type"": ""Button"",
+                    ""id"": ""70da7709-9ed6-4118-8edf-6c647e797aba"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Drop Current Weapon"",
                     ""type"": ""Button"",
                     ""id"": ""4caa10cd-1045-45cd-aa30-adbb1ce98382"",
@@ -159,6 +186,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Reload"",
                     ""type"": ""Button"",
                     ""id"": ""38910dcb-8bc6-43ee-b249-24312474c56c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Toogle Weapon Mode"",
+                    ""type"": ""Button"",
+                    ""id"": ""956da523-0392-47d2-ac30-7192d075bf21"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -308,6 +344,50 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6c9862e7-b979-4f13-abfc-dede557d0e4e"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Equip Slot - 3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a5832409-babf-4d6e-a2b7-b83f4a5b1ff0"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Equip Slot - 4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""308f9f6e-9e39-4ca7-9001-57f9c6f05d97"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Equip Slot - 5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ad077a7c-971e-403b-9df3-0f3746b8f165"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Toogle Weapon Mode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -322,8 +402,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_VT_Character_Run = m_VT_Character.FindAction("Run", throwIfNotFound: true);
         m_VT_Character_EquipSlot1 = m_VT_Character.FindAction("Equip Slot - 1", throwIfNotFound: true);
         m_VT_Character_EquipSlot2 = m_VT_Character.FindAction("Equip Slot - 2", throwIfNotFound: true);
+        m_VT_Character_EquipSlot3 = m_VT_Character.FindAction("Equip Slot - 3", throwIfNotFound: true);
+        m_VT_Character_EquipSlot4 = m_VT_Character.FindAction("Equip Slot - 4", throwIfNotFound: true);
+        m_VT_Character_EquipSlot5 = m_VT_Character.FindAction("Equip Slot - 5", throwIfNotFound: true);
         m_VT_Character_DropCurrentWeapon = m_VT_Character.FindAction("Drop Current Weapon", throwIfNotFound: true);
         m_VT_Character_Reload = m_VT_Character.FindAction("Reload", throwIfNotFound: true);
+        m_VT_Character_ToogleWeaponMode = m_VT_Character.FindAction("Toogle Weapon Mode", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -410,8 +494,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_VT_Character_Run;
     private readonly InputAction m_VT_Character_EquipSlot1;
     private readonly InputAction m_VT_Character_EquipSlot2;
+    private readonly InputAction m_VT_Character_EquipSlot3;
+    private readonly InputAction m_VT_Character_EquipSlot4;
+    private readonly InputAction m_VT_Character_EquipSlot5;
     private readonly InputAction m_VT_Character_DropCurrentWeapon;
     private readonly InputAction m_VT_Character_Reload;
+    private readonly InputAction m_VT_Character_ToogleWeaponMode;
     /// <summary>
     /// Provides access to input actions defined in input action map "VT_Character".
     /// </summary>
@@ -448,6 +536,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @EquipSlot2 => m_Wrapper.m_VT_Character_EquipSlot2;
         /// <summary>
+        /// Provides access to the underlying input action "VT_Character/EquipSlot3".
+        /// </summary>
+        public InputAction @EquipSlot3 => m_Wrapper.m_VT_Character_EquipSlot3;
+        /// <summary>
+        /// Provides access to the underlying input action "VT_Character/EquipSlot4".
+        /// </summary>
+        public InputAction @EquipSlot4 => m_Wrapper.m_VT_Character_EquipSlot4;
+        /// <summary>
+        /// Provides access to the underlying input action "VT_Character/EquipSlot5".
+        /// </summary>
+        public InputAction @EquipSlot5 => m_Wrapper.m_VT_Character_EquipSlot5;
+        /// <summary>
         /// Provides access to the underlying input action "VT_Character/DropCurrentWeapon".
         /// </summary>
         public InputAction @DropCurrentWeapon => m_Wrapper.m_VT_Character_DropCurrentWeapon;
@@ -455,6 +555,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "VT_Character/Reload".
         /// </summary>
         public InputAction @Reload => m_Wrapper.m_VT_Character_Reload;
+        /// <summary>
+        /// Provides access to the underlying input action "VT_Character/ToogleWeaponMode".
+        /// </summary>
+        public InputAction @ToogleWeaponMode => m_Wrapper.m_VT_Character_ToogleWeaponMode;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -499,12 +603,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @EquipSlot2.started += instance.OnEquipSlot2;
             @EquipSlot2.performed += instance.OnEquipSlot2;
             @EquipSlot2.canceled += instance.OnEquipSlot2;
+            @EquipSlot3.started += instance.OnEquipSlot3;
+            @EquipSlot3.performed += instance.OnEquipSlot3;
+            @EquipSlot3.canceled += instance.OnEquipSlot3;
+            @EquipSlot4.started += instance.OnEquipSlot4;
+            @EquipSlot4.performed += instance.OnEquipSlot4;
+            @EquipSlot4.canceled += instance.OnEquipSlot4;
+            @EquipSlot5.started += instance.OnEquipSlot5;
+            @EquipSlot5.performed += instance.OnEquipSlot5;
+            @EquipSlot5.canceled += instance.OnEquipSlot5;
             @DropCurrentWeapon.started += instance.OnDropCurrentWeapon;
             @DropCurrentWeapon.performed += instance.OnDropCurrentWeapon;
             @DropCurrentWeapon.canceled += instance.OnDropCurrentWeapon;
             @Reload.started += instance.OnReload;
             @Reload.performed += instance.OnReload;
             @Reload.canceled += instance.OnReload;
+            @ToogleWeaponMode.started += instance.OnToogleWeaponMode;
+            @ToogleWeaponMode.performed += instance.OnToogleWeaponMode;
+            @ToogleWeaponMode.canceled += instance.OnToogleWeaponMode;
         }
 
         /// <summary>
@@ -534,12 +650,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @EquipSlot2.started -= instance.OnEquipSlot2;
             @EquipSlot2.performed -= instance.OnEquipSlot2;
             @EquipSlot2.canceled -= instance.OnEquipSlot2;
+            @EquipSlot3.started -= instance.OnEquipSlot3;
+            @EquipSlot3.performed -= instance.OnEquipSlot3;
+            @EquipSlot3.canceled -= instance.OnEquipSlot3;
+            @EquipSlot4.started -= instance.OnEquipSlot4;
+            @EquipSlot4.performed -= instance.OnEquipSlot4;
+            @EquipSlot4.canceled -= instance.OnEquipSlot4;
+            @EquipSlot5.started -= instance.OnEquipSlot5;
+            @EquipSlot5.performed -= instance.OnEquipSlot5;
+            @EquipSlot5.canceled -= instance.OnEquipSlot5;
             @DropCurrentWeapon.started -= instance.OnDropCurrentWeapon;
             @DropCurrentWeapon.performed -= instance.OnDropCurrentWeapon;
             @DropCurrentWeapon.canceled -= instance.OnDropCurrentWeapon;
             @Reload.started -= instance.OnReload;
             @Reload.performed -= instance.OnReload;
             @Reload.canceled -= instance.OnReload;
+            @ToogleWeaponMode.started -= instance.OnToogleWeaponMode;
+            @ToogleWeaponMode.performed -= instance.OnToogleWeaponMode;
+            @ToogleWeaponMode.canceled -= instance.OnToogleWeaponMode;
         }
 
         /// <summary>
@@ -623,6 +751,27 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnEquipSlot2(InputAction.CallbackContext context);
         /// <summary>
+        /// Method invoked when associated input action "Equip Slot - 3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEquipSlot3(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Equip Slot - 4" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEquipSlot4(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Equip Slot - 5" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEquipSlot5(InputAction.CallbackContext context);
+        /// <summary>
         /// Method invoked when associated input action "Drop Current Weapon" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -636,5 +785,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnReload(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Toogle Weapon Mode" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToogleWeaponMode(InputAction.CallbackContext context);
     }
 }

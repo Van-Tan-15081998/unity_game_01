@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +17,10 @@ public class VT_PlayerAnimationEvents : MonoBehaviour
     {
         visualController.MaximizeRigWeight();
         weaponController.CurrentWeapon().RefillBullets();
+
+        /// Đặt trạng thái vũ khí sẵn sàng sau khi tái nạp hoàn tất để cho phép người chơi bắn 
+        /// hoặc thực hiện các hành động khác với vũ khí.
+        weaponController.SetWeaponReady(true);
     }
 
     public void ReturnRig()
@@ -25,9 +29,10 @@ public class VT_PlayerAnimationEvents : MonoBehaviour
         visualController.MaximizeLeftHandWeight();
     }
 
-    public void WeaponGrapIsOver()
+    public void WeaponEquipingIsOver()
     {
-        visualController.SetBusyEquipingWeaponTo(false);
+        /// Đặt trạng thái vũ khí sẵn sàng sau khi trang bị hoàn tất để cho phép người chơi bắn
+        weaponController.SetWeaponReady(true);
     }
 
     public void SwitchOnWeaponModel()
