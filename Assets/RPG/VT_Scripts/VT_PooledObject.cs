@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class VT_PooledObject : MonoBehaviour
 {
-    public GameObject originalPrefab { get; set; }
+    public GameObject originalPrefab;
 }

@@ -11,6 +11,8 @@ public class VT_Player : MonoBehaviour
 
     public VT_PlayerWeaponVisuals weaponVisuals { get; private set; } // Read-Only
 
+    public VT_PlayerInteraction interaction { get; private set; } // Read-Only
+
     private void Awake()
     {
         controls = new PlayerControls();
@@ -18,6 +20,7 @@ public class VT_Player : MonoBehaviour
         movement = GetComponent<VT_PlayerMovement>();   
         weapon = GetComponent<VT_PlayerWeaponController>();
         weaponVisuals = GetComponent<VT_PlayerWeaponVisuals>();
+        interaction = GetComponent<VT_PlayerInteraction>();
     }
 
     private void OnEnable()

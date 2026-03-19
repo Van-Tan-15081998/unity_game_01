@@ -199,6 +199,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interaction"",
+                    ""type"": ""Button"",
+                    ""id"": ""311bcb2b-4509-4b6f-8041-70ee7577a0ae"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -388,6 +397,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Toogle Weapon Mode"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""94070a6b-33ad-4d74-a6f3-067f7f235d3d"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -408,6 +428,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_VT_Character_DropCurrentWeapon = m_VT_Character.FindAction("Drop Current Weapon", throwIfNotFound: true);
         m_VT_Character_Reload = m_VT_Character.FindAction("Reload", throwIfNotFound: true);
         m_VT_Character_ToogleWeaponMode = m_VT_Character.FindAction("Toogle Weapon Mode", throwIfNotFound: true);
+        m_VT_Character_Interaction = m_VT_Character.FindAction("Interaction", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -500,6 +521,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_VT_Character_DropCurrentWeapon;
     private readonly InputAction m_VT_Character_Reload;
     private readonly InputAction m_VT_Character_ToogleWeaponMode;
+    private readonly InputAction m_VT_Character_Interaction;
     /// <summary>
     /// Provides access to input actions defined in input action map "VT_Character".
     /// </summary>
@@ -559,6 +581,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "VT_Character/ToogleWeaponMode".
         /// </summary>
         public InputAction @ToogleWeaponMode => m_Wrapper.m_VT_Character_ToogleWeaponMode;
+        /// <summary>
+        /// Provides access to the underlying input action "VT_Character/Interaction".
+        /// </summary>
+        public InputAction @Interaction => m_Wrapper.m_VT_Character_Interaction;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -621,6 +647,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ToogleWeaponMode.started += instance.OnToogleWeaponMode;
             @ToogleWeaponMode.performed += instance.OnToogleWeaponMode;
             @ToogleWeaponMode.canceled += instance.OnToogleWeaponMode;
+            @Interaction.started += instance.OnInteraction;
+            @Interaction.performed += instance.OnInteraction;
+            @Interaction.canceled += instance.OnInteraction;
         }
 
         /// <summary>
@@ -668,6 +697,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ToogleWeaponMode.started -= instance.OnToogleWeaponMode;
             @ToogleWeaponMode.performed -= instance.OnToogleWeaponMode;
             @ToogleWeaponMode.canceled -= instance.OnToogleWeaponMode;
+            @Interaction.started -= instance.OnInteraction;
+            @Interaction.performed -= instance.OnInteraction;
+            @Interaction.canceled -= instance.OnInteraction;
         }
 
         /// <summary>
@@ -792,5 +824,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnToogleWeaponMode(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Interaction" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInteraction(InputAction.CallbackContext context);
     }
 }

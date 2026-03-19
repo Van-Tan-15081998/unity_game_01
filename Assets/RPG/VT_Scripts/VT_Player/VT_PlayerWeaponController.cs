@@ -27,6 +27,8 @@ public class VT_PlayerWeaponController : MonoBehaviour
     [SerializeField] private int maxSlots = 2; /// Số lượng vũ khí tối đa mà người chơi có thể mang theo
     [SerializeField] private List<VT_Weapon> weaponSlots;
 
+    [SerializeField] private GameObject weaponPickupPrefab;
+
 
     private void Start()
     {
@@ -67,7 +69,7 @@ public class VT_PlayerWeaponController : MonoBehaviour
     /// <param name="i"></param>
     private void EquipWeapon(int i)
     {
-        if (i > weaponSlots.Count)
+        if (i >= weaponSlots.Count)
         {
             return;
         }
@@ -92,10 +94,26 @@ public class VT_PlayerWeaponController : MonoBehaviour
     /// <param name="newWeapon"></param>
     public void PickupWeapon(VT_Weapon newWeapon)
     {
-
-        if (weaponSlots.Count >= maxSlots)
+        /// Nếu vũ khí đã có trong trang bị thì cộng thêm số lượng đạn
+        if (WeaponInSlots(newWeapon.weaponType) != null)
         {
-            return; /// Không thể nhặt vũ khí mới nếu đã đạt đến giới hạn
+            WeaponInSlots(newWeapon.weaponType).totalReserveAmmo += newWeapon.bulletsInMagazine;
+
+            return;
+        }
+
+        /// Nếu đã hết Slot => thay thế vũ khí hiện tại bằng vũ khí mới (Khác loại)
+        if (weaponSlots.Count >= maxSlots && newWeapon.weaponType != currentWeapon.weaponType)
+        {
+            int weaponIndex = weaponSlots.IndexOf(currentWeapon);
+
+            player.weaponVisuals.SwitchOffWeaponModels();
+            weaponSlots[weaponIndex] = newWeapon;
+
+            CreateWeaponOnTheGround();
+            EquipWeapon(weaponIndex);
+
+            return;
         }
 
         weaponSlots.Add(newWeapon); /// Thêm vũ khí mới vào kho
@@ -114,11 +132,20 @@ public class VT_PlayerWeaponController : MonoBehaviour
             return; /// Không thể bỏ vũ khí nếu chỉ có một vũ khí trong kho
         }
 
+        CreateWeaponOnTheGround();
+
+        ///
         weaponSlots.Remove(currentWeapon); /// Loại bỏ vũ khí hiện tại khỏi kho
 
         EquipWeapon(0); /// Chọn vũ khí tiếp theo trong kho làm vũ khí hiện tại
     }
 
+    private void CreateWeaponOnTheGround()
+    {
+        /// Cài đặt vị trí bỏ vũ khí
+        GameObject droppedWeapon = VT_ObjectPool.instance.GetObject(weaponPickupPrefab);
+        droppedWeapon.GetComponent<VT_PickupWeapon>()?.SetupPickupWeapon(currentWeapon, transform);
+    }
 
     public void SetWeaponReady(bool ready)
     {

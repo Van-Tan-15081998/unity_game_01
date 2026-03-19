@@ -24,55 +24,53 @@ public enum VT_ShootType
 
 public class VT_Weapon
 {
-    public VT_WeaponType weaponType; /// Loại vũ khí (Pistol, Revolver, AutoRifle, Shotgun, Rifle).
+    public VT_WeaponType weaponType;
+
 
     #region Regular mode variables
-    [Header("Shooting specifics")]
-    public VT_ShootType shootType; /// Kiểu bắn của vũ khí (Single, Auto, ...).
-    private float defaultFireRate = 1; /// Tốc độ bắn của vũ khí
-    public float fireRate = 1; /// Tốc độ bắn của vũ khí
-    private float lastShootTime; /// Thời gian lần cuối cùng vũ khí được bắn.
+    public VT_ShootType shootType;
+    public int bulletsPerShot { get; private set; }
+
+    private float defaultFireRate;
+    public float fireRate = 1; // bullets per second
+    private float lastShootTime;
     #endregion
-
-    [Header("Magazine details")]
-    public int bulletsInMagazine; /// Số lượng đạn hiện tại của vũ khí.
-    public int magazineCapacity; /// Số lượng đạn tối đa mà một băng đạn có thể chứa.
-    public int totalReserveAmmo; /// Số lượng đạn dự trữ tối đa mà người chơi có thể mang theo cho loại vũ khí này.
-
-
-    #region Weapon generic info variables
-    public float reloadSpeed { get; private set; } /// Thời gian cần thiết để nạp lại vũ khí
-    public float equipmentSpeed { get; private set; } /// Thời gian cần thiết để trang bị vũ khí
-    public float gunDistance { get; private set; }
-    public float cameraDistance { get; private set; }
-    #endregion
-
     #region Burst mode  variables
-    [Header("Burst fire")]
-    public int bulletsPerShot; /// Số lượng viên đạn trong một Loạt bắn
-                               /// => Có thể dùng cho nhiều loại súng Không chỉ trong Burst mode và Shortgun
-
     private bool burstAvalible;
     public bool burstActive;
 
     private int burstBulletsPerShot;
     private float burstFireRate;
-    public float burstFireDelay { get; private set; } /// Khoảng cách thời gian giữa các viên đạn đơn trong 1 Loạt bắn
+    public float burstFireDelay { get; private set; }
     #endregion
 
-    #region Weapon spread variables
-    [Header("Spread")]
-    /// Độ giật của vũ khí, ảnh hưởng đến độ chính xác của viên đạn khi bắn. Giá trị này có thể được sử dụng để tính toán sự phân tán của viên đạn khi bắn, 
-    /// tạo ra hiệu ứng giật và làm cho việc ngắm bắn trở nên khó khăn hơn khi bắn liên tục.
-    private float currentSpread = 2;
+    [Header("Magazine details")]
+    public int bulletsInMagazine;
+    public int magazineCapacity;
+    public int totalReserveAmmo;
 
+    #region Weapon generic info variables
+
+    public float reloadSpeed { get; private set; } // how fast charcater reloads weapon    
+    public float equipmentSpeed { get; private set; } // how fast character equips weapon
+    public float gunDistance { get; private set; }
+    public float cameraDistance { get; private set; }
+    #endregion
+    #region Weapon spread variables
+    [Header("Spread ")]
     private float baseSpread = 1;
     private float maximumSpread = 3;
+    private float currentSpread = 2;
+
     private float spreadIncreaseRate = .15f;
 
-    private float lastSpreadUpdateTime; /// Thời gian lần cuối cập nhật Spread
+    private float lastSpreadUpdateTime;
     private float spreadCooldown = 1;
+
     #endregion
+
+    // Data dùng để truyền cho item khi nhặt và bỏ lại vũ khí
+    public VT_WeaponData weaponData { get; private set; } // serves as default weapon data
 
     public VT_Weapon(VT_WeaponData weaponData)
     {
@@ -107,6 +105,9 @@ public class VT_Weapon
 
 
         defaultFireRate = fireRate;
+
+        // set default
+        this.weaponData = weaponData;
     }
 
 

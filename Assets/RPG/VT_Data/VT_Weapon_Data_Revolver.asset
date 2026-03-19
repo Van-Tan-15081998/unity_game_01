@@ -12,6 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a5e1c5b5dd69d4b94ef92d328d01e7, type: 3}
   m_Name: VT_Weapon_Data_Revolver
   m_EditorClassIdentifier: 
-  weaponName: 
-  weaponType: 0
-  fireRate: 0
+  weaponName: Super Revolver
+  bulletsInMagazine: 6
+  magazineCapacity: 6
+  totalReserveAmmo: 9999
+  shootType: 0
+  bulletsPerShot: 1
+  fireRate: 2.5
+  burstAvalible: 0
+  burstActive: 0
+  burstBulletsPerShot: 0
+  burstFireRate: 0
+  burstFireDelay: 0.1
+  baseSpread: 0.2
+  maxSpread: 2.5
+  spreadIncreaseRate: 0.3
+  weaponType: 1
+  reloadSpeed: 1
+  equipmentSpeed: 1
+  gunDistance: 6
+  cameraDistance: 6

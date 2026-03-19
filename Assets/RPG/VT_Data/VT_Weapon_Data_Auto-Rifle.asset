@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6a5e1c5b5dd69d4b94ef92d328d01e7, type: 3}
-  m_Name: VT_Weapon_Data_Pistol
+  m_Name: VT_Weapon_Data_Auto-Rifle
   m_EditorClassIdentifier: 
-  weaponName: Super Pistol 123
-  bulletsInMagazine: 20
-  magazineCapacity: 20
+  weaponName: Super Auto-Rifle
+  bulletsInMagazine: 40
+  magazineCapacity: 40
   totalReserveAmmo: 9999
-  shootType: 0
+  shootType: 1
   bulletsPerShot: 1
-  fireRate: 4
-  burstAvalible: 0
+  fireRate: 8
+  burstAvalible: 1
   burstActive: 0
-  burstBulletsPerShot: 0
-  burstFireRate: 0
+  burstBulletsPerShot: 3
+  burstFireRate: 1.5
   burstFireDelay: 0.1
-  baseSpread: 0.25
-  maxSpread: 2
+  baseSpread: 0.15
+  maxSpread: 3
   spreadIncreaseRate: 0.15
-  weaponType: 0
+  weaponType: 2
   reloadSpeed: 1
   equipmentSpeed: 1
   gunDistance: 6
