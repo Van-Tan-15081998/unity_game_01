@@ -1,5 +1,13 @@
 using UnityEngine;
 
+public struct AttackData
+{
+    public float attackRange;
+    public float moveSpeed;
+    public float attackIndex;
+    public float animationSpeed;
+}
+
 public class VT_Enemy_Melee : VT_Enemy
 {
     public VT_IdleState_Melee idleState { get; private set; }

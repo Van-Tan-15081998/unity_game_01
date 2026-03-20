@@ -3,8 +3,6 @@ using UnityEngine.AI;
 
 public class VT_Enemy : MonoBehaviour
 {
-    public float turnSpeed;
-    public float aggresionRange;
 
     [Header("Attack data")]
     public float attackRange;
@@ -12,9 +10,11 @@ public class VT_Enemy : MonoBehaviour
 
     [Header("Idle data")]
     public float idleTime;
+    public float aggresionRange;
 
     [Header("Move data")]
     public float moveSpeed;
+    public float turnSpeed;
     public float chaseSpeed;
     private bool manualMovement;
 
