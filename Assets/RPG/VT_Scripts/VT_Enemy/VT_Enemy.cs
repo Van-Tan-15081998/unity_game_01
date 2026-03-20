@@ -1,28 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class VT_Enemy : MonoBehaviour
 {
+<<<<<<< HEAD
     [Header("Idle data a")]
+=======
+
+    [Header("Attack data")]
+    public float attackRange;
+    public float attackMoveSpeed;
+
+    [Header("Idle data")]
+>>>>>>> main
     public float idleTime;
+    public float aggresionRange;
 
     [Header("Move data")]
     public float moveSpeed;
+    public float turnSpeed;
+    public float chaseSpeed;
+    private bool manualMovement;
 
     [SerializeField] private Transform[] patrolPoints;
     private int currentPatrolIndex;
 
-    public NavMeshAgent agent {  get; private set; }
+    public Transform player { get; private set; }
 
-    public VT_EnemyStateMachine stateMachine {  get; private set; }
+    public Animator anim { get; private set; }
 
-    protected virtual void Awake() 
+    public NavMeshAgent agent { get; private set; }
+
+    public VT_EnemyStateMachine stateMachine { get; private set; }
+
+    protected virtual void Awake()
     {
         stateMachine = new VT_EnemyStateMachine();
 
-        agent = GetComponent<NavMeshAgent>();   
+        agent = GetComponent<NavMeshAgent>();
+
+        anim = GetComponentInChildren<Animator>();
+
+        player = GameObject.Find("Player").GetComponent<Transform>();
     }
 
     // Start is called before the first frame update
@@ -57,4 +76,54 @@ public class VT_Enemy : MonoBehaviour
 
         return destination;
     }
+<<<<<<< HEAD
+=======
+
+    public Quaternion FaceTarget(Vector3 target)
+    {
+        Quaternion targetRotation = Quaternion.LookRotation(target - transform.position);
+
+        Vector3 currentEulerAngels = transform.rotation.eulerAngles;
+
+        float yRotation = Mathf.LerpAngle(
+            currentEulerAngels.y,
+            targetRotation.eulerAngles.y,
+            turnSpeed * Time.deltaTime
+            );
+
+        return Quaternion.Euler(currentEulerAngels.x, yRotation, currentEulerAngels.z);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, aggresionRange);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, attackRange);  
+    }
+
+    public bool PlayerInAggresionRange()
+    {
+        return Vector3.Distance(transform.position, player.position) < aggresionRange;
+    }
+
+    public bool PlayerInAttackRange()
+    {
+        return Vector3.Distance(transform.position, player.position) < attackRange;
+    }
+
+    public void AnimationTrigger()
+    {
+        stateMachine.currentState.AnimationTrigger();
+    }
+
+    public void ActiveManualMovement(bool manualMovement)
+    {
+        this.manualMovement = manualMovement;
+    }
+
+    public bool ManualMovementActive()
+    {
+        return manualMovement;
+    }
+>>>>>>> main
 }
