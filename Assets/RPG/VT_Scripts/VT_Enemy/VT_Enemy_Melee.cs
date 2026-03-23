@@ -1,13 +1,21 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public struct AttackData
 {
+    public string attackName;
     public float attackRange;
     public float moveSpeed;
     public float attackIndex;
     [Range(1,2)]
     public float animationSpeed;
+    public AttackType_Melee attackType;
+}
+
+public enum AttackType_Melee
+{
+    Close, Charge
 }
 
 public class VT_Enemy_Melee : VT_Enemy
@@ -21,12 +29,10 @@ public class VT_Enemy_Melee : VT_Enemy
 
     [Header("Attack Data")]
     public AttackData attackData;
+    public List<AttackData> attackList;
 
     [SerializeField] private Transform hiddenWeapon;
     [SerializeField] private Transform pulledWeapon;
-
-    [Header("Attack Data")]
-    public AttackData attackData;
 
     protected override void Awake()
     {

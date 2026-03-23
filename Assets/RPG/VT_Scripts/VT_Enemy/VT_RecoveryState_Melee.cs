@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class VT_RecoveryState_Melee : VT_EnemyState
 {
     private VT_Enemy_Melee enemy;
@@ -31,7 +27,14 @@ public class VT_RecoveryState_Melee : VT_EnemyState
 
         if (triggerCalled)
         {
-            stateMachine.ChangeState(enemy.chaseState);
+            if (enemy.PlayerInAttackRange())
+            {
+                stateMachine.ChangeState(enemy.attackState);
+            }
+            else
+            {
+                stateMachine.ChangeState(enemy.chaseState);
+            }
         }
     }
 }

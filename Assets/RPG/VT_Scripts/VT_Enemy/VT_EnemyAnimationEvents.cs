@@ -25,4 +25,13 @@ public class VT_EnemyAnimationEvents : MonoBehaviour
         enemy.ActiveManualMovement(false);
     }
 
+    public void StartManualRotation()
+    {
+        enemy.ActiveManualRotation(true);
+    }
+    public void StopManualRotation()
+    {
+        enemy.ActiveManualRotation(false);
+    }
+
 }

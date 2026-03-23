@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class VT_AttackState_Melee : VT_EnemyState
@@ -18,39 +17,85 @@ public class VT_AttackState_Melee : VT_EnemyState
     public override void Enter()
     {
         base.Enter();
+        enemy.PullWeapon();
 
         attackMoveSpeed = enemy.attackData.moveSpeed;
         enemy.anim.SetFloat("VT_AttackAnimationSpeed", enemy.attackData.animationSpeed);
+        enemy.anim.SetFloat("VT_AttackIndex", enemy.attackData.attackIndex);
 
-        enemy.PullWeapon();
 
         enemy.agent.isStopped = true;
-        enemy.agent.velocity = Vector3.zero;    
-
-        attackDirection = enemy.transform.position + (enemy.transform.forward * MAX_ATTACK_DISTANCE);
+        enemy.agent.velocity = Vector3.zero;
     }
 
     public override void Exit()
     {
         base.Exit();
+        SetupNextAttack();
+    }
+
+    private void SetupNextAttack()
+    {
+        int recoveryIndex = PlayerClose() ? 1 : 0;
+
+        enemy.anim.SetFloat("VT_RecoveryIndex", recoveryIndex);
+
+        enemy.attackData = UpdateAttackData();
     }
 
     public override void Update()
     {
         base.Update();
 
+        if (enemy.ManualRotationActive())
+        {
+            enemy.transform.rotation = enemy.FaceTarget(enemy.player.position);
+            attackDirection = enemy.transform.position + (enemy.transform.forward * MAX_ATTACK_DISTANCE);
+        }
+
         if (enemy.ManualMovementActive())
         {
             enemy.transform.position =
-            Vector3.MoveTowards(
-                enemy.transform.position,
-                attackDirection,
-                attackMoveSpeed * Time.deltaTime);
+            Vector3.MoveTowards(enemy.transform.position, attackDirection, attackMoveSpeed * Time.deltaTime);
         }
 
         if (triggerCalled)
         {
-            stateMachine.ChangeState(enemy.chaseState);
+            if (enemy.PlayerInAttackRange())
+            {
+                stateMachine.ChangeState(enemy.recoveryState);
+            } else
+            {
+                stateMachine.ChangeState(enemy.chaseState);
+            }
         }
     }
-}
+
+    private bool PlayerClose()
+    {
+        if (Vector3.Distance(enemy.transform.position, enemy.player.position) <= 1)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private AttackData UpdateAttackData()
+    {
+        List<AttackData> validAttacks = new List<AttackData>(enemy.attackList); // Không áp dụng tham chiếu (new)
+
+        
+
+        /// Nếu Player ở gần enemy => tắt các động tác tấn công cự ly xa
+        /// => chỉ áp dụng các động tác tấn công ở cự ly gần
+        if (PlayerClose())
+        {
+            validAttacks.RemoveAll(parameter => parameter.attackType == AttackType_Melee.Charge);
+        }
+
+        int random = Random.Range(0, validAttacks.Count);
+
+        return validAttacks[random];
+    }
+} 

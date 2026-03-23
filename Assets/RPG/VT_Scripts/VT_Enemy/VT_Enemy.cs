@@ -16,6 +16,7 @@ public class VT_Enemy : MonoBehaviour
     public float turnSpeed;
     public float chaseSpeed;
     private bool manualMovement;
+    private bool manualRotation;
 
     [SerializeField] private Transform[] patrolPoints;
     private int currentPatrolIndex;
@@ -110,8 +111,18 @@ public class VT_Enemy : MonoBehaviour
         this.manualMovement = manualMovement;
     }
 
+    public void ActiveManualRotation(bool manualRotation)
+    {
+        this.manualRotation = manualRotation;
+    }
+
     public bool ManualMovementActive()
     {
         return manualMovement;
+    }
+
+    public bool ManualRotationActive()
+    {
+        return manualRotation;
     }
 }
