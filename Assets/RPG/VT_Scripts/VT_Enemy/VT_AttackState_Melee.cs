@@ -6,6 +6,7 @@ public class VT_AttackState_Melee : VT_EnemyState
 {
     private VT_Enemy_Melee enemy;
     private Vector3 attackDirection;
+    private float attackMoveSpeed;
 
     private const float MAX_ATTACK_DISTANCE = 50f;
 
@@ -17,6 +18,9 @@ public class VT_AttackState_Melee : VT_EnemyState
     public override void Enter()
     {
         base.Enter();
+
+        attackMoveSpeed = enemy.attackData.moveSpeed;
+        enemy.anim.SetFloat("VT_AttackAnimationSpeed", enemy.attackData.animationSpeed);
 
         enemy.PullWeapon();
 
@@ -41,7 +45,7 @@ public class VT_AttackState_Melee : VT_EnemyState
             Vector3.MoveTowards(
                 enemy.transform.position,
                 attackDirection,
-                enemy.attackMoveSpeed * Time.deltaTime);
+                attackMoveSpeed * Time.deltaTime);
         }
 
         if (triggerCalled)

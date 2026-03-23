@@ -3,10 +3,9 @@ using UnityEngine.AI;
 
 public class VT_Enemy : MonoBehaviour
 {
-
-    [Header("Attack data")]
-    public float attackRange;
-    public float attackMoveSpeed;
+    //[Header("Attack data")]
+    //public float attackRange;
+    //public float attackMoveSpeed;
 
     [Header("Idle data")]
     public float idleTime;
@@ -88,11 +87,10 @@ public class VT_Enemy : MonoBehaviour
         return Quaternion.Euler(currentEulerAngels.x, yRotation, currentEulerAngels.z);
     }
 
-    private void OnDrawGizmos()
+    protected virtual void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, aggresionRange);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, attackRange);  
+        
     }
 
     public bool PlayerInAggresionRange()
@@ -100,10 +98,7 @@ public class VT_Enemy : MonoBehaviour
         return Vector3.Distance(transform.position, player.position) < aggresionRange;
     }
 
-    public bool PlayerInAttackRange()
-    {
-        return Vector3.Distance(transform.position, player.position) < attackRange;
-    }
+
 
     public void AnimationTrigger()
     {
