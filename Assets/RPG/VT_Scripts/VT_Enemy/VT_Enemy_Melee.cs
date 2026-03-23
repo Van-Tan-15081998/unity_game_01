@@ -1,10 +1,12 @@
 using UnityEngine;
 
+[System.Serializable]
 public struct AttackData
 {
     public float attackRange;
     public float moveSpeed;
     public float attackIndex;
+    [Range(1,2)]
     public float animationSpeed;
 }
 
@@ -15,6 +17,9 @@ public class VT_Enemy_Melee : VT_Enemy
     public VT_RecoveryState_Melee recoveryState { get; private set; }
     public VT_ChaseState_Melee chaseState { get; private set; }
     public VT_AttackState_Melee attackState { get; private set; }
+
+    [Header("Attack Data")]
+    public AttackData attackData;
 
     [SerializeField] private Transform hiddenWeapon;
     [SerializeField] private Transform pulledWeapon;
@@ -51,5 +56,17 @@ public class VT_Enemy_Melee : VT_Enemy
     {
         hiddenWeapon.gameObject.SetActive(false);
         pulledWeapon.gameObject.SetActive(true);
+    }
+
+    public bool PlayerInAttackRange()
+    {
+        return Vector3.Distance(transform.position, player.position) < attackData.attackRange;
+    }
+
+    protected override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, attackData.attackRange);
     }
 }
