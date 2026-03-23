@@ -10,6 +10,7 @@ public struct AttackData
 
 public class VT_Enemy_Melee : VT_Enemy
 {
+
     public VT_IdleState_Melee idleState { get; private set; }
     public VT_MoveState_Melee moveState { get; private set; }
     public VT_RecoveryState_Melee recoveryState { get; private set; }
@@ -18,6 +19,9 @@ public class VT_Enemy_Melee : VT_Enemy
 
     [SerializeField] private Transform hiddenWeapon;
     [SerializeField] private Transform pulledWeapon;
+
+    [Header("Attack Data")]
+    public AttackData attackData;
 
     protected override void Awake()
     {
