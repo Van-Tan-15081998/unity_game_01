@@ -23,9 +23,14 @@ public class VT_AttackState_Melee : VT_EnemyState
         enemy.anim.SetFloat("VT_AttackAnimationSpeed", enemy.attackData.animationSpeed);
         enemy.anim.SetFloat("VT_AttackIndex", enemy.attackData.attackIndex);
 
+        /// Cài đặt ngẫu nhiên 1 trong 6 động tác tấn công SwordSlash
+        enemy.anim.SetFloat("VT_SwordSlashAttackIndex", Random.Range(0,5));
+
 
         enemy.agent.isStopped = true;
         enemy.agent.velocity = Vector3.zero;
+
+        attackDirection = enemy.transform.position + (enemy.transform.forward * MAX_ATTACK_DISTANCE);
     }
 
     public override void Exit()
@@ -56,7 +61,7 @@ public class VT_AttackState_Melee : VT_EnemyState
         if (enemy.ManualMovementActive())
         {
             enemy.transform.position =
-            Vector3.MoveTowards(enemy.transform.position, attackDirection, attackMoveSpeed * Time.deltaTime);
+                Vector3.MoveTowards(enemy.transform.position, attackDirection, attackMoveSpeed * Time.deltaTime);
         }
 
         if (triggerCalled)

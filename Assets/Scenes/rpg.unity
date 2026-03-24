@@ -5091,7 +5091,7 @@ MonoBehaviour:
     attackType: 1
   - attackName: Sword slash
     attackRange: 1
-    moveSpeed: 2.5
+    moveSpeed: 0
     attackIndex: 1
     animationSpeed: 1.5
     attackType: 0
