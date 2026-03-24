@@ -42,6 +42,11 @@ public class VT_EnemyState
         triggerCalled = true;
     }
 
+    public virtual void AbilityTrigger()
+    {
+
+    }
+
     /// <summary>
     /// Xoay hướng nhìn về điểm tiếp theo trên đường đi
     /// </summary>

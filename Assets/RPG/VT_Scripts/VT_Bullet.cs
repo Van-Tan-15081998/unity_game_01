@@ -4,6 +4,8 @@ public class VT_Bullet : MonoBehaviour
 {
     [SerializeField] private GameObject bulletImpactFX;
 
+    public float impactForce;
+
     private Rigidbody rb;
     private BoxCollider cd;
     private MeshRenderer meshRenderer;
@@ -21,8 +23,10 @@ public class VT_Bullet : MonoBehaviour
         trailRenderer = GetComponent<TrailRenderer>();
     }
 
-    public void BulletSetup(float flyDistance)
+    public void BulletSetup(float flyDistance, float impactForce)
     {
+        this.impactForce = impactForce; 
+
         bulletDisabled = false;
         cd.enabled = true;
         meshRenderer.enabled = true;
@@ -84,6 +88,25 @@ public class VT_Bullet : MonoBehaviour
 
         /// Trả viên đạn về Object Pool sau khi va chạm để tái sử dụng
         ReturnBulletToPool();
+
+        ///
+        VT_Enemy enemy = collision.gameObject.GetComponentInParent<VT_Enemy>();
+        VT_EnemyShield shield = collision.gameObject.GetComponentInParent<VT_EnemyShield>();
+
+        if (shield != null)
+        {
+            shield.ReduceDurability();
+            return;
+        }
+
+        if (enemy != null)
+        {
+            Vector3 force = rb.velocity.normalized * impactForce;
+            Rigidbody hitRigidbody = collision.collider.attachedRigidbody;
+
+            enemy.GetHit();
+            enemy.DeathImpact(force, collision.contacts[0].point, hitRigidbody);
+        }
     }
 
     private void ReturnBulletToPool()

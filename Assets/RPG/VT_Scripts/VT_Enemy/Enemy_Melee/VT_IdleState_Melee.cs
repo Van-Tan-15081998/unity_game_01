@@ -27,12 +27,6 @@ public class VT_IdleState_Melee : VT_EnemyState
     {
         base.Update();
 
-        if (enemy.PlayerInAggresionRange())
-        {
-            stateMachine.ChangeState(enemy.recoveryState);
-            return;
-        }
-
         if (stateTimer < 0)
         {
             // Change State to move

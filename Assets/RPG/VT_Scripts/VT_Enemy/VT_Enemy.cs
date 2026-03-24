@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,6 +7,8 @@ public class VT_Enemy : MonoBehaviour
     //[Header("Attack data")]
     //public float attackRange;
     //public float attackMoveSpeed;
+
+    [SerializeField] protected int healthPoints = 25;
 
     [Header("Idle data")]
     public float idleTime;
@@ -19,7 +22,10 @@ public class VT_Enemy : MonoBehaviour
     private bool manualRotation;
 
     [SerializeField] private Transform[] patrolPoints;
+    private Vector3[] patrolPointsPosition;
     private int currentPatrolIndex;
+
+    public bool inBattleMode { get; private set; }
 
     public Transform player { get; private set; }
 
@@ -46,34 +52,50 @@ public class VT_Enemy : MonoBehaviour
         InitializePatrolPoints();
     }
 
-    private void InitializePatrolPoints()
-    {
-        foreach (Transform t in patrolPoints)
-        {
-            t.parent = null;
-        }
-    }
+
 
     // Update is called once per frame
     protected virtual void Update()
     {
     }
 
-    public Vector3 GetPatrolDestination()
+    protected bool ShouldEnterBattleMode()
     {
-        Vector3 destination = patrolPoints[currentPatrolIndex].transform.position;
+        bool inAggresionRange = Vector3.Distance(transform.position, player.position) < aggresionRange;
 
-        currentPatrolIndex++;
-
-        if (currentPatrolIndex >= patrolPoints.Length)
+        if (inAggresionRange && !inBattleMode)
         {
-            currentPatrolIndex = 0;
+            EnterBattleMode();
+            return true;
         }
 
-        return destination;
+        return false;   
     }
 
-    public Quaternion FaceTarget(Vector3 target)
+    public virtual void EnterBattleMode()
+    {
+        inBattleMode = true;
+    }
+
+    public virtual void GetHit()
+    {
+        EnterBattleMode();
+        healthPoints--;
+    }
+
+    public virtual void DeathImpact(Vector3 force, Vector3 hitPoint, Rigidbody rb)
+    {
+        StartCoroutine(DeathImpactCourutine(force, hitPoint, rb));
+    }
+
+    private IEnumerator DeathImpactCourutine(Vector3 force, Vector3 hitPoint, Rigidbody rb)
+    {
+        yield return new WaitForSeconds(.1f);
+
+        rb.AddForceAtPosition(force, hitPoint, ForceMode.Impulse);
+    }
+
+    public void FaceTarget(Vector3 target)
     {
         Quaternion targetRotation = Quaternion.LookRotation(target - transform.position);
 
@@ -85,25 +107,24 @@ public class VT_Enemy : MonoBehaviour
             turnSpeed * Time.deltaTime
             );
 
-        return Quaternion.Euler(currentEulerAngels.x, yRotation, currentEulerAngels.z);
+        transform.rotation = Quaternion.Euler(currentEulerAngels.x, yRotation, currentEulerAngels.z);
     }
 
     protected virtual void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, aggresionRange);
-        
+
     }
 
-    public bool PlayerInAggresionRange()
-    {
-        return Vector3.Distance(transform.position, player.position) < aggresionRange;
-    }
-
-
-
+    #region Animation Events
     public void AnimationTrigger()
     {
         stateMachine.currentState.AnimationTrigger();
+    }
+
+    public virtual void AbilityTrigger()
+    {
+        stateMachine.currentState.AbilityTrigger();
     }
 
     public void ActiveManualMovement(bool manualMovement)
@@ -125,4 +146,32 @@ public class VT_Enemy : MonoBehaviour
     {
         return manualRotation;
     }
+    #endregion
+
+    #region Patrol logic
+    public Vector3 GetPatrolDestination()
+    {
+        Vector3 destination = patrolPointsPosition[currentPatrolIndex];
+
+        currentPatrolIndex++;
+
+        if (currentPatrolIndex >= patrolPoints.Length)
+        {
+            currentPatrolIndex = 0;
+        }
+
+        return destination;
+    }
+
+    private void InitializePatrolPoints()
+    {
+        patrolPointsPosition = new Vector3[patrolPoints.Length];
+
+        for (int i = 0; i < patrolPoints.Length; i++)
+        {
+            patrolPointsPosition[i] = patrolPoints[i].position;
+            patrolPoints[i].gameObject.SetActive(false);
+        }
+    }
+    #endregion
 }

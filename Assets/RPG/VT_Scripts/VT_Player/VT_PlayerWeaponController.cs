@@ -18,6 +18,7 @@ public class VT_PlayerWeaponController : MonoBehaviour
 
 
     [Header("Bullet details")]
+    [SerializeField] private float bulletImpactForce = 100;
     [SerializeField] private GameObject bulletPrefab; /// Prefab của viên đạn
     [SerializeField] private float bulletSpeed;
 
@@ -212,7 +213,8 @@ public class VT_PlayerWeaponController : MonoBehaviour
 
         ///
         FireSingleBullet();
-
+        ///
+        TriggerEnemyDodgeRoll();
 
     }
 
@@ -231,7 +233,7 @@ public class VT_PlayerWeaponController : MonoBehaviour
 
         /// Cài đặt khoảng cách bay tối đa của viên đạn dựa vào loại vũ khí
         VT_Bullet bulletScript = newBullet.GetComponent<VT_Bullet>();
-        bulletScript.BulletSetup(currentWeapon.gunDistance);
+        bulletScript.BulletSetup(currentWeapon.gunDistance, bulletImpactForce);
 
         /// Áp dụng độ giật (spread) vào hướng bắn để tạo ra sự không chính xác khi bắn
         Vector3 bulletsDirection = currentWeapon.ApplySpread(BulletDirection());
@@ -304,6 +306,26 @@ public class VT_PlayerWeaponController : MonoBehaviour
     public Transform GunPoint()
     {
         return player.weaponVisuals.CurrentWeaponModel().gunPoint;
+    }
+
+    /// <summary>
+    /// Trigger động tác nhào lộn né tránh của enemy
+    /// </summary>
+    private void TriggerEnemyDodgeRoll()
+    {
+        Vector3 rayOrigin = GunPoint().position;
+        Vector3 rayDirection = BulletDirection();
+
+        if (Physics.Raycast(rayOrigin, rayDirection, out RaycastHit hit, Mathf.Infinity))
+        {
+            VT_Enemy_Melee enemy_Melee = hit.collider.gameObject.GetComponentInParent<VT_Enemy_Melee>();
+
+            if (enemy_Melee != null)
+            {
+                enemy_Melee.ActivateDodgeRoll();
+            }
+        }
+        
     }
 
     #region Input Events

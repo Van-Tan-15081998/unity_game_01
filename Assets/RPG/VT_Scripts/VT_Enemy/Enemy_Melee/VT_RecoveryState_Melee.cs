@@ -1,4 +1,4 @@
-public class VT_RecoveryState_Melee : VT_EnemyState
+﻿public class VT_RecoveryState_Melee : VT_EnemyState
 {
     private VT_Enemy_Melee enemy;
 
@@ -23,11 +23,16 @@ public class VT_RecoveryState_Melee : VT_EnemyState
     {
         base.Update();
 
-        enemy.transform.rotation = enemy.FaceTarget(enemy.player.position);
+        enemy.FaceTarget(enemy.player.position);
 
         if (triggerCalled)
         {
-            if (enemy.PlayerInAttackRange())
+            /// Từ Recovery State => Có thể bắt đầu một Ability State
+            /// Ability State ở đây sẽ là Throw Axe
+            if (enemy.CanThrowAxe()) {
+                stateMachine.ChangeState(enemy.abilityState);
+            }
+            else if (enemy.PlayerInAttackRange())
             {
                 stateMachine.ChangeState(enemy.attackState);
             }

@@ -35,7 +35,7 @@ public class VT_ChaseState_Melee :  VT_EnemyState
             stateMachine.ChangeState(enemy.attackState);
         }
 
-        enemy.transform.rotation = enemy.FaceTarget(GetNextPathPoint());
+        enemy.FaceTarget(GetNextPathPoint());
 
         if (CanUpdateDestination())
         {

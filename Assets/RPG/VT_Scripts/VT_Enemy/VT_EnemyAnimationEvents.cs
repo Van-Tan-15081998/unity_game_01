@@ -34,4 +34,9 @@ public class VT_EnemyAnimationEvents : MonoBehaviour
         enemy.ActiveManualRotation(false);
     }
 
+    public void AbilityEvent()
+    {
+        enemy.AbilityTrigger();  
+    }
+
 }
