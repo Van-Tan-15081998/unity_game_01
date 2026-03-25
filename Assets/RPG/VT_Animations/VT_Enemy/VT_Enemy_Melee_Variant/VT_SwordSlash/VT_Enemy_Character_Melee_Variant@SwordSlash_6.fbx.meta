@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1fb5ba2ed5fca5f4c90168f9c94e6a74
+guid: eb401faaf7c707046b4433af14e953d7
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: AttackWeaponSpin
+      name: SwordSlash_6
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 52
+      lastFrame: 68
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -528,18 +528,18 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: character_enemy(Clone)
+    - name: VT_Character_Enemy_Melee_Variant(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Robot
-      parentName: character_enemy(Clone)
+      parentName: VT_Character_Enemy_Melee_Variant(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0.000000081460335, y: 0, z: -0, w: 1}
       scale: {x: 100, y: 100, z: 100}
     - name: mixamorig:Hips
-      parentName: character_enemy(Clone)
+      parentName: VT_Character_Enemy_Melee_Variant(Clone)
       position: {x: -0, y: 0.7293754, z: 0.041038297}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
@@ -875,7 +875,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: b7c96770a58c9094db37368927a1a264, type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 910048acbb13fbc43bb1fd4da08e99d4, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
