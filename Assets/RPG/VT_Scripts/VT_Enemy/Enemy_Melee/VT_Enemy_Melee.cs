@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public struct AttackData
+public struct VT_AttackData_EnemyMelee
 {
     public string attackName;
     public float attackRange;
@@ -22,6 +22,8 @@ public enum EnemyMelee_Type { Regular, Shield, DodgeRoll, AxeThrow }
 
 public class VT_Enemy_Melee : VT_Enemy
 {
+    
+
 
     public VT_IdleState_Melee idleState { get; private set; }
     public VT_MoveState_Melee moveState { get; private set; }
@@ -33,7 +35,9 @@ public class VT_Enemy_Melee : VT_Enemy
 
     [Header("Enemy Settings")]
     public EnemyMelee_Type meleeType;
-    [SerializeField] private Transform shieldTransform;
+    public VT_Enemy_MeleeWeaponType weaponType;
+
+    public Transform shieldTransform;
     public float dodgeRollCooldown;
     private float lastTimeDodgeRoll = -10; /// Giá trị mặc định => đảm bảo luôn có thể thực hiện ngay lần đầu tiên Check điều kiện
 
@@ -46,15 +50,17 @@ public class VT_Enemy_Melee : VT_Enemy
     private float lastTimeAxeThrown;
 
     [Header("Attack Data")]
-    public AttackData attackData;
-    public List<AttackData> attackList;
+    public VT_AttackData_EnemyMelee attackData;
+    public List<VT_AttackData_EnemyMelee> attackList;
 
-    [SerializeField] private Transform hiddenWeapon;
-    [SerializeField] private Transform pulledWeapon;
+    //[SerializeField] private Transform hiddenWeapon;
+    //[SerializeField] private Transform pulledWeapon;
 
     protected override void Awake()
     {
         base.Awake();
+
+        
 
         idleState = new VT_IdleState_Melee(this, stateMachine, "VT_Idle");
         moveState = new VT_MoveState_Melee(this, stateMachine, "VT_Move");
@@ -72,7 +78,12 @@ public class VT_Enemy_Melee : VT_Enemy
 
         stateMachine.Initialize(idleState);
 
-        InitializeSpeciality();
+        InitializePerk();
+
+        visuals.SetupLook();
+
+        ///
+        UpdateAttackData();
 
     }
 
@@ -82,10 +93,7 @@ public class VT_Enemy_Melee : VT_Enemy
 
         stateMachine.currentState.Update();
 
-        if (ShouldEnterBattleMode())
-        {
-            EnterBattleMode();
-        }
+
     }
 
     public override void EnterBattleMode()
@@ -108,15 +116,43 @@ public class VT_Enemy_Melee : VT_Enemy
         moveSpeed = moveSpeed * .6f;
 
         /// Tắt hiện thị vũ khí đang cầm trên tay
-        pulledWeapon.gameObject.SetActive(false);
+        EnableWeaponModel(false);
     }
 
-    private void InitializeSpeciality()
+    public void UpdateAttackData()
     {
+        VT_Enemy_WeaponModel currentWeapon = visuals.currentWeaponModel.GetComponent<VT_Enemy_WeaponModel>();
+
+        if (currentWeapon.weaponData != null)
+        {
+            attackList = new List<VT_AttackData_EnemyMelee>(currentWeapon.weaponData.attackData);
+            turnSpeed = currentWeapon.weaponData.turnSpeed;
+        }
+    }
+
+    private void InitializePerk()
+    {
+        /// AxeThrow => Chỉ trang bị Axe 
+        /// Hiển thị loại vũ khí dựa trên [EnemyMelee_Type]
+        if (meleeType == EnemyMelee_Type.AxeThrow)
+        {
+            weaponType = VT_Enemy_MeleeWeaponType.Throw;
+        }
+
+        /// Shield => Một tay trang bị Shield & Một tay còn lại trang bị một vũ khí không phải là Axe
         if (meleeType == EnemyMelee_Type.Shield)
         {
             anim.SetFloat("VT_ChaseIndex", 1);
             shieldTransform.gameObject.SetActive(true);
+
+            /// Hiển thị loại vũ khí dựa trên [EnemyMelee_Type]
+            weaponType = VT_Enemy_MeleeWeaponType.OneHand;
+        }
+
+        /// DodgeRoll (Né tránh) => Không trang bị vũ khí - Tay không 
+        if (meleeType == EnemyMelee_Type.DodgeRoll)
+        {
+            weaponType = VT_Enemy_MeleeWeaponType.Unarmed;
         }
     }
 
@@ -130,10 +166,9 @@ public class VT_Enemy_Melee : VT_Enemy
         }
     }
 
-    public void PullWeapon()
+    public void EnableWeaponModel(bool active)
     {
-        hiddenWeapon.gameObject.SetActive(false);
-        pulledWeapon.gameObject.SetActive(true);
+        visuals.currentWeaponModel.gameObject.SetActive(active);
     }
 
     public bool PlayerInAttackRange()

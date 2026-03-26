@@ -40,7 +40,8 @@ public class VT_PlayerWeaponController : MonoBehaviour
         AssignInputEvents();
 
         /// Trang bị vũ khí đầu tiên sau khi khởi tạo để đảm bảo rằng người chơi có vũ khí khi bắt đầu trò chơi
-        Invoke("EquipStartingWeapon", .1f);
+        //Invoke("EquipStartingWeapon", .1f);
+        Invoke(nameof(EquipStartingWeapon), .1f);
     }
 
     private void Update()

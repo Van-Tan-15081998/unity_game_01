@@ -4,7 +4,7 @@ public class VT_Bullet : MonoBehaviour
 {
     [SerializeField] private GameObject bulletImpactFX;
 
-    public float impactForce;
+    private float impactForce;
 
     private Rigidbody rb;
     private BoxCollider cd;
@@ -15,7 +15,7 @@ public class VT_Bullet : MonoBehaviour
     private float flyDistance;
     private bool bulletDisabled;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();
         cd = GetComponent<BoxCollider>();
@@ -23,9 +23,9 @@ public class VT_Bullet : MonoBehaviour
         trailRenderer = GetComponent<TrailRenderer>();
     }
 
-    public void BulletSetup(float flyDistance, float impactForce)
+    public void BulletSetup(float flyDistance = 100, float impactForce = 100)
     {
-        this.impactForce = impactForce; 
+        this.impactForce = impactForce;
 
         bulletDisabled = false;
         cd.enabled = true;
@@ -44,14 +44,14 @@ public class VT_Bullet : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         FadeTrailIfNeeded();
         DisableBulletIfNeeded();
         ReturnToPoolIfNeeded();
     }
 
-    private void ReturnToPoolIfNeeded()
+    protected void ReturnToPoolIfNeeded()
     {
         /// Nếu viên đạn bay vượt khoảng cách cho phép thì trả về Pool (thu hồi)
         if (trailRenderer.time < 0)
@@ -60,7 +60,7 @@ public class VT_Bullet : MonoBehaviour
         }
     }
 
-    private void DisableBulletIfNeeded()
+    protected void DisableBulletIfNeeded()
     {
         /// Nếu viên đạn bay vượt khoảng cách cho phép thì vô hiệu hóa (disable) viên đạn
         if (Vector3.Distance(startPosition, transform.position) > flyDistance && (bulletDisabled == false))
@@ -71,7 +71,7 @@ public class VT_Bullet : MonoBehaviour
         }
     }
 
-    private void FadeTrailIfNeeded()
+    protected void FadeTrailIfNeeded()
     {
         /// Trước khi viên đạn chạm đến điểm bay giới hạn => giảm thời gian (tồn tại) của trailRenderer
         /// => Tạo hiệu ứng biến mất mượt và không gây tức thời của trailRenderer
@@ -81,7 +81,7 @@ public class VT_Bullet : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         /// Tạo hiệu ứng va chạm tại điểm va chạm
         CreateImpactFX(collision);
@@ -109,12 +109,12 @@ public class VT_Bullet : MonoBehaviour
         }
     }
 
-    private void ReturnBulletToPool()
+    protected void ReturnBulletToPool()
     {
         VT_ObjectPool.instance.ReturnObject(gameObject);
     }
 
-    private void CreateImpactFX(Collision collision)
+    protected void CreateImpactFX(Collision collision)
     {
         if (collision.contacts.Length > 0)
         {

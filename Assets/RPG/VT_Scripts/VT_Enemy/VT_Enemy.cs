@@ -35,15 +35,19 @@ public class VT_Enemy : MonoBehaviour
 
     public VT_EnemyStateMachine stateMachine { get; private set; }
 
+    public VT_Enemy_Visuals visuals { get; private set; }
+
     protected virtual void Awake()
     {
         stateMachine = new VT_EnemyStateMachine();
+
+        visuals = GetComponent<VT_Enemy_Visuals>();
 
         agent = GetComponent<NavMeshAgent>();
 
         anim = GetComponentInChildren<Animator>();
 
-        player = GameObject.Find("Player").GetComponent<Transform>();
+        player = GameObject.Find("VT_Player").GetComponent<Transform>();
     }
 
     // Start is called before the first frame update
@@ -57,6 +61,10 @@ public class VT_Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+        if (ShouldEnterBattleMode())
+        {
+            EnterBattleMode();
+        }
     }
 
     protected bool ShouldEnterBattleMode()

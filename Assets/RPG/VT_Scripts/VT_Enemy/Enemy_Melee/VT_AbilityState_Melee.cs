@@ -19,7 +19,7 @@ public class VT_AbilityState_Melee : VT_EnemyState
     {
         base.Enter();
 
-        enemy.PullWeapon();
+        enemy.EnableWeaponModel(true);
 
         moveSpeed = enemy.moveSpeed;
         movementDirection = enemy.transform.position + (enemy.transform.forward * MAX_MOVEMENT_DISTANCE);

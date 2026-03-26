@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class VT_IdleState_Range : VT_EnemyState
+{
+    private VT_Enemy_Range enemy;
+
+    public VT_IdleState_Range(VT_Enemy enemyBase, VT_EnemyStateMachine stateMachine, string animBoolName) : base(enemyBase, stateMachine, animBoolName)
+    {
+        enemy = enemyBase as VT_Enemy_Range;
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+
+        stateTimer = enemy.idleTime;
+    }
+
+    public override void Update()
+    {
+        base.Update();
+
+        if (stateTimer < 0)
+        {
+            stateMachine.ChangeState(enemy.moveState);
+        }
+    }
+}

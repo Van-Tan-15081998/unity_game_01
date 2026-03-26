@@ -17,7 +17,9 @@ public class VT_AttackState_Melee : VT_EnemyState
     public override void Enter()
     {
         base.Enter();
-        enemy.PullWeapon();
+        enemy.UpdateAttackData();
+        enemy.EnableWeaponModel(true);
+        enemy.visuals.EnableWeaponTrail(true);
 
         attackMoveSpeed = enemy.attackData.moveSpeed;
         enemy.anim.SetFloat("VT_AttackAnimationSpeed", enemy.attackData.animationSpeed);
@@ -37,6 +39,9 @@ public class VT_AttackState_Melee : VT_EnemyState
     {
         base.Exit();
         SetupNextAttack();
+
+        ///
+        enemy.visuals.EnableWeaponTrail(false);
     }
 
     private void SetupNextAttack()
@@ -86,9 +91,9 @@ public class VT_AttackState_Melee : VT_EnemyState
         return false;
     }
 
-    private AttackData UpdateAttackData()
+    private VT_AttackData_EnemyMelee UpdateAttackData()
     {
-        List<AttackData> validAttacks = new List<AttackData>(enemy.attackList); // Không áp dụng tham chiếu (new)
+        List<VT_AttackData_EnemyMelee> validAttacks = new List<VT_AttackData_EnemyMelee>(enemy.attackList); // Không áp dụng tham chiếu (new)
 
         
 

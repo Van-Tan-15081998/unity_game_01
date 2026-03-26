@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VT_EnemyAnimationEvents : MonoBehaviour
+public class VT_Enemy_AnimationEvents : MonoBehaviour
 {
     private VT_Enemy enemy;
 
