@@ -107,7 +107,7 @@ public class VT_PlayerWeaponVisuals : MonoBehaviour
     /// </summary>
     public void PlayWeaponEquipAnimation()
     {
-        EquipType equipType = CurrentWeaponModel().equipAnimationType;
+        VT_EquipType equipType = CurrentWeaponModel().equipAnimationType;
 
         float equipmentSpeed = player.weapon.CurrentWeapon().equipmentSpeed;
 

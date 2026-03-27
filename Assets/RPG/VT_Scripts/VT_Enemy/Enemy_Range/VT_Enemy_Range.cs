@@ -46,6 +46,8 @@ public class VT_Enemy_Range : VT_Enemy
 
     public void FireSingleBullet()
     {
+        //return;
+
         anim.SetTrigger("VT_Shoot");
 
         Vector3 bulletsDirection = ((player.position + Vector3.up) - gunPoint.position).normalized;

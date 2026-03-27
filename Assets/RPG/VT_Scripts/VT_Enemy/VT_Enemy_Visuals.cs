@@ -16,6 +16,10 @@ public class VT_Enemy_Visuals : MonoBehaviour
     [SerializeField] private Texture[] colorTextures;
     [SerializeField] private SkinnedMeshRenderer skinnedMeshRenderer;
 
+    [Header("Rig references")]
+    [SerializeField] private Transform leftHandIK;
+    [SerializeField] private Transform leftElbowIK;
+
     private void Awake()
     {
         
@@ -111,6 +115,8 @@ public class VT_Enemy_Visuals : MonoBehaviour
         {
             if (weaponModel.weaponType == weaponType)
             {
+                SwitchAnimationLayer((int)weaponModel.weaponHoldType);
+                SetupLeftHandIK(weaponModel.leftHandTarget, weaponModel.leftElbowTarget);
                 return weaponModel.gameObject;
             }
         }
@@ -154,4 +160,26 @@ public class VT_Enemy_Visuals : MonoBehaviour
         return corruptionCrystals;
     }
 
+    private void SwitchAnimationLayer(int layerIndex)
+    {
+        Animator anim = GetComponentInChildren<Animator>();
+
+        // Tắt tất cả các layer animation
+        for (int i = 0; i < anim.layerCount; i++)
+        {
+            // Đặt trọng số của tất cả các layer animation về 0 (tắt)
+            anim.SetLayerWeight(i, 0);
+        }
+        // Kích hoạt layer animation được chọn
+        anim.SetLayerWeight(layerIndex, 1);
+    }
+
+    private void SetupLeftHandIK(Transform leftHandTarget, Transform leftElbowTarget)
+    {
+        leftHandIK.localPosition = leftHandTarget.localPosition;
+        leftHandIK.localRotation = leftHandTarget.localRotation;
+
+        leftElbowIK.localPosition = leftElbowTarget.localPosition;
+        leftElbowIK.localRotation = leftElbowTarget.localRotation;
+    }
 }
