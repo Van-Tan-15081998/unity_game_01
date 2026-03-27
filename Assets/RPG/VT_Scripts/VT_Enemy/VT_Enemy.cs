@@ -15,9 +15,9 @@ public class VT_Enemy : MonoBehaviour
     public float aggresionRange;
 
     [Header("Move data")]
-    public float moveSpeed;
+    public float walkSpeed = 1.5f;
+    public float runSpeed = 3;
     public float turnSpeed;
-    public float chaseSpeed;
     private bool manualMovement;
     private bool manualRotation;
 

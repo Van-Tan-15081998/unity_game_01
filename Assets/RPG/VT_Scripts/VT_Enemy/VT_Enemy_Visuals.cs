@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public enum VT_Enemy_MeleeWeaponType { OneHand, Throw, Unarmed }
 public enum VT_Enemy_RangeWeaponType { Pistol, Revolver, Shotgun, AutoRifle, Rifle }
@@ -19,6 +20,9 @@ public class VT_Enemy_Visuals : MonoBehaviour
     [Header("Rig references")]
     [SerializeField] private Transform leftHandIK;
     [SerializeField] private Transform leftElbowIK;
+    [SerializeField] private TwoBoneIKConstraint leftHandIKConstraint;
+    [SerializeField] private MultiAimConstraint weaponAimConstraint;
+
 
     private void Awake()
     {
@@ -34,6 +38,7 @@ public class VT_Enemy_Visuals : MonoBehaviour
 
     public void SetupLook()
     {
+        SetupDefaultIK();
         SetupRandomColor();
         SetupRandomWeapon();
         SetupRandomCorruption();
@@ -172,6 +177,26 @@ public class VT_Enemy_Visuals : MonoBehaviour
         }
         // Kích hoạt layer animation được chọn
         anim.SetLayerWeight(layerIndex, 1);
+    }
+
+    /// <summary>
+    /// Cài đặt mặc định cho chỉ số Weight của Rig (Tự thực hiện - Ngoài hướng dẫn)
+    /// </summary>
+    private void SetupDefaultIK()
+    {
+        /// Enemy Range có Rig Component (leftHandIKConstraint, weaponAimConstraint)
+        /// Enemy Melee không có Rig Component nên cần kiểm tra
+        if (leftHandIKConstraint != null && weaponAimConstraint != null) 
+        {
+            EnableIK(false, false);
+        }
+        
+    }
+
+    public void EnableIK(bool enableLeftHand, bool enableAim)
+    {
+        leftHandIKConstraint.weight = enableLeftHand ? 1 : 0;
+        weaponAimConstraint.weight = enableAim ? 1 : 0;
     }
 
     private void SetupLeftHandIK(Transform leftHandTarget, Transform leftElbowTarget)

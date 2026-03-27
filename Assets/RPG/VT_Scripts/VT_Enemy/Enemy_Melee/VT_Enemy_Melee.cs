@@ -113,7 +113,7 @@ public class VT_Enemy_Melee : VT_Enemy
         base.AbilityTrigger();
 
         /// Cài đặt tốc độ di chuyển trong lúc thực hiện động tác => chậm hơn bình thường
-        moveSpeed = moveSpeed * .6f;
+        walkSpeed = walkSpeed * .6f;
 
         /// Tắt hiện thị vũ khí đang cầm trên tay
         EnableWeaponModel(false);

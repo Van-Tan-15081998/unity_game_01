@@ -16,7 +16,7 @@ public class VT_ChaseState_Melee :  VT_EnemyState
     {
         base.Enter();
 
-        enemy.agent.speed = enemy.chaseSpeed;
+        enemy.agent.speed = enemy.runSpeed;
 
         enemy.agent.isStopped = false;
     }
