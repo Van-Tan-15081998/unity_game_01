@@ -19,7 +19,7 @@ TagManager:
   - VT_Aim
   - VT_Enemy
   - VT_Enemy_Bullet
-  - 
+  - VT_Player_PickupItem
   - 
   - 
   - 

@@ -1,11 +1,23 @@
 ﻿using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.UI.Image;
+
+public enum CoverPerk { Unavalible, CanTakeCover, CanTakeAndChangeCover}
 
 public class VT_Enemy_Range : VT_Enemy
 {
+    [Header("Enemy Perks")]
+    public CoverPerk coverPerk;
+
+    [Header("Advance Perks")]
+    public float advanceSpeed;
+    public float advanceStoppingDistance;
+    public float advanceTime = 2.5f;
+
     [Header("Cover System")]
-    public bool canUseCovers = true;
+    public float minCoverTime = 3f; /// Thời gian tối thiểu Enemy ẩn nấp sau vật chắn 
+    public float safeDistance;
     public VT_CoverPoint currentCover { get; private set; }
     public VT_CoverPoint lastCover { get; private set; }
 
@@ -18,13 +30,25 @@ public class VT_Enemy_Range : VT_Enemy
     public Transform weaponHolder;
     public GameObject bulletPrefab;
 
+    [Header("Aim Details")]
+    public float slowAim = 4;
+    public float fastAim = 20;
+    public Transform aim;
+    public Transform playerBody;
+    public LayerMask whatToIgnore;
+
     [SerializeField] List<VT_Enemy_RangeWeaponData> avalibleWeaponData;
 
 
     public VT_IdleState_Range idleState { get; private set; }
+
     public VT_MoveState_Range moveState { get; private set; }
+
     public VT_BattleState_Range battleState { get; private set; }
+
     public VT_RunToCoverState_Range runToCoverState { get; private set; }
+    
+    public VT_AdvancePlayerState_Range advancePlayerState { get; private set; }
 
     protected override void Awake()
     {
@@ -34,11 +58,15 @@ public class VT_Enemy_Range : VT_Enemy
         moveState = new VT_MoveState_Range(this, stateMachine, "VT_Move");
         battleState = new VT_BattleState_Range(this, stateMachine, "VT_Battle");
         runToCoverState = new VT_RunToCoverState_Range(this, stateMachine, "VT_RunToCover");
+        advancePlayerState = new VT_AdvancePlayerState_Range(this, stateMachine, "VT_AdvancePlayer");
     }
 
     protected override void Start()
     {
         base.Start();
+
+        playerBody = player.GetComponent<VT_Player>().playerBody;
+        aim.parent = null;
 
         stateMachine.Initialize(startState: idleState);
 
@@ -59,7 +87,7 @@ public class VT_Enemy_Range : VT_Enemy
 
     public bool CanGetCover()
     {
-        if (canUseCovers == false)
+        if (coverPerk == CoverPerk.Unavalible)
         {
             return false;
         }
@@ -70,6 +98,8 @@ public class VT_Enemy_Range : VT_Enemy
         {
             return true;
         }
+
+        Debug.LogWarning("Không tìm thấy điểm ẩn nấp!");
 
         return false;   
     }
@@ -133,11 +163,11 @@ public class VT_Enemy_Range : VT_Enemy
 
     public void FireSingleBullet()
     {
-        //return;
 
         anim.SetTrigger("VT_Shoot");
 
-        Vector3 bulletsDirection = ((player.position + Vector3.up) - gunPoint.position).normalized;
+        //Vector3 bulletsDirection = ((player.position + Vector3.up) - gunPoint.position).normalized; /// Or
+        Vector3 bulletsDirection = (aim.position - gunPoint.position).normalized;
 
         GameObject newBullet = VT_ObjectPool.instance.GetObject(bulletPrefab);
         newBullet.transform.position = gunPoint.position;
@@ -200,4 +230,68 @@ public class VT_Enemy_Range : VT_Enemy
 
         gunPoint = visuals.currentWeaponModel.GetComponent<VT_Enemy_RangeWeaponModel>().gunPoint;
     }
+
+    //protected override void OnDrawGizmos()
+    //{
+    //    base.OnDrawGizmos();
+    //    Gizmos.DrawLine(transform.position, player.transform.position); 
+    //}
+
+    #region Enemy's Aim
+    public void UpdateAimPosition()
+    {
+        float aimSpeed = IsAimOnPlayer() ? fastAim : slowAim;
+        aim.position = Vector3.MoveTowards(aim.position, playerBody.position, aimSpeed * Time.deltaTime);
+    }
+
+    public bool IsAimOnPlayer()
+    {
+        /// Aim component sẽ gắn với vị trí của Player khi bản thân enemy có thể nhìn thấy 
+        /// và nhắm mục tiêu vào Player;
+        /// Nhắm chỉ còn hiệu lực khi khoảng cách giữa [Aim component] và [Player body] < 2m
+
+        float distanceAimToPlayer = Vector3.Distance(aim.position, player.position);
+
+        Debug.LogWarning("Aim on Player: " + distanceAimToPlayer + "___" + Time.time.ToString());
+
+        /// Nếu Player gần [Aim component] thì Aim có hiệu lực, dù cho cả khi Player đứng sau vật chắn
+        return distanceAimToPlayer < 2;
+    }
+
+    public bool IsSeeingPlayer()
+    {
+        Vector3 myPosition = transform.position + Vector3.up;
+
+        Vector3 directionToPlayer = playerBody.position - myPosition;
+
+        if (Physics.Raycast(myPosition, directionToPlayer, out RaycastHit hit, Mathf.Infinity, ~whatToIgnore))
+        {
+            
+            if (hit.transform == player)
+            {
+                /// player chính là [VT_Player Component].transform
+                /// [VT_Player Component] có [Capsule Collider] <=> Nếu va chạm => hit = [VT_Player Component]
+
+                Debug.LogWarning("Enemy nhìn thấy Player! "
+                    + hit.transform.name
+                    + ""
+                    + Time.time.ToString());
+
+                UpdateAimPosition();
+
+                return true;
+            }
+            else
+            {
+                Debug.LogWarning("Enemy không nhìn thấy Player! " +
+                    "\nVật thể trung gian giữa Enemy và Player: "
+                    + hit.transform.name
+                    + ""
+                    + Time.time.ToString());
+            }
+        }
+
+        return false;
+    }
+    #endregion
 }

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +12,9 @@ public class VT_BattleState_Range : VT_EnemyState
     private int bulletsPerAttack;
     private float weaponCooldown;
 
+    private float coverCheckTimer;
+    //private bool firstTimeAttack = true;
+
     public VT_BattleState_Range(VT_Enemy enemyBase, VT_EnemyStateMachine stateMachine, string animBoolName) : base(enemyBase, stateMachine, animBoolName)
     {
         enemy = enemyBase as VT_Enemy_Range;
@@ -20,6 +23,8 @@ public class VT_BattleState_Range : VT_EnemyState
     public override void Enter()
     {
         base.Enter();
+        enemy.agent.isStopped = true;
+        enemy.agent.velocity = Vector3.zero;    
 
         bulletsPerAttack = enemy.weaponData.GetBulletsPerAttack();
         weaponCooldown = enemy.weaponData.GetWeaponCooldown();
@@ -38,7 +43,18 @@ public class VT_BattleState_Range : VT_EnemyState
     {
         base.Update();
 
-        enemy.FaceTarget(enemy.player.position);
+        if (enemy.IsSeeingPlayer())
+        {
+            enemy.FaceTarget(enemy.aim.position);
+        }
+
+        /// Nếu Player không trong phạm vi tấn công => Chuyển State sang Advance 
+        if (enemy.IsPlayerInAggressionRange() == false && ReadyToLeaveCover())
+        {
+            stateMachine.ChangeState(enemy.advancePlayerState); /// VT_Comment
+        }
+
+        ChangeCoverIfShould();
 
         if (WeaponOutOfBullets())
         {
@@ -50,11 +66,13 @@ public class VT_BattleState_Range : VT_EnemyState
             return;
         }
 
-        if (CanShoot())
+        if (CanShoot() && enemy.IsAimOnPlayer())
         {
             Shoot();
         }
     }
+
+
 
     private void AttempToResetWeapon()
     {
@@ -84,4 +102,68 @@ public class VT_BattleState_Range : VT_EnemyState
         lastTimeShot = Time.time;
         bulletsShot++;
     }
+
+    #region Cover System Region
+
+    private bool ReadyToLeaveCover()
+    {
+        return Time.time > enemy.minCoverTime + enemy.runToCoverState.lastTimeTookCover;
+    }
+
+    private void ChangeCoverIfShould()
+    {
+        if (enemy.coverPerk != CoverPerk.CanTakeAndChangeCover)
+        {
+            return;
+        }
+
+        coverCheckTimer -= Time.deltaTime;
+
+        if (coverCheckTimer < 0)
+        {
+            coverCheckTimer = .5f; /// We do cover check each .5f seconds
+
+
+            if (ReadyToChangeCover())
+            {
+                if (enemy.CanGetCover())
+                {
+                    Debug.LogWarning("Thay đổi vị trí ẩn nấp!");
+                    stateMachine.ChangeState(enemy.runToCoverState);
+                }
+            }
+        }
+    }
+
+    private bool ReadyToChangeCover()
+    {
+        bool inDanger = IsPlayerClose() || IsPlayerInClearSight();
+
+        bool advanceTimeIsOver = Time.time > enemy.advancePlayerState.lastTimeAdvanced
+            + enemy.advanceTime;
+
+        return inDanger && advanceTimeIsOver;   
+    }
+
+    private bool IsPlayerClose()
+    {
+        return Vector3.Distance(enemy.transform.position, enemy.player.transform.position)
+            < enemy.safeDistance;
+    }
+
+    private bool IsPlayerInClearSight()
+    {
+        Vector3 directionToPlayer = enemy.player.transform.position - enemy.transform.position; 
+
+        if (Physics.Raycast(enemy.transform.position, directionToPlayer, out RaycastHit hit))
+        {
+            return hit.collider.gameObject.GetComponentInParent<VT_Player>();
+        }
+
+        return false;
+    }
+
+    #endregion
+
+
 }

@@ -12,7 +12,7 @@ public class VT_Enemy : MonoBehaviour
 
     [Header("Idle data")]
     public float idleTime;
-    public float aggresionRange;
+    public float aggressionRange;
 
     [Header("Move data")]
     public float walkSpeed = 1.5f;
@@ -69,11 +69,10 @@ public class VT_Enemy : MonoBehaviour
 
     protected bool ShouldEnterBattleMode()
     {
-        bool inAggresionRange = Vector3.Distance(transform.position, player.position) < aggresionRange;
 
-        if (inAggresionRange && !inBattleMode)
+        if (IsPlayerInAggressionRange() && !inBattleMode)
         {
-            EnterBattleMode();
+            //EnterBattleMode(); VT_Comment
             return true;
         }
 
@@ -120,7 +119,7 @@ public class VT_Enemy : MonoBehaviour
 
     protected virtual void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, aggresionRange);
+        Gizmos.DrawWireSphere(transform.position, aggressionRange);
 
     }
 
@@ -155,6 +154,11 @@ public class VT_Enemy : MonoBehaviour
         return manualRotation;
     }
     #endregion
+
+    public bool IsPlayerInAggressionRange()
+    {
+        return Vector3.Distance(transform.position, player.position) < aggressionRange;
+    }
 
     #region Patrol logic
     public Vector3 GetPatrolDestination()

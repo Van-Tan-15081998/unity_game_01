@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class VT_Player : MonoBehaviour
 {
+    public Transform playerBody;
     public PlayerControls controls { get; private set; } // Read-Only
     public VT_PlayerAim aim { get; private set; } // Read-Only
 
