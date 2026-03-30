@@ -1,27 +1,44 @@
 ﻿using System.Collections.Generic;
+using System.Xml;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.UI.Image;
 
 public enum CoverPerk { Unavalible, CanTakeCover, CanTakeAndChangeCover}
 
+public enum UnstoppablePerk { Unavalible, Unstoppable }
+
+public enum GrenadePerk { Unavalible, CanThrowGrenade };
+
 public class VT_Enemy_Range : VT_Enemy
 {
     [Header("Enemy Perks")]
     public CoverPerk coverPerk;
+    public UnstoppablePerk unstoppablePerk;
+    public GrenadePerk grenadePerk;
+
+    [Header("Grenade Perks")]
+    public GameObject grenadePrefab;
+    public float impactPower = 5f;
+    public float explosionTimer = .75f;
+    public float timeToTarget = 1.2f;
+    public float grenadeCooldown;
+    private float lastTimeGrenadeThrown = -10;
+    [SerializeField] private Transform grenadeStartPoint;
 
     [Header("Advance Perks")]
     public float advanceSpeed;
     public float advanceStoppingDistance;
-    public float advanceTime = 2.5f;
+    public float advanceDuration = 2.5f;
 
     [Header("Cover System")]
-    public float minCoverTime = 3f; /// Thời gian tối thiểu Enemy ẩn nấp sau vật chắn 
+    public float minCoverTime = 3.0f; /// Thời gian tối thiểu Enemy ẩn nấp sau vật chắn 
     public float safeDistance;
     public VT_CoverPoint currentCover { get; private set; }
     public VT_CoverPoint lastCover { get; private set; }
 
     [Header("Weapon Details")]
+    public float attackDelay = 1.0f;
     public VT_Enemy_RangeWeaponType weaponType;
     public VT_Enemy_RangeWeaponData weaponData;
 
@@ -39,7 +56,6 @@ public class VT_Enemy_Range : VT_Enemy
 
     [SerializeField] List<VT_Enemy_RangeWeaponData> avalibleWeaponData;
 
-
     public VT_IdleState_Range idleState { get; private set; }
 
     public VT_MoveState_Range moveState { get; private set; }
@@ -49,6 +65,8 @@ public class VT_Enemy_Range : VT_Enemy
     public VT_RunToCoverState_Range runToCoverState { get; private set; }
     
     public VT_AdvancePlayerState_Range advancePlayerState { get; private set; }
+    public VT_ThrowGrenadeState_Range throwGrenadeState { get; private set; }
+    public VT_DeadState_Range deadState { get; private set; }
 
     protected override void Awake()
     {
@@ -59,6 +77,10 @@ public class VT_Enemy_Range : VT_Enemy
         battleState = new VT_BattleState_Range(this, stateMachine, "VT_Battle");
         runToCoverState = new VT_RunToCoverState_Range(this, stateMachine, "VT_RunToCover");
         advancePlayerState = new VT_AdvancePlayerState_Range(this, stateMachine, "VT_AdvancePlayer");
+        throwGrenadeState = new VT_ThrowGrenadeState_Range(this, stateMachine, "VT_ThrowGrenade");
+
+        deadState = new VT_DeadState_Range(this, stateMachine, "VT_Idle"); /// VT_Idle is a place holder, we using ragdoll
+
     }
 
     protected override void Start()
@@ -67,6 +89,8 @@ public class VT_Enemy_Range : VT_Enemy
 
         playerBody = player.GetComponent<VT_Player>().playerBody;
         aim.parent = null;
+
+        InitializePerk();
 
         stateMachine.Initialize(startState: idleState);
 
@@ -81,6 +105,68 @@ public class VT_Enemy_Range : VT_Enemy
         base.Update();
 
         stateMachine.currentState.Update();
+    }
+
+    public override void GetHit()
+    {
+        base.GetHit();
+
+        if (healthPoints <= 0 && stateMachine.currentState != deadState)
+        {
+            stateMachine.ChangeState(deadState);    
+        }
+    }
+
+    public bool CanThrowGrenade()
+    {
+        if (grenadePerk == GrenadePerk.Unavalible)
+        {
+            return false;
+        }
+
+        if (Vector3.Distance(player.transform.position, transform.position) < safeDistance)
+        {
+            return false;
+        }
+
+        if (Time.time > grenadeCooldown + lastTimeGrenadeThrown)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public void ThrowGrenade()
+    {
+        lastTimeGrenadeThrown = Time.time;
+        visuals.EnableGrenadeModel(false);
+
+        GameObject newGrenade = VT_ObjectPool.instance.GetObject(grenadePrefab);
+        newGrenade.transform.position = grenadeStartPoint.position;
+
+
+        VT_Enemy_Grenade newGrenadeScript = newGrenade.GetComponent<VT_Enemy_Grenade>();
+
+        if (stateMachine.currentState == deadState)
+        {
+            newGrenadeScript.SetupGrenade(transform.position, 1, explosionTimer, impactPower);
+            return;
+        }
+
+        newGrenadeScript.SetupGrenade(player.transform.position, timeToTarget, explosionTimer, impactPower);
+        
+
+    }
+
+    protected override void InitializePerk()
+    {
+        if (IsUnstoppable())
+        {
+            advanceSpeed = 1;
+            anim.SetFloat("VT_AdvanceAnimIndex", 1); /// 1 is a slow walk animation
+        }
+
     }
 
     #region Cover System 
@@ -294,4 +380,9 @@ public class VT_Enemy_Range : VT_Enemy
         return false;
     }
     #endregion
+
+    public bool IsUnstoppable()
+    {
+        return unstoppablePerk == UnstoppablePerk.Unstoppable;
+    }
 }

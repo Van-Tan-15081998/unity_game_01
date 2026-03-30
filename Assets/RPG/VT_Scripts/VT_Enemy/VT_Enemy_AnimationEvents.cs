@@ -39,4 +39,14 @@ public class VT_Enemy_AnimationEvents : MonoBehaviour
         enemy.AbilityTrigger();  
     }
 
+    public void EnableIK()
+    {
+        enemy.visuals.EnableIK(true, true, 1.0f);
+    }
+
+    public void EnableWeaponModel()
+    {
+        enemy.visuals.EnableWeaponModel(true);
+        enemy.visuals.EnableSecondaryWeaponModel(false);
+    }
 }

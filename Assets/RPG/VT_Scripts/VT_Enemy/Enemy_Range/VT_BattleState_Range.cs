@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class VT_BattleState_Range : VT_EnemyState
 {
@@ -13,7 +11,7 @@ public class VT_BattleState_Range : VT_EnemyState
     private float weaponCooldown;
 
     private float coverCheckTimer;
-    //private bool firstTimeAttack = true;
+    private bool firstTimeAttack = true;
 
     public VT_BattleState_Range(VT_Enemy enemyBase, VT_EnemyStateMachine stateMachine, string animBoolName) : base(enemyBase, stateMachine, animBoolName)
     {
@@ -23,21 +21,33 @@ public class VT_BattleState_Range : VT_EnemyState
     public override void Enter()
     {
         base.Enter();
-        enemy.agent.isStopped = true;
-        enemy.agent.velocity = Vector3.zero;    
 
-        bulletsPerAttack = enemy.weaponData.GetBulletsPerAttack();
-        weaponCooldown = enemy.weaponData.GetWeaponCooldown();
+        SetupValuesForFirstAttack();
+
+        enemy.agent.isStopped = true;
+        enemy.agent.velocity = Vector3.zero;
 
         enemy.visuals.EnableIK(true, true);
+
+        stateTimer = enemy.attackDelay;
     }
 
-    public override void Exit()
+    private void SetupValuesForFirstAttack()
     {
-        base.Exit();
-
-        enemy.visuals.EnableIK(false, false);
+        if (firstTimeAttack)
+        {
+            firstTimeAttack = false;
+            bulletsPerAttack = enemy.weaponData.GetBulletsPerAttack();
+            weaponCooldown = enemy.weaponData.GetWeaponCooldown();
+        }
     }
+
+    //public override void Exit()
+    //{
+    //    base.Exit();
+
+    //    enemy.visuals.EnableIK(false, false);
+    //}
 
     public override void Update()
     {
@@ -48,16 +58,31 @@ public class VT_BattleState_Range : VT_EnemyState
             enemy.FaceTarget(enemy.aim.position);
         }
 
-        /// Nếu Player không trong phạm vi tấn công => Chuyển State sang Advance 
-        if (enemy.IsPlayerInAggressionRange() == false && ReadyToLeaveCover())
+        if (enemy.CanThrowGrenade())
+        {
+            stateMachine.ChangeState(enemy.throwGrenadeState);  
+        }
+         
+        if (MustAdvancePlayer())
         {
             stateMachine.ChangeState(enemy.advancePlayerState); /// VT_Comment
         }
 
         ChangeCoverIfShould();
 
+        if (stateTimer > 0)
+        {
+            return;
+        }
+
         if (WeaponOutOfBullets())
         {
+            if (enemy.IsUnstoppable() && UnstoppableWalkReady())
+            {
+                enemy.advanceDuration = weaponCooldown;
+                stateMachine.ChangeState(enemy.advancePlayerState);
+            }
+
             if (WeaponOnCooldown())
             {
                 AttempToResetWeapon();
@@ -72,7 +97,31 @@ public class VT_BattleState_Range : VT_EnemyState
         }
     }
 
+    private bool MustAdvancePlayer()
+    {
+        if (enemy.IsUnstoppable())
+        {
+            return false;
+        }
 
+        /// Nếu Player không trong phạm vi tấn công 
+        /// Nếu Enemy sẵn sàng rời vị trí ẩn nấp
+        /// => Chuyển State sang Advance
+
+        return enemy.IsPlayerInAggressionRange() == false && ReadyToLeaveCover();   
+    }
+
+    private bool UnstoppableWalkReady()
+    {
+        float distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.position);
+
+        bool outOfStoppingDistance = distanceToPlayer > enemy.advanceStoppingDistance;
+
+        bool unstoppableWalkOnCooldown = Time.time < enemy.weaponData.minWeaponCooldown
+            + enemy.advancePlayerState.lastTimeAdvanced;
+
+        return outOfStoppingDistance && unstoppableWalkOnCooldown == false;
+    }
 
     private void AttempToResetWeapon()
     {
@@ -140,9 +189,9 @@ public class VT_BattleState_Range : VT_EnemyState
         bool inDanger = IsPlayerClose() || IsPlayerInClearSight();
 
         bool advanceTimeIsOver = Time.time > enemy.advancePlayerState.lastTimeAdvanced
-            + enemy.advanceTime;
+            + enemy.advanceDuration;
 
-        return inDanger && advanceTimeIsOver;   
+        return inDanger && advanceTimeIsOver;
     }
 
     private bool IsPlayerClose()
@@ -153,7 +202,7 @@ public class VT_BattleState_Range : VT_EnemyState
 
     private bool IsPlayerInClearSight()
     {
-        Vector3 directionToPlayer = enemy.player.transform.position - enemy.transform.position; 
+        Vector3 directionToPlayer = enemy.player.transform.position - enemy.transform.position;
 
         if (Physics.Raycast(enemy.transform.position, directionToPlayer, out RaycastHit hit))
         {

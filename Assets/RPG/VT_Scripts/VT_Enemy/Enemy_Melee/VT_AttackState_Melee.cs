@@ -18,7 +18,7 @@ public class VT_AttackState_Melee : VT_EnemyState
     {
         base.Enter();
         enemy.UpdateAttackData();
-        enemy.EnableWeaponModel(true);
+        enemy.visuals.EnableWeaponModel(true);
         enemy.visuals.EnableWeaponTrail(true);
 
         attackMoveSpeed = enemy.attackData.moveSpeed;

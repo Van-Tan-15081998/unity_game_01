@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VT_EnemyRagdoll : MonoBehaviour
+public class VT_Enemy_Ragdoll : MonoBehaviour
 {
     [SerializeField] private Transform ragdollParent;
 

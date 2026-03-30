@@ -37,9 +37,13 @@ public class VT_Enemy : MonoBehaviour
 
     public VT_Enemy_Visuals visuals { get; private set; }
 
+    public VT_Enemy_Ragdoll ragdoll { get; private set; }
+
     protected virtual void Awake()
     {
         stateMachine = new VT_EnemyStateMachine();
+
+        ragdoll = GetComponent<VT_Enemy_Ragdoll>();
 
         visuals = GetComponent<VT_Enemy_Visuals>();
 
@@ -65,6 +69,11 @@ public class VT_Enemy : MonoBehaviour
         {
             EnterBattleMode();
         }
+    }
+
+    protected virtual void InitializePerk()
+    {
+
     }
 
     protected bool ShouldEnterBattleMode()

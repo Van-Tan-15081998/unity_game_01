@@ -116,7 +116,7 @@ public class VT_Enemy_Melee : VT_Enemy
         walkSpeed = walkSpeed * .6f;
 
         /// Tắt hiện thị vũ khí đang cầm trên tay
-        EnableWeaponModel(false);
+        visuals.EnableWeaponModel(false);
     }
 
     public void UpdateAttackData()
@@ -130,7 +130,7 @@ public class VT_Enemy_Melee : VT_Enemy
         }
     }
 
-    private void InitializePerk()
+    protected override void InitializePerk()
     {
         /// AxeThrow => Chỉ trang bị Axe 
         /// Hiển thị loại vũ khí dựa trên [EnemyMelee_Type]
@@ -160,16 +160,13 @@ public class VT_Enemy_Melee : VT_Enemy
     {
         base.GetHit();
 
-        if (healthPoints <= 0)
+        if (healthPoints <= 0 && stateMachine.currentState != deadState)
         {
             stateMachine.ChangeState(deadState);
         }
     }
 
-    public void EnableWeaponModel(bool active)
-    {
-        visuals.currentWeaponModel.gameObject.SetActive(active);
-    }
+
 
     public bool PlayerInAttackRange()
     {

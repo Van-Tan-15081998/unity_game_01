@@ -9,6 +9,8 @@ public class VT_Enemy_Visuals : MonoBehaviour
 {
     public GameObject currentWeaponModel { get; private set; }
 
+    public GameObject grenadeModel;
+
     [Header("Corruption Visuals")]
     [SerializeField] private GameObject[] corruptionCrystals;
     [SerializeField] private int corruptionAmount;
@@ -23,10 +25,36 @@ public class VT_Enemy_Visuals : MonoBehaviour
     [SerializeField] private TwoBoneIKConstraint leftHandIKConstraint;
     [SerializeField] private MultiAimConstraint weaponAimConstraint;
 
+    private float leftHandTargetWeight;
+    private float weaponAimTargetWeight;
+    private float rigChangeRate;
+
+    private void Update()
+    {
+        if (leftHandIKConstraint != null)
+        {
+            leftHandIKConstraint.weight = AdjustIKWeight(leftHandIKConstraint.weight, leftHandTargetWeight);
+        }
+
+        if (weaponAimConstraint != null)
+        {
+            weaponAimConstraint.weight = AdjustIKWeight(weaponAimConstraint.weight, weaponAimTargetWeight);
+        }
+    }
 
     private void Awake()
     {
-        
+
+    }
+
+    public void EnableGrenadeModel(bool active)
+    {
+        grenadeModel.SetActive(active);
+    }
+
+    public void EnableWeaponModel(bool active)
+    {
+        currentWeaponModel?.gameObject.SetActive(active);
     }
 
     public void EnableWeaponTrail(bool enable)
@@ -34,6 +62,11 @@ public class VT_Enemy_Visuals : MonoBehaviour
         VT_Enemy_WeaponModel currentWeaponScript = currentWeaponModel.GetComponent<VT_Enemy_WeaponModel>();
 
         currentWeaponScript.EnableTrailEffect(enable);
+    }
+
+    public void EnableSecondaryWeaponModel(bool active)
+    {
+        FindSecondaryWeaponModel()?.SetActive(active);
     }
 
     public void SetupLook()
@@ -126,7 +159,24 @@ public class VT_Enemy_Visuals : MonoBehaviour
             }
         }
 
-        return null;    
+        return null;
+    }
+
+    private GameObject FindSecondaryWeaponModel()
+    {
+        VT_Enemy_SecondaryRangeWeaponModel[] weaponModels = GetComponentsInChildren<VT_Enemy_SecondaryRangeWeaponModel>(true);
+
+        VT_Enemy_RangeWeaponType weaponType = GetComponentInParent<VT_Enemy_Range>().weaponType;
+
+        foreach (var weaponModel in weaponModels)
+        {
+            if (weaponModel.weaponType == weaponType)
+            {
+                return weaponModel.gameObject;
+            }
+        }
+
+        return null;
     }
 
     private void OverrideAnimatorControllerIfCan()
@@ -186,17 +236,20 @@ public class VT_Enemy_Visuals : MonoBehaviour
     {
         /// Enemy Range có Rig Component (leftHandIKConstraint, weaponAimConstraint)
         /// Enemy Melee không có Rig Component nên cần kiểm tra
-        if (leftHandIKConstraint != null && weaponAimConstraint != null) 
+        if (leftHandIKConstraint != null && weaponAimConstraint != null)
         {
             EnableIK(false, false);
         }
-        
+
     }
 
-    public void EnableIK(bool enableLeftHand, bool enableAim)
+    public void EnableIK(bool enableLeftHand, bool enableAim, float changeRate = 10)
     {
-        leftHandIKConstraint.weight = enableLeftHand ? 1 : 0;
-        weaponAimConstraint.weight = enableAim ? 1 : 0;
+        /// [changeRate] có ý nghĩa là sự chuyển đổi giá trị có diễn ra nhanh hay chậm hoặc là nhanh đến mức nào
+        rigChangeRate = changeRate;
+
+        leftHandTargetWeight = enableLeftHand ? 1 : 0;
+        weaponAimTargetWeight = enableAim ? 1 : 0;
     }
 
     private void SetupLeftHandIK(Transform leftHandTarget, Transform leftElbowTarget)
@@ -206,5 +259,18 @@ public class VT_Enemy_Visuals : MonoBehaviour
 
         leftElbowIK.localPosition = leftElbowTarget.localPosition;
         leftElbowIK.localRotation = leftElbowTarget.localRotation;
+    }
+
+    private float AdjustIKWeight(float currentWeight, float targetWeight)
+    {
+        /// Để sự chuyển đổi IK giữa 2 animation trở nên mượt mà thì chỉ số WEIGHT nên thay đổi
+        /// nhanh dần đều hoặc chậm dần đều (vd: 1 => 0.9 => 0.85 => ...0) chứ không nên thay đổi đột ngột (vd: 1 => 0)
+
+        if (Mathf.Abs(currentWeight - targetWeight) > 0.05f)
+        {
+            return Mathf.Lerp(currentWeight, targetWeight, rigChangeRate * Time.deltaTime);
+        }
+
+        return targetWeight;
     }
 }

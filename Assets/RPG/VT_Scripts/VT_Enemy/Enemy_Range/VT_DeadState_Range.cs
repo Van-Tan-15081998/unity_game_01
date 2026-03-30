@@ -2,19 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VT_DeadState : VT_EnemyState
+public class VT_DeadState_Range : VT_EnemyState
 {
-    private VT_Enemy_Melee enemy;
+    private VT_Enemy_Range enemy;
+
     private bool interactionDisabled;
 
-    public VT_DeadState(VT_Enemy enemyBase, VT_EnemyStateMachine stateMachine, string animBoolName) : base(enemyBase, stateMachine, animBoolName)
+    public VT_DeadState_Range(VT_Enemy enemyBase, VT_EnemyStateMachine stateMachine, string animBoolName) : base(enemyBase, stateMachine, animBoolName)
     {
-        enemy = enemyBase as VT_Enemy_Melee;
+        enemy = enemyBase as VT_Enemy_Range;
     }
 
     public override void Enter()
     {
         base.Enter();
+
+        if (enemy.throwGrenadeState.finishedThrowingGrenade == false)
+        {
+            enemy.ThrowGrenade();
+        }
 
         interactionDisabled = false;
 
@@ -27,15 +33,11 @@ public class VT_DeadState : VT_EnemyState
         stateTimer = 1.5f;
     }
 
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
     public override void Update()
     {
         base.Update();
-        // DisableInteractionIfShould(); /// Mở Comment nếu muốn thay đổi mục đích
+
+        DisableInteractionIfShould();
     }
 
     private void DisableInteractionIfShould()
