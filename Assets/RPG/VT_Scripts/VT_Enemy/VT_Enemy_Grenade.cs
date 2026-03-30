@@ -11,6 +11,10 @@ public class VT_Enemy_Grenade : MonoBehaviour
     private Rigidbody rb;
     private float timer;
 
+    private string VT_grenadeId;
+    private bool VT_explored;
+
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -20,17 +24,22 @@ public class VT_Enemy_Grenade : MonoBehaviour
     {
         timer -= Time.deltaTime;    
 
-        if (timer < 0)
+        if (timer < 0 && VT_explored == false)
         {
             Explode();
+        } else
+        {
+
         }
+        
     }
 
     private void Explode()
     {
-        GameObject newFX = VT_ObjectPool.instance.GetObject(explosionFX);
+        Debug.LogWarning("Explode()" + "ID: " + VT_grenadeId + "_____" + timer.ToString());
+        VT_explored = true;
 
-        newFX.transform.position = transform.position;
+        GameObject newFX = VT_ObjectPool.instance.GetObject(explosionFX, transform);
 
         VT_ObjectPool.instance.ReturnObject(newFX, 1);
         VT_ObjectPool.instance.ReturnObject(gameObject);
@@ -45,9 +54,8 @@ public class VT_Enemy_Grenade : MonoBehaviour
             {
                 rb.AddExplosionForce(
                     impactPower, transform.position, impactRadius, upwardsMultiplier, ForceMode.Impulse); 
-            }   
+            }
         }
-
     }
 
     public void SetupGrenade(Vector3 target, float timeToTarget, float countdown, float impactPower)
@@ -55,6 +63,10 @@ public class VT_Enemy_Grenade : MonoBehaviour
         rb.velocity = CalculateLaunchVelocity(target, timeToTarget);
         timer = countdown + timeToTarget;
         this.impactPower = impactPower;
+
+        Debug.LogWarning("SetupGrenade()" + timer.ToString());
+        VT_grenadeId = timer.ToString();
+        VT_explored = false;
     }
 
     private Vector3 CalculateLaunchVelocity(Vector3 target, float timeToTarget)

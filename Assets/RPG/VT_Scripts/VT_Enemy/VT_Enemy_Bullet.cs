@@ -6,7 +6,7 @@ public class VT_Enemy_Bullet : VT_Bullet
 {
     protected override void OnCollisionEnter(Collision collision)
     {
-        CreateImpactFX(collision);
+        CreateImpactFX();
         ReturnBulletToPool();
 
         VT_Player player = collision.gameObject.GetComponentInParent<VT_Player>();

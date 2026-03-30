@@ -42,13 +42,6 @@ public class VT_BattleState_Range : VT_EnemyState
         }
     }
 
-    //public override void Exit()
-    //{
-    //    base.Exit();
-
-    //    enemy.visuals.EnableIK(false, false);
-    //}
-
     public override void Update()
     {
         base.Update();
@@ -173,7 +166,7 @@ public class VT_BattleState_Range : VT_EnemyState
             coverCheckTimer = .5f; /// We do cover check each .5f seconds
 
 
-            if (ReadyToChangeCover())
+            if (ReadyToChangeCover() && ReadyToLeaveCover()) {
             {
                 if (enemy.CanGetCover())
                 {
@@ -206,7 +199,8 @@ public class VT_BattleState_Range : VT_EnemyState
 
         if (Physics.Raycast(enemy.transform.position, directionToPlayer, out RaycastHit hit))
         {
-            return hit.collider.gameObject.GetComponentInParent<VT_Player>();
+            //return hit.collider.gameObject.GetComponentInParent<VT_Player>();
+            return hit.transform.parent == enemy.player;
         }
 
         return false;

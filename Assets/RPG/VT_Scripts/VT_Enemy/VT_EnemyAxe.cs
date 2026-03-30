@@ -48,9 +48,7 @@ public class VT_EnemyAxe : MonoBehaviour
         if (bullet != null || player != null) 
         {
             /// Tạo hiệu ứng va chạm
-            GameObject newFx = VT_ObjectPool.instance.GetObject(impactFx);
-            newFx.transform.position = transform.position;
-
+            GameObject newFx = VT_ObjectPool.instance.GetObject(impactFx, transform);
 
             VT_ObjectPool.instance.ReturnObject(gameObject);
             VT_ObjectPool.instance.ReturnObject(newFx, 1f);

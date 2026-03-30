@@ -206,6 +206,13 @@ public class VT_Enemy_Melee : VT_Enemy
 
     }
 
+    public void ThrowAxe()
+    {
+        GameObject newAxe = VT_ObjectPool.instance.GetObject(axePrefab, axeStartPoint);
+
+        newAxe.GetComponent<VT_EnemyAxe>().AxeSetup(axeFlySpeed, player, axeAimTimer);
+    }
+
     public bool CanThrowAxe()
     {
         if (meleeType != EnemyMelee_Type.AxeThrow)

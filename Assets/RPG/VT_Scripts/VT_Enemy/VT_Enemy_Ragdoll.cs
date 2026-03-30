@@ -6,8 +6,8 @@ public class VT_Enemy_Ragdoll : MonoBehaviour
 {
     [SerializeField] private Transform ragdollParent;
 
-    private Collider[] ragdollColliders;
-    private Rigidbody[] ragdollRigidbodies;
+    public Collider[] ragdollColliders;
+    public Rigidbody[] ragdollRigidbodies;
 
     private void Awake()
     {

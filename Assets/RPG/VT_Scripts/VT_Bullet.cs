@@ -31,6 +31,7 @@ public class VT_Bullet : MonoBehaviour
         cd.enabled = true;
         meshRenderer.enabled = true;
 
+        trailRenderer.Clear();
         trailRenderer.time = .25f; ///// Vid-74
         startPosition = transform.position;
         this.flyDistance = flyDistance + .5f; /// + .5f để đúng bằng khoảng cách của Laser (tip)
@@ -84,7 +85,7 @@ public class VT_Bullet : MonoBehaviour
     protected virtual void OnCollisionEnter(Collision collision)
     {
         /// Tạo hiệu ứng va chạm tại điểm va chạm
-        CreateImpactFX(collision);
+        CreateImpactFX();
 
         /// Trả viên đạn về Object Pool sau khi va chạm để tái sử dụng
         ReturnBulletToPool();
@@ -114,16 +115,9 @@ public class VT_Bullet : MonoBehaviour
         VT_ObjectPool.instance.ReturnObject(gameObject);
     }
 
-    protected void CreateImpactFX(Collision collision)
+    protected void CreateImpactFX()
     {
-        if (collision.contacts.Length > 0)
-        {
-            // Lấy thông tin va chạm từ contact point đầu tiên
-            ContactPoint contact = collision.contacts[0];
-
-            GameObject newImpactFX = Instantiate(bulletImpactFX, contact.point, Quaternion.LookRotation(contact.normal));
-
-            Destroy(newImpactFX, 1f);
-        }
+        GameObject newImpactFx = VT_ObjectPool.instance.GetObject(bulletImpactFX, transform);
+        VT_ObjectPool.instance.ReturnObject(newImpactFx, 1);
     }
 }

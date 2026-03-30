@@ -15,6 +15,15 @@ public class VT_IdleState_Range : VT_EnemyState
     {
         base.Enter();
 
+        enemy.anim.SetFloat("VT_IdleAnimIndex", Random.Range(0, 2));
+
+        enemy.visuals.EnableIK(true, false);
+
+        if (enemy.weaponType == VT_Enemy_RangeWeaponType.Pistol)
+        {
+            enemy.visuals.EnableIK(false, false);
+        }
+
         stateTimer = enemy.idleTime;
     }
 

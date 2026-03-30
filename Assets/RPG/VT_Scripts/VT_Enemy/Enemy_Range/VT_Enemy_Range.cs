@@ -142,9 +142,7 @@ public class VT_Enemy_Range : VT_Enemy
         lastTimeGrenadeThrown = Time.time;
         visuals.EnableGrenadeModel(false);
 
-        GameObject newGrenade = VT_ObjectPool.instance.GetObject(grenadePrefab);
-        newGrenade.transform.position = grenadeStartPoint.position;
-
+        GameObject newGrenade = VT_ObjectPool.instance.GetObject(grenadePrefab, grenadeStartPoint);
 
         VT_Enemy_Grenade newGrenadeScript = newGrenade.GetComponent<VT_Enemy_Grenade>();
 
@@ -154,9 +152,8 @@ public class VT_Enemy_Range : VT_Enemy
             return;
         }
 
+        Debug.LogWarning("PlayerPosition: " + player.transform.position.y);
         newGrenadeScript.SetupGrenade(player.transform.position, timeToTarget, explosionTimer, impactPower);
-        
-
     }
 
     protected override void InitializePerk()
@@ -255,8 +252,8 @@ public class VT_Enemy_Range : VT_Enemy
         //Vector3 bulletsDirection = ((player.position + Vector3.up) - gunPoint.position).normalized; /// Or
         Vector3 bulletsDirection = (aim.position - gunPoint.position).normalized;
 
-        GameObject newBullet = VT_ObjectPool.instance.GetObject(bulletPrefab);
-        newBullet.transform.position = gunPoint.position;
+        GameObject newBullet = VT_ObjectPool.instance.GetObject(bulletPrefab, gunPoint);
+        
         newBullet.transform.rotation = Quaternion.LookRotation(gunPoint.forward);
 
         newBullet.GetComponent<VT_Enemy_Bullet>().BulletSetup();
@@ -338,7 +335,7 @@ public class VT_Enemy_Range : VT_Enemy
 
         float distanceAimToPlayer = Vector3.Distance(aim.position, player.position);
 
-        Debug.LogWarning("Aim on Player: " + distanceAimToPlayer + "___" + Time.time.ToString());
+        //Debug.LogWarning("Aim on Player: " + distanceAimToPlayer + "___" + Time.time.ToString());
 
         /// Nếu Player gần [Aim component] thì Aim có hiệu lực, dù cho cả khi Player đứng sau vật chắn
         return distanceAimToPlayer < 2;
@@ -358,10 +355,10 @@ public class VT_Enemy_Range : VT_Enemy
                 /// player chính là [VT_Player Component].transform
                 /// [VT_Player Component] có [Capsule Collider] <=> Nếu va chạm => hit = [VT_Player Component]
 
-                Debug.LogWarning("Enemy nhìn thấy Player! "
-                    + hit.transform.name
-                    + ""
-                    + Time.time.ToString());
+                //Debug.LogWarning("Enemy nhìn thấy Player! "
+                //    + hit.transform.name
+                //    + ""
+                //    + Time.time.ToString());
 
                 UpdateAimPosition();
 
@@ -369,11 +366,11 @@ public class VT_Enemy_Range : VT_Enemy
             }
             else
             {
-                Debug.LogWarning("Enemy không nhìn thấy Player! " +
-                    "\nVật thể trung gian giữa Enemy và Player: "
-                    + hit.transform.name
-                    + ""
-                    + Time.time.ToString());
+                //Debug.LogWarning("Enemy không nhìn thấy Player! " +
+                //    "\nVật thể trung gian giữa Enemy và Player: "
+                //    + hit.transform.name
+                //    + ""
+                //    + Time.time.ToString());
             }
         }
 

@@ -145,7 +145,7 @@ public class VT_PlayerWeaponController : MonoBehaviour
     private void CreateWeaponOnTheGround()
     {
         /// Cài đặt vị trí bỏ vũ khí
-        GameObject droppedWeapon = VT_ObjectPool.instance.GetObject(weaponPickupPrefab);
+        GameObject droppedWeapon = VT_ObjectPool.instance.GetObject(weaponPickupPrefab, transform);
         droppedWeapon.GetComponent<VT_PickupWeapon>()?.SetupPickupWeapon(currentWeapon, transform);
     }
 
@@ -225,8 +225,8 @@ public class VT_PlayerWeaponController : MonoBehaviour
         currentWeapon.bulletsInMagazine--;
 
         /// Tạo viên đạn mới tại điểm bắn với hướng bắn
-        GameObject newBullet = VT_ObjectPool.instance.GetObject(bulletPrefab); /// Lấy viên đạn từ Object Pool
-        newBullet.transform.position = GunPoint().position; /// Đặt vị trí của viên đạn tại điểm bắn
+        GameObject newBullet = VT_ObjectPool.instance.GetObject(bulletPrefab, GunPoint()); /// Lấy viên đạn từ Object Pool
+        
         newBullet.transform.rotation = Quaternion.LookRotation(GunPoint().forward); /// Đặt hướng của viên đạn theo hướng của điểm bắn
 
         /// Điều chỉnh tốc độ của viên đạn dựa trên thông số bulletSpeed của vũ khí hiện tại

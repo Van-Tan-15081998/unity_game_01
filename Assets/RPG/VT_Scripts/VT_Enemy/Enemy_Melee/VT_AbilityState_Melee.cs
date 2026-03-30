@@ -58,16 +58,6 @@ public class VT_AbilityState_Melee : VT_EnemyState
     {
         base.AbilityTrigger();
 
-        //if (Time.time < enemy.axeThrowCooldown + lastTimeAxeThrow)
-        //{
-        //    return;
-        //}
-        //lastTimeAxeThrow = Time.time;
-
-        ///
-        GameObject newAxe = VT_ObjectPool.instance.GetObject(enemy.axePrefab);
-
-        newAxe.transform.position = enemy.axeStartPoint.position;
-        newAxe.GetComponent<VT_EnemyAxe>().AxeSetup(enemy.axeFlySpeed, enemy.player, enemy.axeAimTimer);
+        enemy.ThrowAxe();
     }
 }
