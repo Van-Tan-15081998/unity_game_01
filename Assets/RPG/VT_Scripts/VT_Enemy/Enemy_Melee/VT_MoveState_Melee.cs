@@ -18,6 +18,7 @@ public class VT_MoveState_Melee : VT_EnemyState
         base.Enter();
 
         enemy.agent.speed = enemy.walkSpeed;
+        enemy.agent.isStopped = false;
 
         destination = enemy.GetPatrolDestination();
         enemy.agent.SetDestination(destination);

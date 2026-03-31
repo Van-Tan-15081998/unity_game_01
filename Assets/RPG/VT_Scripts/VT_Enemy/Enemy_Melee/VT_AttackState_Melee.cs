@@ -26,7 +26,7 @@ public class VT_AttackState_Melee : VT_EnemyState
         enemy.anim.SetFloat("VT_AttackIndex", enemy.attackData.attackIndex);
 
         /// Cài đặt ngẫu nhiên 1 trong 6 động tác tấn công SwordSlash
-        enemy.anim.SetFloat("VT_SwordSlashAttackIndex", Random.Range(0,5));
+        enemy.anim.SetFloat("VT_SwordSlashAttackIndex", Random.Range(0,6)); /// Có 6 attack Index từ 0->5
 
 
         enemy.agent.isStopped = true;

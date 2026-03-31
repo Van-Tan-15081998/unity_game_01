@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class VT_Enemy : MonoBehaviour
 {
     //[Header("Attack data")]
@@ -111,8 +112,13 @@ public class VT_Enemy : MonoBehaviour
         rb.AddForceAtPosition(force, hitPoint, ForceMode.Impulse);
     }
 
-    public void FaceTarget(Vector3 target)
+    public void FaceTarget(Vector3 target, float turnSpeed = 0)
     {
+        if (turnSpeed == 0)
+        {
+            turnSpeed = this.turnSpeed;
+        }
+
         Quaternion targetRotation = Quaternion.LookRotation(target - transform.position);
 
         Vector3 currentEulerAngels = transform.rotation.eulerAngles;

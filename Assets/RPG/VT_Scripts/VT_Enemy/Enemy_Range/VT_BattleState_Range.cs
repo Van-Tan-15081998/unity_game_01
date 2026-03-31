@@ -202,7 +202,12 @@ public class VT_BattleState_Range : VT_EnemyState
         if (Physics.Raycast(enemy.transform.position, directionToPlayer, out RaycastHit hit))
         {
             //return hit.collider.gameObject.GetComponentInParent<VT_Player>();
-            return hit.transform.parent == enemy.player;
+            //return hit.transform.parent == enemy.player;
+
+            if (hit.transform == enemy.player || hit.transform.parent == enemy.player)
+            {
+                return true;
+            }
         }
 
         return false;

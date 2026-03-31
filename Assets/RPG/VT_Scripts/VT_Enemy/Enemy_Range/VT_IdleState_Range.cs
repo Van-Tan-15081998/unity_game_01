@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +15,7 @@ public class VT_IdleState_Range : VT_EnemyState
     {
         base.Enter();
 
-        enemy.anim.SetFloat("VT_IdleAnimIndex", Random.Range(0, 2));
+        enemy.anim.SetFloat("VT_IdleAnimIndex", Random.Range(0, 3)); /// Có 3 anim chỉ số từ 0->2
         Debug.LogWarning("VT_IdleAnimIndex: " + enemy.anim.GetFloat("VT_IdleAnimIndex"));
 
         enemy.visuals.EnableIK(true, false);
