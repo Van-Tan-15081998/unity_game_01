@@ -166,12 +166,14 @@ public class VT_BattleState_Range : VT_EnemyState
             coverCheckTimer = .5f; /// We do cover check each .5f seconds
 
 
-            if (ReadyToChangeCover() && ReadyToLeaveCover()) {
+            if (ReadyToChangeCover() && ReadyToLeaveCover())
             {
-                if (enemy.CanGetCover())
                 {
-                    Debug.LogWarning("Thay đổi vị trí ẩn nấp!");
-                    stateMachine.ChangeState(enemy.runToCoverState);
+                    if (enemy.CanGetCover())
+                    {
+                        Debug.LogWarning("Thay đổi vị trí ẩn nấp!");
+                        stateMachine.ChangeState(enemy.runToCoverState);
+                    }
                 }
             }
         }
