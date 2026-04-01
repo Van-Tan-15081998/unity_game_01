@@ -36,7 +36,7 @@ public class VT_Enemy_Grenade : MonoBehaviour
 
     private void Explode()
     {
-        Debug.LogWarning("Explode()" + "ID: " + VT_grenadeId + "_____" + timer.ToString());
+        //Debug.LogWarning("Explode()" + "ID: " + VT_grenadeId + "_____" + timer.ToString());
         VT_explored = true;
 
         GameObject newFX = VT_ObjectPool.instance.GetObject(explosionFX, transform);
@@ -64,7 +64,7 @@ public class VT_Enemy_Grenade : MonoBehaviour
         timer = countdown + timeToTarget;
         this.impactPower = impactPower;
 
-        Debug.LogWarning("SetupGrenade()" + timer.ToString());
+        //Debug.LogWarning("SetupGrenade()" + timer.ToString());
         VT_grenadeId = timer.ToString();
         VT_explored = false;
     }

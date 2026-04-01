@@ -89,24 +89,32 @@ public class VT_MoveState_Boss : VT_EnemyState
 
     }
 
-
-
     private void PerformRandomAction()
     {
         actionTimer = enemy.actionCooldown;
 
         if (Random.Range(0,2) == 0) /// Kết quả random 0 Hoặc 1
         {
-            if (enemy.CanDoAbility())
-            {
-                stateMachine.ChangeState(enemy.abilityState);
-            }
-        } else
+            TryAbility();
+        }
+        else
         {
             if (enemy.CanDoJumpAttack())
             {
                 stateMachine.ChangeState(enemy.jumpAttackState);
+            } else if (enemy.bossWeaponType == BossWeaponType.Hummer)
+            {
+                /// Nếu không thể Jump => Thử lại Ability
+                TryAbility();
             }
+        }
+    }
+
+    private void TryAbility()
+    {
+        if (enemy.CanDoAbility())
+        {
+            stateMachine.ChangeState(enemy.abilityState);
         }
     }
 

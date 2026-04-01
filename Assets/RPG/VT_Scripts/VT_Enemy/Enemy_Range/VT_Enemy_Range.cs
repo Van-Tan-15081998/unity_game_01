@@ -107,13 +107,23 @@ public class VT_Enemy_Range : VT_Enemy
         stateMachine.currentState.Update();
     }
 
-    public override void GetHit()
-    {
-        base.GetHit();
+    //public override void GetHit()
+    //{
+    //    base.GetHit();
 
-        if (healthPoints <= 0 && stateMachine.currentState != deadState)
+    //    if (healthPoints <= 0 && stateMachine.currentState != deadState)
+    //    {
+    //        stateMachine.ChangeState(deadState);    
+    //    }
+    //}
+
+    public override void Die()
+    {
+        base.Die();
+
+        if (stateMachine.currentState != deadState)
         {
-            stateMachine.ChangeState(deadState);    
+            stateMachine.ChangeState(deadState);
         }
     }
 
@@ -152,7 +162,7 @@ public class VT_Enemy_Range : VT_Enemy
             return;
         }
 
-        Debug.LogWarning("PlayerPosition: " + player.transform.position.y);
+        //Debug.LogWarning("PlayerPosition: " + player.transform.position.y);
         newGrenadeScript.SetupGrenade(player.transform.position, timeToTarget, explosionTimer, impactPower);
     }
 
@@ -182,7 +192,7 @@ public class VT_Enemy_Range : VT_Enemy
             return true;
         }
 
-        Debug.LogWarning("Không tìm thấy điểm ẩn nấp!");
+        //Debug.LogWarning("Không tìm thấy điểm ẩn nấp!");
 
         return false;   
     }
@@ -256,7 +266,7 @@ public class VT_Enemy_Range : VT_Enemy
         
         newBullet.transform.rotation = Quaternion.LookRotation(gunPoint.forward);
 
-        newBullet.GetComponent<VT_Enemy_Bullet>().BulletSetup();
+        newBullet.GetComponent<VT_Bullet>().BulletSetup(whatIsAlly);
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 
@@ -308,7 +318,7 @@ public class VT_Enemy_Range : VT_Enemy
         }
         else
         {
-            Debug.LogWarning("Không tìm thấy thông tin về vũ khí!");
+            //Debug.LogWarning("Không tìm thấy thông tin về vũ khí!");
         }
 
         gunPoint = visuals.currentWeaponModel.GetComponent<VT_Enemy_RangeWeaponModel>().gunPoint;

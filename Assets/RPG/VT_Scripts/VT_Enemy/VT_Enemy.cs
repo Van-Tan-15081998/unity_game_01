@@ -9,7 +9,8 @@ public class VT_Enemy : MonoBehaviour
     //public float attackRange;
     //public float attackMoveSpeed;
 
-    [SerializeField] protected int healthPoints = 25;
+    public LayerMask whatIsAlly;
+    public int healthPoints = 25;
 
     [Header("Idle data")]
     public float idleTime;
@@ -38,15 +39,19 @@ public class VT_Enemy : MonoBehaviour
 
     public VT_Enemy_Visuals visuals { get; private set; }
 
-    public VT_Enemy_Ragdoll ragdoll { get; private set; }
+    public VT_Enemy_Health health { get; private set; }
+
+    public VT_Ragdoll ragdoll { get; private set; }
 
     protected virtual void Awake()
     {
         stateMachine = new VT_EnemyStateMachine();
 
-        ragdoll = GetComponent<VT_Enemy_Ragdoll>();
+        ragdoll = GetComponent<VT_Ragdoll>();
 
         visuals = GetComponent<VT_Enemy_Visuals>();
+
+        health = GetComponent<VT_Enemy_Health>();
 
         agent = GetComponent<NavMeshAgent>();
 
@@ -96,13 +101,27 @@ public class VT_Enemy : MonoBehaviour
 
     public virtual void GetHit()
     {
+        health.ReduceHealth();
+
+        if (health.ShouldDie())
+        {
+            Die();
+        }
+
         EnterBattleMode();
-        healthPoints--;
     }
 
-    public virtual void DeathImpact(Vector3 force, Vector3 hitPoint, Rigidbody rb)
+    public virtual void Die()
     {
-        StartCoroutine(DeathImpactCourutine(force, hitPoint, rb));
+
+    }
+
+    public virtual void BulletImpact(Vector3 force, Vector3 hitPoint, Rigidbody rb)
+    {
+        if (health.ShouldDie())
+        {
+            StartCoroutine(DeathImpactCourutine(force, hitPoint, rb));
+        }
     }
 
     private IEnumerator DeathImpactCourutine(Vector3 force, Vector3 hitPoint, Rigidbody rb)

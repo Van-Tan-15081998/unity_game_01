@@ -46,7 +46,7 @@ public class VT_RunToCoverState_Range : VT_EnemyState
         } 
         else
         {
-            Debug.LogWarning("Không thể ẩn nấp!" + Vector3.Distance(enemy.transform.position, destination).ToString());
+            //Debug.LogWarning("Không thể ẩn nấp!" + Vector3.Distance(enemy.transform.position, destination).ToString());
         }
     }
 }

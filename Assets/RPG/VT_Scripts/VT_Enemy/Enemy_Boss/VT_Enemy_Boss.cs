@@ -1,20 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
+
+public enum BossWeaponType { Flamethrower, Hummer };
 
 public class VT_Enemy_Boss : VT_Enemy
 {
     [Header("Boss Details")]
+    public BossWeaponType bossWeaponType;
     public float actionCooldown = 10;
     public float attackRange;
 
     [Header("Ability")]
-    public ParticleSystem flamethrower;
+    public float minAbilityDistance;
     public float abilityCooldown;
     private float lastTimeUsedAbility;
-    public float flameThrowDuration;
 
-    public bool flamethrowActive {  get; private set; } 
+    [Header("Flamethrower")]
+    public ParticleSystem flamethrower;
+    public float flameThrowDuration;
+    public bool flamethrowActive { get; private set; }
+
+    [Header("Hummer")]
+    public GameObject activationPrefab;
 
 
     [Header("Jump Attack")]
@@ -22,6 +31,13 @@ public class VT_Enemy_Boss : VT_Enemy
     private float lastTimeJumped;
     public float travelTimeToTarget = 1;
     public float minJumpDistanceRequired;
+
+    [Space]
+    public float impactRadius = 2.5f;
+    public float impactPower = 15;
+    public Transform impactPoint;
+    [SerializeField] private float upforceMultiplier = 10;
+
     [Space]
     [SerializeField] private LayerMask whatToIgnore;
 
@@ -32,6 +48,7 @@ public class VT_Enemy_Boss : VT_Enemy
     public VT_AttackState_Boss attackState { get; private set; }
     public VT_JumpAttackState_Boss jumpAttackState { get; private set; }
     public VT_AbilityState_Boss abilityState { get; private set; }
+    public VT_DeadState_Boss deadState { get; private set; }
 
     public VT_Enemy_BossVisuals bossVisuals { get; private set; }
 
@@ -46,6 +63,7 @@ public class VT_Enemy_Boss : VT_Enemy
         attackState = new VT_AttackState_Boss(this, stateMachine, "VT_Attack");
         jumpAttackState = new VT_JumpAttackState_Boss(this, stateMachine, "VT_JumpAttack");
         abilityState = new VT_AbilityState_Boss(this, stateMachine, "VT_Ability");
+        deadState = new VT_DeadState_Boss(this, stateMachine, "VT_Idle");
     }
 
     protected override void Start()
@@ -67,14 +85,28 @@ public class VT_Enemy_Boss : VT_Enemy
         }
     }
 
+    public override void GetHit()
+    {
+        base.GetHit();
+
+        if (healthPoints <= 0 && stateMachine.currentState != deadState)
+        {
+            stateMachine.ChangeState(deadState);
+        }
+    }
+
+
     public override void EnterBattleMode()
     {
+        if (inBattleMode)
+        {
+            return;
+        }
+
         base.EnterBattleMode();
 
         stateMachine.ChangeState(moveState);
     }
-
-
 
     public void ActivateFlameThrower(bool activate)
     {
@@ -98,11 +130,25 @@ public class VT_Enemy_Boss : VT_Enemy
         flamethrower.Play();
     }
 
+    public void ActivateHummer()
+    {
+        GameObject newActivation = VT_ObjectPool.instance.GetObject(activationPrefab, impactPoint);
+
+        VT_ObjectPool.instance.ReturnObject(newActivation, 1);
+    }
+
     public bool CanDoAbility()
     {
+        bool playerWithinDistance = Vector3.Distance(transform.position, player.position) < minAbilityDistance;
+
+        /// Nếu vị trí Player nằm ngoài tầm của Ability
+        if (playerWithinDistance == false)
+        {
+            return false;
+        }
+
         if (Time.time > lastTimeUsedAbility + abilityCooldown)
         {
-            
             return true;
         }
 
@@ -112,6 +158,28 @@ public class VT_Enemy_Boss : VT_Enemy
     public void SetAbilityOnCooldown()
     {
         lastTimeUsedAbility = Time.time;
+    }
+
+    public void JumpImpact()
+    {
+        Transform impactPoint = this.impactPoint;
+        if (impactPoint == null)
+        {
+            impactPoint = transform;
+        }
+
+        Collider[] colliders = Physics.OverlapSphere(impactPoint.position, impactRadius);
+
+        foreach (Collider collider in colliders)
+        {
+            Rigidbody rb = collider.GetComponent<Rigidbody>();
+
+            if (rb != null)
+            {
+                rb.AddExplosionForce(
+                    impactPower, transform.position, impactRadius, upforceMultiplier, ForceMode.Impulse);
+            }
+        }
     }
 
     public bool CanDoJumpAttack()
@@ -163,19 +231,25 @@ public class VT_Enemy_Boss : VT_Enemy
     {
         base.OnDrawGizmos();
 
-        Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
 
         if (player != null)
         {
             Vector3 myPos = transform.position + new Vector3(0, 1.5f, 0); /// Lấy vị trí của Enemy nhưng cao 1.5
             Vector3 playerPos = player.position + Vector3.up;
 
-            Gizmos.color = Color.red;
+            Gizmos.color = Color.magenta;
             Gizmos.DrawLine(myPos, playerPos);
         }
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, minJumpDistanceRequired);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, impactRadius);
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, minAbilityDistance);
     }
 }

@@ -14,6 +14,12 @@ public class VT_Player : MonoBehaviour
 
     public VT_PlayerInteraction interaction { get; private set; } // Read-Only
 
+    public VT_PlayerHealth health { get; private set; }
+
+    public VT_Ragdoll ragdoll { get; private set; }
+
+    public Animator anim { get; private set; }
+
     private void Awake()
     {
         controls = new PlayerControls();
@@ -22,6 +28,10 @@ public class VT_Player : MonoBehaviour
         weapon = GetComponent<VT_PlayerWeaponController>();
         weaponVisuals = GetComponent<VT_PlayerWeaponVisuals>();
         interaction = GetComponent<VT_PlayerInteraction>();
+
+        health = GetComponent<VT_PlayerHealth>();
+        ragdoll = GetComponent<VT_Ragdoll>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void OnEnable()

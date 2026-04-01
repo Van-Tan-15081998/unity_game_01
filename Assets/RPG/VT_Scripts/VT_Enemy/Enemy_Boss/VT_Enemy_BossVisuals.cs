@@ -1,10 +1,15 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class VT_Enemy_BossVisuals : MonoBehaviour
 {
     private VT_Enemy_Boss enemy;
 
+    /// Từ center của landing + landingOffset để có vị trí center cuối cùng cho động tác Jump với Hummer
+    /// => Nhằm giúp vị trí của Búa đạp ngay trung tâm của LandingZone
+    [SerializeField] private float landingOffset = 1f;
+
     [SerializeField] private ParticleSystem landingZoneFX;
+    [SerializeField] private GameObject[] weaponTrails;
 
     [Header("Batteries")]
     [SerializeField] private GameObject[] batteries;
@@ -30,10 +35,34 @@ public class VT_Enemy_BossVisuals : MonoBehaviour
         UpdateBatteriesScale();
     }
 
+    public void EnableWeaponTrail(bool active)
+    {
+        if (weaponTrails.Length <= 0)
+        {
+            return;
+        }
+
+        foreach (var weaponTrail in weaponTrails)
+        {
+            weaponTrail.gameObject.SetActive(active);
+        }
+    }
+
     public void PlaceLandingZone(Vector3 target)
     {
-        landingZoneFX.transform.position = target;
-        
+        Vector3 direction = target - transform.position;
+        Vector3 offset = direction.normalized * landingOffset;
+
+        if (enemy.bossWeaponType == BossWeaponType.Hummer)
+        {
+            landingZoneFX.transform.position = target + offset;
+        }
+        else
+        {
+            landingZoneFX.transform.position = target;
+        }
+
+
         landingZoneFX.Clear();
 
         var mainModule = landingZoneFX.main;
@@ -64,7 +93,7 @@ public class VT_Enemy_BossVisuals : MonoBehaviour
 
                 if (battery.transform.localScale.y <= 0)
                 {
-                    battery.SetActive(false);   
+                    battery.SetActive(false);
                 }
             }
         }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class VT_ThrowGrenadeState_Range : VT_EnemyState
 {
     private VT_Enemy_Range enemy;
-    public bool finishedThrowingGrenade {  get; private set; }  
+    public bool finishedThrowingGrenade { get; private set; } = true;
 
     public VT_ThrowGrenadeState_Range(VT_Enemy enemyBase, VT_EnemyStateMachine stateMachine, string animBoolName) : base(enemyBase, stateMachine, animBoolName)
     {

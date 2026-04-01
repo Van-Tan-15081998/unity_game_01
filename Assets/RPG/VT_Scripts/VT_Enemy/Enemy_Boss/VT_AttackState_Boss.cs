@@ -17,6 +17,8 @@ public class VT_AttackState_Boss : VT_EnemyState
     {
         base.Enter();
 
+        enemy.bossVisuals.EnableWeaponTrail(true);
+
         enemy.anim.SetFloat("VT_AttackAnimIndex", Random.Range(0, 2)); /// Có 2 attack chỉ số từ 0->1
 
         enemy.agent.isStopped = true;
@@ -31,6 +33,8 @@ public class VT_AttackState_Boss : VT_EnemyState
         base.Exit();
 
         lastTimeAttacked = Time.time;
+
+        enemy.bossVisuals.EnableWeaponTrail(false);
     }
 
     public override void Update()

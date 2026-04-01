@@ -18,6 +18,8 @@ public class VT_AbilityState_Boss : VT_EnemyState
         stateTimer = enemy.flameThrowDuration;
         enemy.agent.isStopped = true;
         enemy.agent.velocity = Vector3.zero;
+
+        enemy.bossVisuals.EnableWeaponTrail(true);
     }
 
     public override void Exit()
@@ -35,9 +37,9 @@ public class VT_AbilityState_Boss : VT_EnemyState
 
         enemy.FaceTarget(enemy.player.position);
 
-        if (stateTimer < 0 && enemy.flamethrowActive)
+        if (ShouldDisableFlamethrower())
         {
-            enemy.ActivateFlameThrower(false);
+            DisableFlamethrower();
         }
 
         if (triggerCalled)
@@ -46,12 +48,36 @@ public class VT_AbilityState_Boss : VT_EnemyState
         }
     }
 
+    private bool ShouldDisableFlamethrower()
+    {
+        return stateTimer < 0 && (enemy.bossWeaponType == BossWeaponType.Flamethrower);
+    }
+
+    public void DisableFlamethrower()
+    {
+        if (enemy.flamethrowActive == false)
+        {
+            return;
+        }
+
+        enemy.ActivateFlameThrower(false);
+    }
+
+
     public override void AbilityTrigger()
     {
         base.AbilityTrigger();
 
-        enemy.ActivateFlameThrower(true);
+        if (enemy.bossWeaponType == BossWeaponType.Flamethrower)
+        {
+            enemy.ActivateFlameThrower(true);
+            enemy.bossVisuals.DischargeBatteries();
+            enemy.bossVisuals.EnableWeaponTrail(false);
+        }
+        else if (enemy.bossWeaponType == BossWeaponType.Hummer)
+        {
 
-        enemy.bossVisuals.DischargeBatteries();
+            enemy.ActivateHummer();
+        }
     }
 }

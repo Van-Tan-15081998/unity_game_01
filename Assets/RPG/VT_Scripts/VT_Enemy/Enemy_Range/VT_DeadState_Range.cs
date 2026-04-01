@@ -37,7 +37,7 @@ public class VT_DeadState_Range : VT_EnemyState
     {
         base.Update();
 
-        DisableInteractionIfShould();
+        //DisableInteractionIfShould();
     }
 
     private void DisableInteractionIfShould()

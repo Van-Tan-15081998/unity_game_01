@@ -43,6 +43,11 @@ public class VT_PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (player.health.isDead)
+        {
+            return;
+        }
+
         // Áp dụng di chuyển và ngắm bắn mỗi frame
         ApplyMovement();
         // Chỉ ngắm bắn khi có input ngắm

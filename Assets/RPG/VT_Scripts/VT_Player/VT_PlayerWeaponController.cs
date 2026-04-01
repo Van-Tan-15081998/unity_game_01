@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class VT_PlayerWeaponController : MonoBehaviour
 {
+    [SerializeField] private LayerMask whatIsAlly;
+
+    [Space]
     private VT_Player player;
 
     // Hằng số tham chiếu 
@@ -234,7 +237,7 @@ public class VT_PlayerWeaponController : MonoBehaviour
 
         /// Cài đặt khoảng cách bay tối đa của viên đạn dựa vào loại vũ khí
         VT_Bullet bulletScript = newBullet.GetComponent<VT_Bullet>();
-        bulletScript.BulletSetup(currentWeapon.gunDistance, bulletImpactForce);
+        bulletScript.BulletSetup(whatIsAlly, currentWeapon.gunDistance, bulletImpactForce);
 
         /// Áp dụng độ giật (spread) vào hướng bắn để tạo ra sự không chính xác khi bắn
         Vector3 bulletsDirection = currentWeapon.ApplySpread(BulletDirection());

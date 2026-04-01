@@ -43,6 +43,11 @@ public class VT_PlayerAim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player.health.isDead)
+        {
+            return; 
+        }
+
         UpdateAimVisuals();
         UpdateAimPosition();
         UpdateCameraPosition();
