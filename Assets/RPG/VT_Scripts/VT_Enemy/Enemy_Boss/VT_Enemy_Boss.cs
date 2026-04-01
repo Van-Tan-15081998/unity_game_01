@@ -33,9 +33,13 @@ public class VT_Enemy_Boss : VT_Enemy
     public VT_JumpAttackState_Boss jumpAttackState { get; private set; }
     public VT_AbilityState_Boss abilityState { get; private set; }
 
+    public VT_Enemy_BossVisuals bossVisuals { get; private set; }
+
     protected override void Awake()
     {
         base.Awake();
+
+        bossVisuals = GetComponent<VT_Enemy_BossVisuals>();
 
         idleState = new VT_IdleState_Boss(this, stateMachine, "VT_Idle");
         moveState = new VT_MoveState_Boss(this, stateMachine, "VT_Move");

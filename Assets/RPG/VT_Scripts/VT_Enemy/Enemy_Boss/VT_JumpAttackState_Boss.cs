@@ -22,6 +22,8 @@ public class VT_JumpAttackState_Boss : VT_EnemyState
         enemy.agent.isStopped = true;
         enemy.agent.velocity = Vector3.zero;    
 
+        enemy.bossVisuals.PlaceLandingZone(lastPlayerPos);
+
         float distanceToPlayer = Vector3.Distance(lastPlayerPos, enemy.transform.position); 
 
         jumpAttackMovementSpeed = distanceToPlayer / enemy.travelTimeToTarget;

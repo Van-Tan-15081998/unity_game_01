@@ -25,6 +25,8 @@ public class VT_AbilityState_Boss : VT_EnemyState
         base.Exit();
 
         enemy.SetAbilityOnCooldown();
+
+        enemy.bossVisuals.ResetBatteries();
     }
 
     public override void Update()
@@ -49,5 +51,7 @@ public class VT_AbilityState_Boss : VT_EnemyState
         base.AbilityTrigger();
 
         enemy.ActivateFlameThrower(true);
+
+        enemy.bossVisuals.DischargeBatteries();
     }
 }
