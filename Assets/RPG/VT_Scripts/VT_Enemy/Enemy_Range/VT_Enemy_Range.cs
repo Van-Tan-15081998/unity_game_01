@@ -158,12 +158,12 @@ public class VT_Enemy_Range : VT_Enemy
 
         if (stateMachine.currentState == deadState)
         {
-            newGrenadeScript.SetupGrenade(transform.position, 1, explosionTimer, impactPower);
+            newGrenadeScript.SetupGrenade(whatIsAlly, transform.position, 1, explosionTimer, impactPower);
             return;
         }
 
         //Debug.LogWarning("PlayerPosition: " + player.transform.position.y);
-        newGrenadeScript.SetupGrenade(player.transform.position, timeToTarget, explosionTimer, impactPower);
+        newGrenadeScript.SetupGrenade(whatIsAlly, player.transform.position, timeToTarget, explosionTimer, impactPower);
     }
 
     protected override void InitializePerk()

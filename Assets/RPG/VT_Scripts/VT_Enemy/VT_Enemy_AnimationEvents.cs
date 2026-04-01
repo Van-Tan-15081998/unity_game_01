@@ -5,11 +5,14 @@ using UnityEngine;
 public class VT_Enemy_AnimationEvents : MonoBehaviour
 {
     private VT_Enemy enemy;
+    private VT_Enemy_Melee enemyMelee;
     private VT_Enemy_Boss enemyBoss;
 
     private void Awake()
     {
         enemy = GetComponentInParent<VT_Enemy>();
+        enemyMelee = GetComponentInParent<VT_Enemy_Melee>();
+        enemyBoss = GetComponentInParent<VT_Enemy_Boss>();
     }
 
     public void AnimationTrigger()
@@ -59,5 +62,15 @@ public class VT_Enemy_AnimationEvents : MonoBehaviour
         }
 
         enemyBoss.JumpImpact();
+    }
+
+    public void BeginMeleeAttackCheck()
+    {
+        enemyMelee?.EnableAttackCheck(true);
+    }
+
+    public void FinishMeleeAttackCheck()
+    {
+        enemyMelee?.EnableAttackCheck(false);
     }
 }

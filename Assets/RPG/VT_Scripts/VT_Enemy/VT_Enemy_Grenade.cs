@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class VT_Enemy_Grenade : MonoBehaviour
@@ -10,6 +9,8 @@ public class VT_Enemy_Grenade : MonoBehaviour
     private float impactPower;
     private Rigidbody rb;
     private float timer;
+
+    private LayerMask allyLayerMask;
 
     private string VT_grenadeId;
     private bool VT_explored;
@@ -22,16 +23,17 @@ public class VT_Enemy_Grenade : MonoBehaviour
 
     private void Update()
     {
-        timer -= Time.deltaTime;    
+        timer -= Time.deltaTime;
 
         if (timer < 0 && VT_explored == false)
         {
             Explode();
-        } else
+        }
+        else
         {
 
         }
-        
+
     }
 
     private void Explode()
@@ -39,27 +41,64 @@ public class VT_Enemy_Grenade : MonoBehaviour
         //Debug.LogWarning("Explode()" + "ID: " + VT_grenadeId + "_____" + timer.ToString());
         VT_explored = true;
 
-        GameObject newFX = VT_ObjectPool.instance.GetObject(explosionFX, transform);
+        PlayExplosionFX();
 
-        VT_ObjectPool.instance.ReturnObject(newFX, 1);
-        VT_ObjectPool.instance.ReturnObject(gameObject);
+        /// [!] Đối với các object có nhiều collider như Player (chân, tay, đầu,...)
+        /// => Khi chịu tác động từ vụ nổ chỉ lấy một collider để nhận sát thương
+        HashSet<GameObject> uniqueEntities = new HashSet<GameObject>();
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, impactRadius);
 
         foreach (Collider collider in colliders)
         {
-            Rigidbody rb = collider.GetComponent<Rigidbody>();
-
-            if (rb != null)
+            ///
+            if (IsTargetValid(collider) == false)
             {
-                rb.AddExplosionForce(
-                    impactPower, transform.position, impactRadius, upwardsMultiplier, ForceMode.Impulse); 
+                continue;
             }
+
+            ///
+            GameObject rootEntity = collider.transform.root.gameObject;
+            if (uniqueEntities.Add(rootEntity) == false)
+            { continue; }
+
+            ///
+            ApplyDamageTo(collider);
+
+            ///
+            ApplyPhysicalForceTo(collider);
         }
     }
 
-    public void SetupGrenade(Vector3 target, float timeToTarget, float countdown, float impactPower)
+    private void ApplyPhysicalForceTo(Collider collider)
     {
+        Rigidbody rb = collider.GetComponent<Rigidbody>();
+
+        if (rb != null)
+        {
+            rb.AddExplosionForce(
+                impactPower, transform.position, impactRadius, upwardsMultiplier, ForceMode.Impulse);
+        }
+    }
+
+    private static void ApplyDamageTo(Collider collider)
+    {
+        VT_IDamagable damagable = collider.GetComponent<VT_IDamagable>();
+        damagable?.TakeDamage();
+    }
+
+    private void PlayExplosionFX()
+    {
+        GameObject newFX = VT_ObjectPool.instance.GetObject(explosionFX, transform);
+
+        VT_ObjectPool.instance.ReturnObject(newFX, 1);
+        VT_ObjectPool.instance.ReturnObject(gameObject);
+    }
+
+    public void SetupGrenade(LayerMask allyLayerMask, Vector3 target, float timeToTarget, float countdown, float impactPower)
+    {
+        this.allyLayerMask = allyLayerMask;
+
         rb.velocity = CalculateLaunchVelocity(target, timeToTarget);
         timer = countdown + timeToTarget;
         this.impactPower = impactPower;
@@ -67,6 +106,23 @@ public class VT_Enemy_Grenade : MonoBehaviour
         //Debug.LogWarning("SetupGrenade()" + timer.ToString());
         VT_grenadeId = timer.ToString();
         VT_explored = false;
+    }
+
+    private bool IsTargetValid(Collider collider)
+    {
+        // If friendly fire is enable, all colliders are valid targets
+        if (VT_GameManager.instance.friendlyFire)
+        {
+            return true;
+        }
+
+        // If collider is on allyLayerMask, target is not valid
+        if ((allyLayerMask.value & (1 << collider.gameObject.layer)) > 0)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     private Vector3 CalculateLaunchVelocity(Vector3 target, float timeToTarget)

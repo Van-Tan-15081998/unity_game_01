@@ -2377,6 +2377,7 @@ GameObject:
   - component: {fileID: 8520050686010069930}
   - component: {fileID: 4803200177375455652}
   - component: {fileID: 8739247192858832580}
+  - component: {fileID: 7970891474009951656}
   m_Layer: 11
   m_Name: VT_Enemy_Range
   m_TagString: Untagged
@@ -2392,7 +2393,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3258413660938871970}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.356, y: 0, z: 1.298}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2437,9 +2438,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d61de59bfdc699843a8099233818f892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 2
-  idleTime: 2
-  aggressionRange: 5
+  whatIsAlly:
+    serializedVersion: 2
+    m_Bits: 2048
+  healthPoints: 20
+  idleTime: 3
+  aggressionRange: 15
   walkSpeed: 1.5
   runSpeed: 3
   turnSpeed: 5
@@ -2449,20 +2453,20 @@ MonoBehaviour:
   - {fileID: 7134680943186745984}
   coverPerk: 0
   unstoppablePerk: 0
-  grenadePerk: 1
+  grenadePerk: 0
   grenadePrefab: {fileID: 1062359839157127605, guid: 2614494090512a8468a7e642df492dc8, type: 3}
   impactPower: 5
   explosionTimer: 0.75
   timeToTarget: 1.2
-  grenadeCooldown: 5
+  grenadeCooldown: 1
   grenadeStartPoint: {fileID: 2227967413141203913}
-  advanceSpeed: 1
-  advanceStoppingDistance: 3
+  advanceSpeed: 3
+  advanceStoppingDistance: 8
   advanceDuration: 2.5
   minCoverTime: 4
   safeDistance: 2
   attackDelay: 1
-  weaponType: 4
+  weaponType: 0
   weaponData: {fileID: 0}
   gunPoint: {fileID: 5599329327189812045}
   weaponHolder: {fileID: 5257797800524399100}
@@ -2489,12 +2493,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3258413660938871970}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1260acc4378d1b84994f4646dcad0a44, type: 3}
+  m_Script: {fileID: 11500000, guid: 90d1e64c339ba164b9ecff8b39360d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ragdollParent: {fileID: 6797434323982781312}
-  ragdollColliders: []
-  ragdollRigidbodies: []
+  maxHealth: 20
+  currentHealth: 0
 --- !u!114 &8739247192858832580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2520,6 +2523,21 @@ MonoBehaviour:
   leftElbowIK: {fileID: 7701560523928817453}
   leftHandIKConstraint: {fileID: 2899463169927080570}
   weaponAimConstraint: {fileID: 2626421444986795500}
+--- !u!114 &7970891474009951656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3258413660938871970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba00d7418bd260544beb85bf9fafe1e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ragdollParent: {fileID: 6797434323982781312}
+  ragdollColliders: []
+  ragdollRigidbodies: []
 --- !u!1 &3268399134940331178
 GameObject:
   m_ObjectHideFlags: 0

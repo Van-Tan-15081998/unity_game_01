@@ -1,8 +1,8 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VT_Enemy_Bullet : VT_Bullet
+public class VT_Enemy_Bullet : VT_Bullet /// Không sử dụng nữa
 {
     protected override void OnCollisionEnter(Collision collision)
     {

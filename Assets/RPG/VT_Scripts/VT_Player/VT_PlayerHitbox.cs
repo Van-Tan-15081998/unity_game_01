@@ -16,6 +16,8 @@ public class VT_PlayerHitbox : VT_HitBox
     {
         base.TakeDamage();
 
+        Debug.Log("Player got damage");
+
         player.health.ReduceHealth();
     }
 }

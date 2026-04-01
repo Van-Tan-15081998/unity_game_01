@@ -22,8 +22,6 @@ public enum EnemyMelee_Type { Regular, Shield, DodgeRoll, AxeThrow }
 
 public class VT_Enemy_Melee : VT_Enemy
 {
-    
-
 
     public VT_IdleState_Melee idleState { get; private set; }
     public VT_MoveState_Melee moveState { get; private set; }
@@ -52,6 +50,8 @@ public class VT_Enemy_Melee : VT_Enemy
     [Header("Attack Data")]
     public VT_AttackData_EnemyMelee attackData;
     public List<VT_AttackData_EnemyMelee> attackList;
+    private VT_Enemy_WeaponModel currentWeapon;
+    private bool isAttackReady;
 
     //[SerializeField] private Transform hiddenWeapon;
     //[SerializeField] private Transform pulledWeapon;
@@ -59,8 +59,6 @@ public class VT_Enemy_Melee : VT_Enemy
     protected override void Awake()
     {
         base.Awake();
-
-        
 
         idleState = new VT_IdleState_Melee(this, stateMachine, "VT_Idle");
         moveState = new VT_MoveState_Melee(this, stateMachine, "VT_Move");
@@ -94,13 +92,47 @@ public class VT_Enemy_Melee : VT_Enemy
         stateMachine.currentState.Update();
 
 
+        AttackCheck();
+
+    }
+
+    public void AttackCheck()
+    {
+        if (isAttackReady == false)
+        {
+            return;
+        }
+
+        foreach (Transform attackPoint in currentWeapon.damagePoints)
+        {
+            Collider[] detectedHits = Physics.OverlapSphere(
+                attackPoint.position, currentWeapon.attackRadius, whatIsPlayer);
+
+            for (int i = 0; i < detectedHits.Length; i++)
+            {
+                VT_IDamagable damagable = detectedHits[i].GetComponent<VT_IDamagable>();
+
+                if (damagable != null)
+                {
+                    damagable.TakeDamage();
+                    isAttackReady = false;
+                    return;
+                }
+            }
+        
+        }
+    }
+
+    public void EnableAttackCheck(bool enable)
+    {
+        isAttackReady = enable;
     }
 
     public override void EnterBattleMode()
     {
         if (inBattleMode)
         {
-            return; 
+            return;
         }
 
         base.EnterBattleMode();
@@ -121,7 +153,7 @@ public class VT_Enemy_Melee : VT_Enemy
 
     public void UpdateAttackData()
     {
-        VT_Enemy_WeaponModel currentWeapon = visuals.currentWeaponModel.GetComponent<VT_Enemy_WeaponModel>();
+        currentWeapon = visuals.currentWeaponModel.GetComponent<VT_Enemy_WeaponModel>();
 
         if (currentWeapon.weaponData != null)
         {
@@ -156,17 +188,15 @@ public class VT_Enemy_Melee : VT_Enemy
         }
     }
 
-    public override void GetHit()
+    public override void Die()
     {
-        base.GetHit();
+        base.Die();
 
-        if (healthPoints <= 0 && stateMachine.currentState != deadState)
+        if (stateMachine.currentState != deadState)
         {
             stateMachine.ChangeState(deadState);
         }
     }
-
-
 
     public bool PlayerInAttackRange()
     {

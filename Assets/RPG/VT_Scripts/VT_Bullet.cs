@@ -15,7 +15,7 @@ public class VT_Bullet : MonoBehaviour
     private float flyDistance;
     private bool bulletDisabled;
 
-    private LayerMask allyLayerMark;
+    private LayerMask allyLayerMask;
 
     protected virtual void Awake()
     {
@@ -27,7 +27,7 @@ public class VT_Bullet : MonoBehaviour
 
     public void BulletSetup(LayerMask allyLayerMark, float flyDistance = 100, float impactForce = 100)
     {
-        this.allyLayerMark = allyLayerMark;
+        this.allyLayerMask = allyLayerMark;
         this.impactForce = impactForce;
 
         bulletDisabled = false;
@@ -90,7 +90,7 @@ public class VT_Bullet : MonoBehaviour
         if (FriendlyFire() == false)
         {
             /// So sánh Layer để xác định đồng minh
-           if ((allyLayerMark.value & (1 << collision.gameObject.layer)) > 0)
+           if ((allyLayerMask.value & (1 << collision.gameObject.layer)) > 0)
             {
                 ReturnBulletToPool(10);
                 return; 

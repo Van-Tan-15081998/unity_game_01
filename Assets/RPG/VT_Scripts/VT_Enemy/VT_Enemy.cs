@@ -10,6 +10,9 @@ public class VT_Enemy : MonoBehaviour
     //public float attackMoveSpeed;
 
     public LayerMask whatIsAlly;
+    public LayerMask whatIsPlayer;
+
+    [Space]
     public int healthPoints = 25;
 
     [Header("Idle data")]
