@@ -18,15 +18,20 @@ public class VT_Enemy_Boss : VT_Enemy
     private float lastTimeUsedAbility;
 
     [Header("Flamethrower")]
+    public int flameDamage;
+    public float flameDamageCooldown = 0.5f;
     public ParticleSystem flamethrower;
     public float flameThrowDuration;
     public bool flamethrowActive { get; private set; }
 
     [Header("Hummer")]
+    public int hummerActiveDamage;
     public GameObject activationPrefab;
+    [SerializeField] private float hummerCheckRadius = 1.25f;
 
 
     [Header("Jump Attack")]
+    public int jumpAttackDamage;
     public float jumpAttackCooldown = 10;
     private float lastTimeJumped;
     public float travelTimeToTarget = 1;
@@ -40,6 +45,12 @@ public class VT_Enemy_Boss : VT_Enemy
 
     [Space]
     [SerializeField] private LayerMask whatToIgnore;
+
+    [Header("Attack")]
+    [SerializeField] private int meleeAttackDamage;
+    [SerializeField] private Transform[] damagePoints;
+    [SerializeField] private float attackCheckRadius;
+    [SerializeField] private GameObject meleeAttackFX;
 
 
     public VT_IdleState_Boss idleState { get; private set; }
@@ -83,13 +94,15 @@ public class VT_Enemy_Boss : VT_Enemy
         {
             EnterBattleMode();
         }
+
+        MeleeAttackCheck(damagePoints, attackCheckRadius, meleeAttackFX, meleeAttackDamage);
     }
 
-    public override void GetHit()
+    public override void Die()
     {
-        base.GetHit();
+        base.Die();
 
-        if (healthPoints <= 0 && stateMachine.currentState != deadState)
+        if (stateMachine.currentState != deadState)
         {
             stateMachine.ChangeState(deadState);
         }
@@ -135,6 +148,8 @@ public class VT_Enemy_Boss : VT_Enemy
         GameObject newActivation = VT_ObjectPool.instance.GetObject(activationPrefab, impactPoint);
 
         VT_ObjectPool.instance.ReturnObject(newActivation, 1);
+
+        MassDamage(damagePoints[0].position, hummerCheckRadius, hummerActiveDamage);
     }
 
     public bool CanDoAbility()
@@ -168,17 +183,45 @@ public class VT_Enemy_Boss : VT_Enemy
             impactPoint = transform;
         }
 
-        Collider[] colliders = Physics.OverlapSphere(impactPoint.position, impactRadius);
+        MassDamage(impactPoint.position, impactRadius, jumpAttackDamage);
+    }
+
+    private void MassDamage(Vector3 impactPoint, float impactRadius, int damage)
+    {
+        HashSet<GameObject> uniqueEntities = new HashSet<GameObject>();
+
+        Collider[] colliders = Physics.OverlapSphere(impactPoint, impactRadius, ~whatIsAlly);
 
         foreach (Collider collider in colliders)
         {
-            Rigidbody rb = collider.GetComponent<Rigidbody>();
+            VT_IDamagable damagable = collider.GetComponent<VT_IDamagable>();
 
-            if (rb != null)
+            if (damagable != null)
             {
-                rb.AddExplosionForce(
-                    impactPower, transform.position, impactRadius, upforceMultiplier, ForceMode.Impulse);
+                GameObject rootEntity = collider.transform.root.gameObject;
+
+                if (uniqueEntities.Add(rootEntity) == false)
+                {
+                    continue;
+                }
+
+                damagable.TakeDamage(damage);
             }
+
+            ///
+            ApplyPhysicalForceTo(impactPoint, impactRadius, collider);
+        }
+    }
+
+    private void ApplyPhysicalForceTo(Vector3 impactPoint, float impactRadius, Collider collider)
+    {
+        /// Lực tác động lên các vật thể xung quanh
+        Rigidbody rb = collider.GetComponent<Rigidbody>();
+
+        if (rb != null)
+        {
+            rb.AddExplosionForce(
+                impactPower, impactPoint, impactRadius, upforceMultiplier, ForceMode.Impulse);
         }
     }
 
@@ -251,5 +294,17 @@ public class VT_Enemy_Boss : VT_Enemy
 
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, minAbilityDistance);
+
+        if (damagePoints.Length > 0)
+        {
+            foreach (var damagePoint in damagePoints)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(damagePoint.position, attackCheckRadius);
+            }
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(damagePoints[0].position, hummerCheckRadius);
+        }
     }
 }

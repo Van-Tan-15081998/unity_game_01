@@ -4,6 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public struct VT_AttackData_EnemyMelee
 {
+    public int attackDamage;
     public string attackName;
     public float attackRange;
     public float moveSpeed;
@@ -35,11 +36,15 @@ public class VT_Enemy_Melee : VT_Enemy
     public EnemyMelee_Type meleeType;
     public VT_Enemy_MeleeWeaponType weaponType;
 
+    [Header("Shield")]
+    public int shieldDurability = 20;
     public Transform shieldTransform;
+    [Header("Dodge")]
     public float dodgeRollCooldown;
     private float lastTimeDodgeRoll = -10; /// Giá trị mặc định => đảm bảo luôn có thể thực hiện ngay lần đầu tiên Check điều kiện
 
     [Header("Axe Throw Ability")]
+    public int axeDamage;
     public GameObject axePrefab;
     public float axeFlySpeed;
     public float axeAimTimer;
@@ -52,6 +57,8 @@ public class VT_Enemy_Melee : VT_Enemy
     public List<VT_AttackData_EnemyMelee> attackList;
     private VT_Enemy_WeaponModel currentWeapon;
     private bool isAttackReady;
+    [Space]
+    [SerializeField] private GameObject meleeAttackFX;
 
     //[SerializeField] private Transform hiddenWeapon;
     //[SerializeField] private Transform pulledWeapon;
@@ -91,42 +98,44 @@ public class VT_Enemy_Melee : VT_Enemy
 
         stateMachine.currentState.Update();
 
-
-        AttackCheck();
+        ///
+        MeleeAttackCheck(currentWeapon.damagePoints, currentWeapon.attackRadius, meleeAttackFX, attackData.attackDamage);
 
     }
 
-    public void AttackCheck()
-    {
-        if (isAttackReady == false)
-        {
-            return;
-        }
+    //public void AttackCheck()
+    //{
+    //    if (isAttackReady == false)
+    //    {
+    //        return;
+    //    }
 
-        foreach (Transform attackPoint in currentWeapon.damagePoints)
-        {
-            Collider[] detectedHits = Physics.OverlapSphere(
-                attackPoint.position, currentWeapon.attackRadius, whatIsPlayer);
+    //    foreach (Transform attackPoint in currentWeapon.damagePoints)
+    //    {
+    //        Collider[] detectedHits = Physics.OverlapSphere(
+    //            attackPoint.position, currentWeapon.attackRadius, whatIsPlayer);
 
-            for (int i = 0; i < detectedHits.Length; i++)
-            {
-                VT_IDamagable damagable = detectedHits[i].GetComponent<VT_IDamagable>();
+    //        for (int i = 0; i < detectedHits.Length; i++)
+    //        {
+    //            VT_IDamagable damagable = detectedHits[i].GetComponent<VT_IDamagable>();
 
-                if (damagable != null)
-                {
-                    damagable.TakeDamage();
-                    isAttackReady = false;
-                    return;
-                }
-            }
+    //            if (damagable != null)
+    //            {
+    //                damagable.TakeDamage();
+    //                isAttackReady = false;
+
+    //                /// Tạo hiệu ứng
+    //                GameObject newAttackFX = VT_ObjectPool.instance.GetObject(meleeAttackFX, attackPoint);
+    //                VT_ObjectPool.instance.ReturnObject(newAttackFX, 1);
+
+    //                return;
+    //            }
+    //        }
         
-        }
-    }
+    //    }
+    //}
 
-    public void EnableAttackCheck(bool enable)
-    {
-        isAttackReady = enable;
-    }
+
 
     public override void EnterBattleMode()
     {
@@ -240,7 +249,7 @@ public class VT_Enemy_Melee : VT_Enemy
     {
         GameObject newAxe = VT_ObjectPool.instance.GetObject(axePrefab, axeStartPoint);
 
-        newAxe.GetComponent<VT_EnemyAxe>().AxeSetup(axeFlySpeed, player, axeAimTimer);
+        newAxe.GetComponent<VT_Enemy_Axe>().AxeSetup(axeFlySpeed, player, axeAimTimer, axeDamage);
     }
 
     public bool CanThrowAxe()

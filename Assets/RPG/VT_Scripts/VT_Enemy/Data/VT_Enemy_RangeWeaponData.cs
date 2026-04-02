@@ -17,6 +17,8 @@ public class VT_Enemy_RangeWeaponData : ScriptableObject
     public float maxWeaponCooldown = 3;
 
     [Header("Bullet Details")]
+    public int bulletDamage;
+    [Space]
     public float bulletSpeed = 20;
     public float weaponSpread = .1f;
 
@@ -36,7 +38,7 @@ public class VT_Enemy_RangeWeaponData : ScriptableObject
         float randomizedValue = Random.Range(-weaponSpread, weaponSpread);
 
         /// Tạo một Quaternion đại diện cho sự xoay ngẫu nhiên dựa trên giá trị ngẫu nhiên đã tạo.
-        Quaternion spreadRotation = Quaternion.Euler(randomizedValue, randomizedValue, randomizedValue);
+        Quaternion spreadRotation = Quaternion.Euler(randomizedValue, randomizedValue / 2, randomizedValue);
 
         /// Áp dụng sự xoay ngẫu nhiên vào hướng ban đầu của viên đạn để tạo ra hiệu ứng giật.
         return spreadRotation * originalDirection;

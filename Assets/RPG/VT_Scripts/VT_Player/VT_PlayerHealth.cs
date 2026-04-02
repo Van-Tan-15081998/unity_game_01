@@ -15,9 +15,9 @@ public class VT_PlayerHealth : VT_HealthController
         player = GetComponentInParent<VT_Player>();
     }
 
-    public override void ReduceHealth()
+    public override void ReduceHealth(int damage)
     {
-        base.ReduceHealth();
+        base.ReduceHealth(damage);
 
         if (ShouldDie())
         {
@@ -27,6 +27,11 @@ public class VT_PlayerHealth : VT_HealthController
 
     private void Die()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         isDead = true;
         player.anim.enabled = false;
         player.ragdoll.RagdollActive(true);

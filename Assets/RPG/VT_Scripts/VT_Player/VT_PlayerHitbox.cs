@@ -12,12 +12,8 @@ public class VT_PlayerHitbox : VT_HitBox
         player = GetComponentInParent<VT_Player>();
     }
 
-    public override void TakeDamage()
+    public override void TakeDamage(int damage)
     {
-        base.TakeDamage();
-
-        Debug.Log("Player got damage");
-
-        player.health.ReduceHealth();
+        player.health.ReduceHealth(damage);
     }
 }

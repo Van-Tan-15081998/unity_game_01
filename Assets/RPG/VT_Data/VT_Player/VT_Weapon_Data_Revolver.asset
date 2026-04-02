@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: VT_Weapon_Data_Revolver
   m_EditorClassIdentifier: 
   weaponName: Super Revolver
+  bulletDamage: 35
   bulletsInMagazine: 6
   magazineCapacity: 6
   totalReserveAmmo: 9999
@@ -28,7 +29,7 @@ MonoBehaviour:
   maxSpread: 2.5
   spreadIncreaseRate: 0.3
   weaponType: 1
-  reloadSpeed: 1
-  equipmentSpeed: 1
-  gunDistance: 6
+  reloadSpeed: 1.5
+  equipmentSpeed: 1.25
+  gunDistance: 25
   cameraDistance: 6

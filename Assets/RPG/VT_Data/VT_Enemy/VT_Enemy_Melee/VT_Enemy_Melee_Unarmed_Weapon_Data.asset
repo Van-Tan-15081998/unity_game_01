@@ -13,16 +13,18 @@ MonoBehaviour:
   m_Name: VT_Enemy_Melee_Unarmed_Weapon_Data
   m_EditorClassIdentifier: 
   attackData:
-  - attackName: Flying_Kick
+  - attackDamage: 30
+    attackName: Flying_Kick
     attackRange: 2
     moveSpeed: 5
     attackIndex: 0
     animationSpeed: 0
     attackType: 1
-  - attackName: Boxing_Attack
+  - attackDamage: 25
+    attackName: Boxing_Attack
     attackRange: 1
     moveSpeed: 0
     attackIndex: 1
-    animationSpeed: 1.4
+    animationSpeed: 1.5
     attackType: 0
   turnSpeed: 10

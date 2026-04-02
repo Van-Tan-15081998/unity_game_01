@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface VT_IDamagable
 {
-    void TakeDamage();
+    void TakeDamage(int damage);
 }

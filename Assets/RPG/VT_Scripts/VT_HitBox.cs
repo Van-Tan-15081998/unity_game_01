@@ -9,7 +9,7 @@ public class VT_HitBox : MonoBehaviour, VT_IDamagable
 
     }
 
-    public virtual void TakeDamage()
+    public virtual void TakeDamage(int damage)
     {
         
     }

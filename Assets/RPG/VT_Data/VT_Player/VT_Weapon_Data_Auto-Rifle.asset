@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: VT_Weapon_Data_Auto-Rifle
   m_EditorClassIdentifier: 
   weaponName: Super Auto-Rifle
-  bulletsInMagazine: 40
-  magazineCapacity: 40
+  bulletDamage: 12
+  bulletsInMagazine: 32
+  magazineCapacity: 32
   totalReserveAmmo: 9999
   shootType: 1
   bulletsPerShot: 1
@@ -30,5 +31,5 @@ MonoBehaviour:
   weaponType: 2
   reloadSpeed: 1
   equipmentSpeed: 1
-  gunDistance: 6
+  gunDistance: 25
   cameraDistance: 6

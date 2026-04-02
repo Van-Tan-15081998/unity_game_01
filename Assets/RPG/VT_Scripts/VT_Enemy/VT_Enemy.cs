@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -31,6 +31,8 @@ public class VT_Enemy : MonoBehaviour
     private int currentPatrolIndex;
 
     public bool inBattleMode { get; private set; }
+
+    protected bool isMeleeAttackReady;
 
     public Transform player { get; private set; }
 
@@ -102,9 +104,9 @@ public class VT_Enemy : MonoBehaviour
         inBattleMode = true;
     }
 
-    public virtual void GetHit()
+    public virtual void GetHit(int damage)
     {
-        health.ReduceHealth();
+        health.ReduceHealth(damage);
 
         if (health.ShouldDie())
         {
@@ -117,6 +119,47 @@ public class VT_Enemy : MonoBehaviour
     public virtual void Die()
     {
 
+    }
+
+    /// MeleeAttackCheck() không chỉ dành cho EnemyMelee mà dành cho tất cả các Enemy có phương thức 
+    /// tấn công cận chiến (Melee), trong đó có cả Boss
+    ///
+    ///
+    public virtual void MeleeAttackCheck(Transform[] damagePoints, float attackCheckRadius, GameObject fx, int damage)
+    {
+        if (isMeleeAttackReady == false)
+        {
+            return;
+        }
+
+        foreach (Transform attackPoint in damagePoints)
+        {
+            Collider[] detectedHits = Physics.OverlapSphere(
+                attackPoint.position, attackCheckRadius, whatIsPlayer);
+
+            for (int i = 0; i < detectedHits.Length; i++)
+            {
+                VT_IDamagable damagable = detectedHits[i].GetComponent<VT_IDamagable>();
+
+                if (damagable != null)
+                {
+                    damagable.TakeDamage(damage);
+                    isMeleeAttackReady = false;
+
+                    /// Tạo hiệu ứng
+                    GameObject newAttackFX = VT_ObjectPool.instance.GetObject(fx, attackPoint);
+                    VT_ObjectPool.instance.ReturnObject(newAttackFX, 1);
+
+                    return;
+                }
+            }
+
+        }
+    }
+
+    public void EnableMeleeAttackCheck(bool enable)
+    {
+        isMeleeAttackReady = enable;
     }
 
     public virtual void BulletImpact(Vector3 force, Vector3 hitPoint, Rigidbody rb)

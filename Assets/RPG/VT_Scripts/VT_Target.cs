@@ -8,6 +8,6 @@ public class VT_Target : MonoBehaviour
 {
     private void Start()
     {
-        gameObject.layer = LayerMask.NameToLayer("VT_Enemy");
+        //gameObject.layer = LayerMask.NameToLayer("VT_Enemy");
     }
 }

@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: VT_Weapon_Data_PISTOL
   m_EditorClassIdentifier: 
   weaponType: 0
-  fireRate: 5
+  fireRate: 6
   minBulletsPerAttack: 3
   maxBulletsPerAttack: 5
   minWeaponCooldown: 2
   maxWeaponCooldown: 3
+  bulletDamage: 6
   bulletSpeed: 20
   weaponSpread: 0.1

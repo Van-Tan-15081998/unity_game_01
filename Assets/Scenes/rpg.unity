@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 29418904}
   - component: {fileID: 29418903}
   - component: {fileID: 29418902}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (56)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1303,7 +1303,7 @@ GameObject:
   - component: {fileID: 82688224}
   - component: {fileID: 82688223}
   - component: {fileID: 82688222}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (38)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1544,7 +1544,7 @@ GameObject:
   - component: {fileID: 94898071}
   - component: {fileID: 94898070}
   - component: {fileID: 94898069}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2268,7 +2268,7 @@ GameObject:
   - component: {fileID: 110546103}
   - component: {fileID: 110546102}
   - component: {fileID: 110546101}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (41)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2606,7 +2606,7 @@ GameObject:
   - component: {fileID: 137320437}
   - component: {fileID: 137320436}
   - component: {fileID: 137320435}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (49)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3398,14 +3398,17 @@ MonoBehaviour:
   - {fileID: 685757677}
   meleeType: 3
   weaponType: 0
+  shieldDurability: 0
   shieldTransform: {fileID: 956951716}
   dodgeRollCooldown: 5
+  axeDamage: 0
   axePrefab: {fileID: 6216056544334354181, guid: 726787c6586700e4aa958f793536c572, type: 3}
   axeFlySpeed: 5
   axeAimTimer: 1
   axeThrowCooldown: 0
   axeStartPoint: {fileID: 2092937933}
   attackData:
+    attackDamage: 0
     attackName: 
     attackRange: 1
     moveSpeed: 0
@@ -3413,18 +3416,21 @@ MonoBehaviour:
     animationSpeed: 1
     attackType: 0
   attackList:
-  - attackName: Sword spin attack
+  - attackDamage: 0
+    attackName: Sword spin attack
     attackRange: 1.5
     moveSpeed: 2.5
     attackIndex: 0
     animationSpeed: 0
     attackType: 1
-  - attackName: Sword slash
+  - attackDamage: 0
+    attackName: Sword slash
     attackRange: 1
     moveSpeed: 0
     attackIndex: 1
     animationSpeed: 1.5
     attackType: 0
+  meleeAttackFX: {fileID: 0}
 --- !u!1 &180853826
 GameObject:
   m_ObjectHideFlags: 0
@@ -3439,7 +3445,7 @@ GameObject:
   - component: {fileID: 180853830}
   - component: {fileID: 180853829}
   - component: {fileID: 180853828}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (57)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3961,7 +3967,7 @@ GameObject:
   - component: {fileID: 191854075}
   - component: {fileID: 191854074}
   - component: {fileID: 191854073}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4107,7 +4113,7 @@ GameObject:
   - component: {fileID: 194323051}
   - component: {fileID: 194323050}
   - component: {fileID: 194323049}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (29)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5156,7 +5162,7 @@ GameObject:
   - component: {fileID: 271477703}
   - component: {fileID: 271477702}
   - component: {fileID: 271477701}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5673,7 +5679,7 @@ GameObject:
   - component: {fileID: 292697423}
   - component: {fileID: 292697422}
   - component: {fileID: 292697421}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (64)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7038,7 +7044,7 @@ GameObject:
   - component: {fileID: 332078082}
   - component: {fileID: 332078081}
   - component: {fileID: 332078080}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (53)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7786,7 +7792,7 @@ GameObject:
   - component: {fileID: 355430353}
   - component: {fileID: 355430352}
   - component: {fileID: 355430351}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (39)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8064,7 +8070,7 @@ GameObject:
   - component: {fileID: 361418926}
   - component: {fileID: 361418925}
   - component: {fileID: 361418924}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8349,7 +8355,7 @@ GameObject:
   - component: {fileID: 372253395}
   - component: {fileID: 372253394}
   - component: {fileID: 372253393}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8941,7 +8947,7 @@ GameObject:
   - component: {fileID: 397948130}
   - component: {fileID: 397948129}
   - component: {fileID: 397948128}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9157,7 +9163,7 @@ GameObject:
   - component: {fileID: 408480592}
   - component: {fileID: 408480591}
   - component: {fileID: 408480590}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (25)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10088,7 +10094,7 @@ GameObject:
   - component: {fileID: 493654182}
   - component: {fileID: 493654181}
   - component: {fileID: 493654180}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11504,6 +11510,7 @@ MonoBehaviour:
   weaponData: {fileID: 11400000, guid: 9724120b7277c4e4e81be25042be2f27, type: 2}
   weapon:
     weaponType: 0
+    bulletDamage: 0
     shootType: 0
     fireRate: 0
     burstActive: 0
@@ -11798,7 +11805,7 @@ GameObject:
   - component: {fileID: 555696844}
   - component: {fileID: 555696843}
   - component: {fileID: 555696842}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (62)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12107,7 +12114,7 @@ GameObject:
   - component: {fileID: 575006581}
   - component: {fileID: 575006580}
   - component: {fileID: 575006579}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12284,7 +12291,7 @@ GameObject:
   - component: {fileID: 592818755}
   - component: {fileID: 592818754}
   - component: {fileID: 592818753}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (51)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12538,7 +12545,7 @@ GameObject:
   - component: {fileID: 605437630}
   - component: {fileID: 605437629}
   - component: {fileID: 605437628}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (30)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13092,7 +13099,7 @@ GameObject:
   - component: {fileID: 622940049}
   - component: {fileID: 622940048}
   - component: {fileID: 622940047}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14168,6 +14175,7 @@ MonoBehaviour:
   weaponData: {fileID: 11400000, guid: 31eabb393657ba9499c4bcb65383340e, type: 2}
   weapon:
     weaponType: 0
+    bulletDamage: 0
     shootType: 0
     fireRate: 0
     burstActive: 0
@@ -14316,14 +14324,17 @@ MonoBehaviour:
   - {fileID: 2143398672}
   meleeType: 2
   weaponType: 0
+  shieldDurability: 0
   shieldTransform: {fileID: 1209847809}
   dodgeRollCooldown: 5
+  axeDamage: 0
   axePrefab: {fileID: 6216056544334354181, guid: 726787c6586700e4aa958f793536c572, type: 3}
   axeFlySpeed: 5
   axeAimTimer: 1
   axeThrowCooldown: 0
   axeStartPoint: {fileID: 1897576126}
   attackData:
+    attackDamage: 0
     attackName: 
     attackRange: 1
     moveSpeed: 0
@@ -14331,18 +14342,21 @@ MonoBehaviour:
     animationSpeed: 1
     attackType: 0
   attackList:
-  - attackName: Sword spin attack
+  - attackDamage: 0
+    attackName: Sword spin attack
     attackRange: 1.5
     moveSpeed: 2.5
     attackIndex: 0
     animationSpeed: 0
     attackType: 1
-  - attackName: Sword slash
+  - attackDamage: 0
+    attackName: Sword slash
     attackRange: 1
     moveSpeed: 0
     attackIndex: 1
     animationSpeed: 1.5
     attackType: 0
+  meleeAttackFX: {fileID: 0}
 --- !u!4 &667648212
 Transform:
   m_ObjectHideFlags: 0
@@ -14375,7 +14389,7 @@ GameObject:
   - component: {fileID: 672194052}
   - component: {fileID: 672194051}
   - component: {fileID: 672194050}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14617,7 +14631,7 @@ GameObject:
   - component: {fileID: 684870541}
   - component: {fileID: 684870540}
   - component: {fileID: 684870539}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14763,7 +14777,7 @@ GameObject:
   - component: {fileID: 685390972}
   - component: {fileID: 685390971}
   - component: {fileID: 685390970}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (27)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14926,6 +14940,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1882253253}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &687723450
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3258413660938871970, guid: 970dc363c48208741b59f49ec4f76f45, type: 3}
+      propertyPath: m_Name
+      value: VT_Enemy_Range (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967111783008045401, guid: 970dc363c48208741b59f49ec4f76f45, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.356
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967111783008045401, guid: 970dc363c48208741b59f49ec4f76f45, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967111783008045401, guid: 970dc363c48208741b59f49ec4f76f45, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.298
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967111783008045401, guid: 970dc363c48208741b59f49ec4f76f45, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967111783008045401, guid: 970dc363c48208741b59f49ec4f76f45, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967111783008045401, guid: 970dc363c48208741b59f49ec4f76f45, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967111783008045401, guid: 970dc363c48208741b59f49ec4f76f45, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967111783008045401, guid: 970dc363c48208741b59f49ec4f76f45, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967111783008045401, guid: 970dc363c48208741b59f49ec4f76f45, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967111783008045401, guid: 970dc363c48208741b59f49ec4f76f45, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 970dc363c48208741b59f49ec4f76f45, type: 3}
 --- !u!1 &688691022
 GameObject:
   m_ObjectHideFlags: 0
@@ -15475,7 +15546,7 @@ GameObject:
   - component: {fileID: 705419917}
   - component: {fileID: 705419916}
   - component: {fileID: 705419915}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (42)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15978,7 +16049,7 @@ GameObject:
   - component: {fileID: 719107153}
   - component: {fileID: 719107152}
   - component: {fileID: 719107151}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16546,14 +16617,17 @@ MonoBehaviour:
   - {fileID: 771950218}
   meleeType: 0
   weaponType: 0
+  shieldDurability: 0
   shieldTransform: {fileID: 0}
   dodgeRollCooldown: 0
+  axeDamage: 0
   axePrefab: {fileID: 0}
   axeFlySpeed: 0
   axeAimTimer: 0
   axeThrowCooldown: 0
   axeStartPoint: {fileID: 0}
   attackData:
+    attackDamage: 0
     attackName: 
     attackRange: 0
     moveSpeed: 0
@@ -16561,6 +16635,7 @@ MonoBehaviour:
     animationSpeed: 0
     attackType: 0
   attackList: []
+  meleeAttackFX: {fileID: 0}
 --- !u!65 &747911579
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17080,7 +17155,7 @@ GameObject:
   - component: {fileID: 764988413}
   - component: {fileID: 764988412}
   - component: {fileID: 764988411}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (33)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17806,154 +17881,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 372026399749526235, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: attackRadius
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 372026399749526235, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: damagePoints.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 372026399749526235, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: damagePoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 1575339530}
     - target: {fileID: 1080821342013526944, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
       propertyPath: m_Name
       value: VT_Enemy_Melee_Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 2392180484310951592, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2457436155889135999, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2537770757288063751, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2537770757288063751, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.151
-      objectReference: {fileID: 0}
-    - target: {fileID: 2537770757288063751, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.014
-      objectReference: {fileID: 0}
-    - target: {fileID: 3440589860032496793, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.001
-      objectReference: {fileID: 0}
-    - target: {fileID: 3440589860032496793, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.004
-      objectReference: {fileID: 0}
-    - target: {fileID: 4361278033902178732, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5251466293962083998, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5593335136929279055, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: attackRadius
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5593335136929279055, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: damagePoints.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5593335136929279055, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: damagePoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 1902052537}
-    - target: {fileID: 6230071231043116448, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6396949144622455595, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6396949144622455595, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.148
-      objectReference: {fileID: 0}
-    - target: {fileID: 6396949144622455595, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.002
-      objectReference: {fileID: 0}
-    - target: {fileID: 6690099346757625919, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: attackRadius
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6690099346757625919, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: damagePoints.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6690099346757625919, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: damagePoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 948456397}
-    - target: {fileID: 6799651462004644793, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: attackRadius
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6799651462004644793, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: damagePoints.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6799651462004644793, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: damagePoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 1899577290}
-    - target: {fileID: 6874775148930074143, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: attackRadius
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6874775148930074143, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: damagePoints.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6874775148930074143, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: damagePoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 1275177882}
-    - target: {fileID: 6874775148930074143, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: damagePoints.Array.data[1]
-      value: 
-      objectReference: {fileID: 2059884723}
-    - target: {fileID: 6874775148930074143, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: damagePoints.Array.data[2]
-      value: 
-      objectReference: {fileID: 995844386}
-    - target: {fileID: 6874775148930074143, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: damagePoints.Array.data[3]
-      value: 
-      objectReference: {fileID: 1672503452}
-    - target: {fileID: 7074614118819485345, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7074614118819485345, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.163
-      objectReference: {fileID: 0}
-    - target: {fileID: 7074614118819485345, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.012
-      objectReference: {fileID: 0}
-    - target: {fileID: 7206456500007930034, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: whatIsPlayer.m_Bits
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 8382546407741821773, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8400878887261160536, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -17964,7 +17895,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8400878887261160536, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.349
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8400878887261160536, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
       propertyPath: m_LocalRotation.w
@@ -17993,30 +17924,6 @@ PrefabInstance:
     - target: {fileID: 8400878887261160536, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8797046396455018374, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: attackRadius
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8797046396455018374, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: damagePoints.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8797046396455018374, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: damagePoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 1228950060}
-    - target: {fileID: 9105678980497790553, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9105678980497790553, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.088
-      objectReference: {fileID: 0}
-    - target: {fileID: 9105678980497790553, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.012
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18692,7 +18599,7 @@ GameObject:
   - component: {fileID: 809726396}
   - component: {fileID: 809726395}
   - component: {fileID: 809726394}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19180,7 +19087,7 @@ GameObject:
   - component: {fileID: 816651275}
   - component: {fileID: 816651274}
   - component: {fileID: 816651273}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (52)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19838,7 +19745,7 @@ GameObject:
   - component: {fileID: 857825541}
   - component: {fileID: 857825540}
   - component: {fileID: 857825539}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (44)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21060,7 +20967,7 @@ GameObject:
   - component: {fileID: 903719983}
   - component: {fileID: 903719982}
   - component: {fileID: 903719981}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21532,7 +21439,7 @@ GameObject:
   - component: {fileID: 939669881}
   - component: {fileID: 939669880}
   - component: {fileID: 939669879}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (47)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21794,11 +21701,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 944177425}
   m_Mesh: {fileID: 7851633506773952824, guid: b95b544d0acb75341a8987a74dbdf9e7, type: 3}
---- !u!4 &948456397 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2537770757288063751, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-  m_PrefabInstance: {fileID: 783410932}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &956705923
 GameObject:
   m_ObjectHideFlags: 0
@@ -21978,6 +21880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d1a6fdc6860124983eb37f981e06f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 0}
   durability: 10
 --- !u!114 &956951718
 MonoBehaviour:
@@ -23089,7 +22992,7 @@ GameObject:
   - component: {fileID: 985663958}
   - component: {fileID: 985663957}
   - component: {fileID: 985663956}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23284,11 +23187,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &995844386 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4365803334626416114, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-  m_PrefabInstance: {fileID: 783410932}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &996564406
 GameObject:
   m_ObjectHideFlags: 0
@@ -23779,7 +23677,7 @@ GameObject:
   - component: {fileID: 1020102051}
   - component: {fileID: 1020102050}
   - component: {fileID: 1020102049}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23988,7 +23886,7 @@ GameObject:
   - component: {fileID: 1030542812}
   - component: {fileID: 1030542811}
   - component: {fileID: 1030542810}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (48)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24134,7 +24032,7 @@ GameObject:
   - component: {fileID: 1032227869}
   - component: {fileID: 1032227868}
   - component: {fileID: 1032227867}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (36)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24280,7 +24178,7 @@ GameObject:
   - component: {fileID: 1037971080}
   - component: {fileID: 1037971079}
   - component: {fileID: 1037971078}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (43)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25653,14 +25551,17 @@ MonoBehaviour:
   - {fileID: 243883077}
   meleeType: 0
   weaponType: 0
+  shieldDurability: 0
   shieldTransform: {fileID: 2125662078}
   dodgeRollCooldown: 5
+  axeDamage: 0
   axePrefab: {fileID: 6216056544334354181, guid: 726787c6586700e4aa958f793536c572, type: 3}
   axeFlySpeed: 5
   axeAimTimer: 1
   axeThrowCooldown: 0
   axeStartPoint: {fileID: 1773922798}
   attackData:
+    attackDamage: 0
     attackName: 
     attackRange: 1
     moveSpeed: 0
@@ -25668,18 +25569,21 @@ MonoBehaviour:
     animationSpeed: 1
     attackType: 0
   attackList:
-  - attackName: Sword spin attack
+  - attackDamage: 0
+    attackName: Sword spin attack
     attackRange: 1.5
     moveSpeed: 2.5
     attackIndex: 0
     animationSpeed: 0
     attackType: 1
-  - attackName: Sword slash
+  - attackDamage: 0
+    attackName: Sword slash
     attackRange: 1
     moveSpeed: 0
     attackIndex: 1
     animationSpeed: 1.5
     attackType: 0
+  meleeAttackFX: {fileID: 0}
 --- !u!1 &1097051761
 GameObject:
   m_ObjectHideFlags: 0
@@ -25775,6 +25679,7 @@ MonoBehaviour:
   weaponData: {fileID: 11400000, guid: c64525ea8b907ea4cb9b254fbb7e5ead, type: 2}
   weapon:
     weaponType: 0
+    bulletDamage: 0
     shootType: 0
     fireRate: 0
     burstActive: 0
@@ -25822,7 +25727,7 @@ GameObject:
   - component: {fileID: 1103297525}
   - component: {fileID: 1103297524}
   - component: {fileID: 1103297523}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (40)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26424,7 +26329,7 @@ GameObject:
   - component: {fileID: 1132484405}
   - component: {fileID: 1132484404}
   - component: {fileID: 1132484403}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (54)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26880,7 +26785,7 @@ GameObject:
   - component: {fileID: 1157660128}
   - component: {fileID: 1157660127}
   - component: {fileID: 1157660126}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (60)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27411,7 +27316,7 @@ GameObject:
   - component: {fileID: 1178601125}
   - component: {fileID: 1178601124}
   - component: {fileID: 1178601123}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (50)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27951,7 +27856,7 @@ GameObject:
   - component: {fileID: 1200204495}
   - component: {fileID: 1200204494}
   - component: {fileID: 1200204493}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28259,6 +28164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d1a6fdc6860124983eb37f981e06f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 0}
   durability: 10
 --- !u!114 &1209847811
 MonoBehaviour:
@@ -28384,7 +28290,7 @@ GameObject:
   - component: {fileID: 1220221947}
   - component: {fileID: 1220221946}
   - component: {fileID: 1220221945}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (31)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28810,11 +28716,6 @@ CapsuleCollider:
   m_Height: 0.3550203
   m_Direction: 1
   m_Center: {x: 0.00019023298, y: 0.17750965, z: -0.025130974}
---- !u!4 &1228950060 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6396949144622455595, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-  m_PrefabInstance: {fileID: 783410932}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1229646290
 GameObject:
   m_ObjectHideFlags: 0
@@ -29232,7 +29133,7 @@ GameObject:
   - component: {fileID: 1251461357}
   - component: {fileID: 1251461356}
   - component: {fileID: 1251461355}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (58)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29533,11 +29434,6 @@ Transform:
   - {fileID: 312639114}
   m_Father: {fileID: 645986771}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1275177882 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3727204396280238384, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-  m_PrefabInstance: {fileID: 783410932}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1283815332
 GameObject:
   m_ObjectHideFlags: 0
@@ -29872,7 +29768,7 @@ GameObject:
   - component: {fileID: 1294358718}
   - component: {fileID: 1294358717}
   - component: {fileID: 1294358716}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (63)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30468,7 +30364,7 @@ GameObject:
   - component: {fileID: 1321173969}
   - component: {fileID: 1321173968}
   - component: {fileID: 1321173973}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31165,7 +31061,7 @@ GameObject:
   - component: {fileID: 1345483993}
   - component: {fileID: 1345483992}
   - component: {fileID: 1345483991}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (37)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31942,7 +31838,7 @@ GameObject:
   - component: {fileID: 1400702861}
   - component: {fileID: 1400702860}
   - component: {fileID: 1400702859}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (28)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32088,7 +31984,7 @@ GameObject:
   - component: {fileID: 1401364013}
   - component: {fileID: 1401364012}
   - component: {fileID: 1401364011}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (32)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32234,7 +32130,7 @@ GameObject:
   - component: {fileID: 1401629769}
   - component: {fileID: 1401629768}
   - component: {fileID: 1401629767}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32415,6 +32311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d1a6fdc6860124983eb37f981e06f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 0}
   durability: 10
 --- !u!114 &1402882459
 MonoBehaviour:
@@ -32655,6 +32552,7 @@ MonoBehaviour:
   weaponData: {fileID: 11400000, guid: beeb6a3098246c644b2e47a9ba4e1979, type: 2}
   weapon:
     weaponType: 0
+    bulletDamage: 0
     shootType: 0
     fireRate: 0
     burstActive: 0
@@ -32765,7 +32663,7 @@ GameObject:
   - component: {fileID: 1427617022}
   - component: {fileID: 1427617021}
   - component: {fileID: 1427617020}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (35)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32975,7 +32873,7 @@ GameObject:
   - component: {fileID: 1437866996}
   - component: {fileID: 1437866995}
   - component: {fileID: 1437866994}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (55)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34914,7 +34812,7 @@ GameObject:
   - component: {fileID: 1538271857}
   - component: {fileID: 1538271856}
   - component: {fileID: 1538271855}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (45)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35086,7 +34984,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1543829214}
-  - component: {fileID: 1543829213}
+  - component: {fileID: 1543829222}
   - component: {fileID: 1543829216}
   - component: {fileID: 1543829218}
   - component: {fileID: 1543829210}
@@ -35094,8 +34992,6 @@ GameObject:
   - component: {fileID: 1543829209}
   - component: {fileID: 1543829217}
   - component: {fileID: 1543829219}
-  - component: {fileID: 1543829220}
-  - component: {fileID: 1543829222}
   - component: {fileID: 1543829221}
   m_Layer: 8
   m_Name: VT_Player
@@ -35145,14 +35041,6 @@ MonoBehaviour:
   walkSpeed: 1.5
   runSpeed: 3
   turnSpeed: 10
---- !u!33 &1543829213
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1543829208}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1543829214
 Transform:
   m_ObjectHideFlags: 0
@@ -35187,6 +35075,7 @@ MonoBehaviour:
   defaultWeaponData: {fileID: 11400000, guid: 43c9c11aff61d4c4caefbada927557d4, type: 2}
   currentWeapon:
     weaponType: 0
+    bulletDamage: 0
     shootType: 0
     fireRate: 1
     burstActive: 0
@@ -35200,6 +35089,7 @@ MonoBehaviour:
   maxSlots: 2
   weaponSlots:
   - weaponType: 0
+    bulletDamage: 0
     shootType: 0
     fireRate: 5
     burstActive: 0
@@ -35274,29 +35164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eac2f24930aa29442a5b049feab5a445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &1543829220
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1543829208}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.1520232
-  m_Height: 1.4345098
-  m_Direction: 1
-  m_Center: {x: -0.017384887, y: -0.21725488, z: 0}
 --- !u!114 &1543829221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35324,7 +35191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac91f2d5bec35924583141cbe226849e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 200
   currentHealth: 0
 --- !u!1 &1548387477
 GameObject:
@@ -35340,7 +35207,7 @@ GameObject:
   - component: {fileID: 1548387480}
   - component: {fileID: 1548387479}
   - component: {fileID: 1548387478}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35686,7 +35553,7 @@ GameObject:
   - component: {fileID: 1573177263}
   - component: {fileID: 1573177262}
   - component: {fileID: 1573177261}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (34)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35818,11 +35685,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1573177259}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1575339530 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3440589860032496793, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-  m_PrefabInstance: {fileID: 783410932}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1575533633
 GameObject:
   m_ObjectHideFlags: 0
@@ -36127,7 +35989,7 @@ GameObject:
   - component: {fileID: 1586647331}
   - component: {fileID: 1586647330}
   - component: {fileID: 1586647329}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (59)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36647,7 +36509,7 @@ GameObject:
   - component: {fileID: 1609062162}
   - component: {fileID: 1609062161}
   - component: {fileID: 1609062160}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38355,11 +38217,6 @@ Transform:
   - {fileID: 18780794}
   m_Father: {fileID: 1042937210}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1672503452 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7826441780284921306, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-  m_PrefabInstance: {fileID: 783410932}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1675892539
 GameObject:
   m_ObjectHideFlags: 0
@@ -40744,7 +40601,7 @@ GameObject:
   - component: {fileID: 1826629800}
   - component: {fileID: 1826629799}
   - component: {fileID: 1826629798}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (26)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42184,16 +42041,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 667648212}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1899577290 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7074614118819485345, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-  m_PrefabInstance: {fileID: 783410932}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1902052537 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9105678980497790553, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-  m_PrefabInstance: {fileID: 783410932}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1905068279
 GameObject:
   m_ObjectHideFlags: 0
@@ -42529,7 +42376,7 @@ GameObject:
   - component: {fileID: 1913782712}
   - component: {fileID: 1913782711}
   - component: {fileID: 1913782710}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42971,7 +42818,7 @@ GameObject:
   - component: {fileID: 1942220466}
   - component: {fileID: 1942220465}
   - component: {fileID: 1942220464}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (61)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43285,7 +43132,7 @@ GameObject:
   - component: {fileID: 1955410942}
   - component: {fileID: 1955410941}
   - component: {fileID: 1955410940}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44184,7 +44031,7 @@ GameObject:
   - component: {fileID: 2028457345}
   - component: {fileID: 2028457344}
   - component: {fileID: 2028457343}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (46)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45012,11 +44859,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2058574927}
   m_Mesh: {fileID: 8928795284154382034, guid: 4755a6085584c754f9a09ffd7bf23641, type: 3}
---- !u!4 &2059884723 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 493416057014429064, guid: bd901cb2b38acfb4eb50fbdeb214bc62, type: 3}
-  m_PrefabInstance: {fileID: 783410932}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2066190380
 GameObject:
   m_ObjectHideFlags: 0
@@ -45477,14 +45319,17 @@ MonoBehaviour:
   - {fileID: 459465206}
   meleeType: 2
   weaponType: 0
+  shieldDurability: 0
   shieldTransform: {fileID: 1402882457}
   dodgeRollCooldown: 5
+  axeDamage: 0
   axePrefab: {fileID: 6216056544334354181, guid: 726787c6586700e4aa958f793536c572, type: 3}
   axeFlySpeed: 5
   axeAimTimer: 1
   axeThrowCooldown: 0
   axeStartPoint: {fileID: 713422805}
   attackData:
+    attackDamage: 0
     attackName: 
     attackRange: 1
     moveSpeed: 0
@@ -45492,18 +45337,21 @@ MonoBehaviour:
     animationSpeed: 1
     attackType: 0
   attackList:
-  - attackName: Sword spin attack
+  - attackDamage: 0
+    attackName: Sword spin attack
     attackRange: 1.5
     moveSpeed: 2.5
     attackIndex: 0
     animationSpeed: 0
     attackType: 1
-  - attackName: Sword slash
+  - attackDamage: 0
+    attackName: Sword slash
     attackRange: 1
     moveSpeed: 0
     attackIndex: 1
     animationSpeed: 1.5
     attackType: 0
+  meleeAttackFX: {fileID: 0}
 --- !u!1 &2070440215
 GameObject:
   m_ObjectHideFlags: 0
@@ -46423,7 +46271,7 @@ GameObject:
   - component: {fileID: 2124209324}
   - component: {fileID: 2124209323}
   - component: {fileID: 2124209322}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (21)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46690,6 +46538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d1a6fdc6860124983eb37f981e06f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 0}
   durability: 10
 --- !u!114 &2125662080
 MonoBehaviour:
@@ -47230,7 +47079,7 @@ GameObject:
   - component: {fileID: 2140222741}
   - component: {fileID: 2140222740}
   - component: {fileID: 2140222739}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Target (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49889,14 +49738,17 @@ MonoBehaviour:
   - {fileID: 7447205555497182172}
   meleeType: 1
   weaponType: 0
+  shieldDurability: 0
   shieldTransform: {fileID: 6803225167998256023}
   dodgeRollCooldown: 5
+  axeDamage: 0
   axePrefab: {fileID: 6216056544334354181, guid: 726787c6586700e4aa958f793536c572, type: 3}
   axeFlySpeed: 5
   axeAimTimer: 1
   axeThrowCooldown: 0
   axeStartPoint: {fileID: 2289316298889853515}
   attackData:
+    attackDamage: 0
     attackName: 
     attackRange: 1
     moveSpeed: 0
@@ -49904,18 +49756,21 @@ MonoBehaviour:
     animationSpeed: 1
     attackType: 0
   attackList:
-  - attackName: Sword spin attack
+  - attackDamage: 0
+    attackName: Sword spin attack
     attackRange: 1.5
     moveSpeed: 2.5
     attackIndex: 0
     animationSpeed: 0
     attackType: 1
-  - attackName: Sword slash
+  - attackDamage: 0
+    attackName: Sword slash
     attackRange: 1
     moveSpeed: 0
     attackIndex: 1
     animationSpeed: 1.5
     attackType: 0
+  meleeAttackFX: {fileID: 0}
 --- !u!4 &611413151788670847
 Transform:
   m_ObjectHideFlags: 0
@@ -55941,6 +55796,7 @@ MonoBehaviour:
   weaponData: {fileID: 11400000, guid: 43c9c11aff61d4c4caefbada927557d4, type: 2}
   weapon:
     weaponType: 0
+    bulletDamage: 0
     shootType: 0
     fireRate: 0
     burstActive: 0
@@ -56520,6 +56376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d1a6fdc6860124983eb37f981e06f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 0}
   durability: 10
 --- !u!1 &2150748202939994694
 GameObject:
@@ -58777,6 +58634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d1a6fdc6860124983eb37f981e06f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 0}
   durability: 10
 --- !u!23 &2589805838240524307
 MeshRenderer:
@@ -61359,7 +61217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!144 &3259585229206055988
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -64571,6 +64429,63 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8482466446328633574}
   m_Mesh: {fileID: 7851633506773952824, guid: b95b544d0acb75341a8987a74dbdf9e7, type: 3}
+--- !u!1001 &4021330358472000960
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4945841429172698527, guid: 6440158307ff09c458fb2cad1224e41b, type: 3}
+      propertyPath: m_Name
+      value: VT_Enemy_Boss_Flamethrower
+      objectReference: {fileID: 0}
+    - target: {fileID: 8247291844804601606, guid: 6440158307ff09c458fb2cad1224e41b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 8247291844804601606, guid: 6440158307ff09c458fb2cad1224e41b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8247291844804601606, guid: 6440158307ff09c458fb2cad1224e41b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8247291844804601606, guid: 6440158307ff09c458fb2cad1224e41b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8247291844804601606, guid: 6440158307ff09c458fb2cad1224e41b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8247291844804601606, guid: 6440158307ff09c458fb2cad1224e41b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8247291844804601606, guid: 6440158307ff09c458fb2cad1224e41b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8247291844804601606, guid: 6440158307ff09c458fb2cad1224e41b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8247291844804601606, guid: 6440158307ff09c458fb2cad1224e41b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8247291844804601606, guid: 6440158307ff09c458fb2cad1224e41b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6440158307ff09c458fb2cad1224e41b, type: 3}
 --- !u!1 &4026172599407791867
 GameObject:
   m_ObjectHideFlags: 0
@@ -74467,6 +74382,7 @@ MonoBehaviour:
   coverPerk: 0
   unstoppablePerk: 0
   grenadePerk: 1
+  grenadeDamage: 0
   grenadePrefab: {fileID: 1062359839157127605, guid: 2614494090512a8468a7e642df492dc8, type: 3}
   impactPower: 5
   explosionTimer: 0.75
@@ -78444,6 +78360,63 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3128695989075256746}
   m_Mesh: {fileID: -1154756649555877757, guid: f23b25bf0a1e25d4d94b8c86ee977fc1, type: 3}
+--- !u!1001 &6318901134520609420
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2336506413061315082, guid: 217624d192d9d9d4b8770906eb0eef5f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336506413061315082, guid: 217624d192d9d9d4b8770906eb0eef5f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336506413061315082, guid: 217624d192d9d9d4b8770906eb0eef5f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336506413061315082, guid: 217624d192d9d9d4b8770906eb0eef5f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336506413061315082, guid: 217624d192d9d9d4b8770906eb0eef5f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336506413061315082, guid: 217624d192d9d9d4b8770906eb0eef5f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336506413061315082, guid: 217624d192d9d9d4b8770906eb0eef5f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336506413061315082, guid: 217624d192d9d9d4b8770906eb0eef5f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336506413061315082, guid: 217624d192d9d9d4b8770906eb0eef5f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336506413061315082, guid: 217624d192d9d9d4b8770906eb0eef5f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547710891443538619, guid: 217624d192d9d9d4b8770906eb0eef5f, type: 3}
+      propertyPath: m_Name
+      value: VT_Enemy_Boss_Hummer (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 217624d192d9d9d4b8770906eb0eef5f, type: 3}
 --- !u!136 &6320672573867417463
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -91615,7 +91588,8 @@ MonoBehaviour:
   - {fileID: 7134680943067290355}
   coverPerk: 0
   unstoppablePerk: 0
-  grenadePerk: 0
+  grenadePerk: 1
+  grenadeDamage: 0
   grenadePrefab: {fileID: 1062359839157127605, guid: 2614494090512a8468a7e642df492dc8, type: 3}
   impactPower: 5
   explosionTimer: 0.75
@@ -92454,9 +92428,14 @@ MonoBehaviour:
   attackRange: 1.6
   minAbilityDistance: 2.8
   abilityCooldown: 10
+  flameDamage: 0
+  flameDamageCooldown: 0
   flamethrower: {fileID: 6628433204598029928}
   flameThrowDuration: 3
+  hummerActiveDamage: 0
   activationPrefab: {fileID: 2965222256817593503, guid: a164e676dbbd6e54587237e619372c98, type: 3}
+  hummerCheckRadius: 0
+  jumpAttackDamage: 0
   jumpAttackCooldown: 5
   travelTimeToTarget: 1
   minJumpDistanceRequired: 5
@@ -92467,6 +92446,10 @@ MonoBehaviour:
   whatToIgnore:
     serializedVersion: 2
     m_Bits: 2048
+  meleeAttackDamage: 0
+  damagePoints: []
+  attackCheckRadius: 0
+  meleeAttackFX: {fileID: 0}
 --- !u!114 &8717158187058685462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98446,6 +98429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d1a6fdc6860124983eb37f981e06f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 0}
   durability: 10
 --- !u!114 &9025403884216322602
 MonoBehaviour:
@@ -99270,11 +99254,14 @@ SceneRoots:
   - {fileID: 7738597782438651382}
   - {fileID: 48400747}
   - {fileID: 1491962489}
-  - {fileID: 783410932}
   - {fileID: 4967111784738146602}
   - {fileID: 1510764748}
+  - {fileID: 783410932}
   - {fileID: 1055672690}
+  - {fileID: 4021330358472000960}
+  - {fileID: 6318901134520609420}
   - {fileID: 1065215267}
+  - {fileID: 687723450}
   - {fileID: 578032353}
   - {fileID: 5743031083095964919}
   - {fileID: 993479348}

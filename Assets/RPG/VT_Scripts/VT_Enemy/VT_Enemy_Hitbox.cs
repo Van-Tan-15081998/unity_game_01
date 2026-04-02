@@ -13,11 +13,9 @@ public class VT_Enemy_Hitbox : VT_HitBox
         enemy = GetComponentInParent<VT_Enemy>();   
     }
 
-    public override void TakeDamage()
+    public override void TakeDamage(int damage)
     {
-        base.TakeDamage();
-
-        enemy.GetHit();
+        enemy.GetHit(damage);
     }
 
 }

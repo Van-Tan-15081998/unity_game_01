@@ -18,6 +18,7 @@ public class VT_Enemy_Range : VT_Enemy
     public GrenadePerk grenadePerk;
 
     [Header("Grenade Perks")]
+    public int grenadeDamage;
     public GameObject grenadePrefab;
     public float impactPower = 5f;
     public float explosionTimer = .75f;
@@ -158,12 +159,12 @@ public class VT_Enemy_Range : VT_Enemy
 
         if (stateMachine.currentState == deadState)
         {
-            newGrenadeScript.SetupGrenade(whatIsAlly, transform.position, 1, explosionTimer, impactPower);
+            newGrenadeScript.SetupGrenade(whatIsAlly, transform.position, 1, explosionTimer, impactPower, grenadeDamage);
             return;
         }
 
         //Debug.LogWarning("PlayerPosition: " + player.transform.position.y);
-        newGrenadeScript.SetupGrenade(whatIsAlly, player.transform.position, timeToTarget, explosionTimer, impactPower);
+        newGrenadeScript.SetupGrenade(whatIsAlly, player.transform.position, timeToTarget, explosionTimer, impactPower, grenadeDamage);
     }
 
     protected override void InitializePerk()
@@ -266,7 +267,7 @@ public class VT_Enemy_Range : VT_Enemy
         
         newBullet.transform.rotation = Quaternion.LookRotation(gunPoint.forward);
 
-        newBullet.GetComponent<VT_Bullet>().BulletSetup(whatIsAlly);
+        newBullet.GetComponent<VT_Bullet>().BulletSetup(whatIsAlly, weaponData.bulletDamage);
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 

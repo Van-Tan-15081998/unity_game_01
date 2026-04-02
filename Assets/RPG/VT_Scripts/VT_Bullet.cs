@@ -4,6 +4,7 @@ public class VT_Bullet : MonoBehaviour
 {
     [SerializeField] private GameObject bulletImpactFX;
 
+    private int bulletDamage;
     private float impactForce;
 
     private Rigidbody rb;
@@ -25,10 +26,11 @@ public class VT_Bullet : MonoBehaviour
         trailRenderer = GetComponent<TrailRenderer>();
     }
 
-    public void BulletSetup(LayerMask allyLayerMark, float flyDistance = 100, float impactForce = 100)
+    public void BulletSetup(LayerMask allyLayerMark, int bulletDamage, float flyDistance = 100, float impactForce = 100)
     {
         this.allyLayerMask = allyLayerMark;
         this.impactForce = impactForce;
+        this.bulletDamage = bulletDamage;
 
         bulletDisabled = false;
         cd.enabled = true;
@@ -105,17 +107,7 @@ public class VT_Bullet : MonoBehaviour
 
         /// [Damage_System]
         VT_IDamagable damagable = collision.gameObject.GetComponent<VT_IDamagable>();
-        damagable?.TakeDamage();
-
-
-        ///
-        VT_EnemyShield shield = collision.gameObject.GetComponentInParent<VT_EnemyShield>();
-
-        if (shield != null)
-        {
-            shield.ReduceDurability();
-            return;
-        }
+        damagable?.TakeDamage(bulletDamage);
 
         ///
         ApplyBulletImpactToEnemy(collision);

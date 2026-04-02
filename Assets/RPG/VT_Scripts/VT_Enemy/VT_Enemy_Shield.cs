@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VT_EnemyShield : MonoBehaviour
+public class VT_Enemy_Shield : MonoBehaviour, VT_IDamagable
 {
     private VT_Enemy_Melee enemy;
 
@@ -11,17 +11,24 @@ public class VT_EnemyShield : MonoBehaviour
     private void Awake()
     {
         enemy = GetComponentInParent<VT_Enemy_Melee>();
+
+        durability = enemy.shieldDurability;
     }
 
-    public void ReduceDurability()
+    public void ReduceDurability(int damage)
     {
-        durability--;
+        durability -= damage;
 
         /// Khiên vỡ => Quay lại ChaseState
         if (durability <= 0 )
         {
             enemy.anim.SetFloat("VT_ChaseIndex", 0);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        ReduceDurability(damage);
     }
 }

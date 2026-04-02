@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7978019303831652629}
   - component: {fileID: 6048621651075809092}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: VT_Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1251788387567647210}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: VT_AxeVisuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 1120845915471271712}
   - component: {fileID: 4321179493354718164}
   - component: {fileID: 3978610240925608190}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: VT_Enemy_Axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 8888945193943442662}
   - component: {fileID: 880488212610079210}
   - component: {fileID: 7021426577225669529}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: weap_enemy_axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}

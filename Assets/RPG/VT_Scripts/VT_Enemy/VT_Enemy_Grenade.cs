@@ -15,6 +15,7 @@ public class VT_Enemy_Grenade : MonoBehaviour
     private string VT_grenadeId;
     private bool VT_explored;
 
+    private int grenadeDamage;
 
     private void Awake()
     {
@@ -51,21 +52,27 @@ public class VT_Enemy_Grenade : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
-            ///
-            if (IsTargetValid(collider) == false)
+            /// Chỉ những Object có liên quan mới nhận sát thương
+            VT_IDamagable damagable = collider.GetComponent<VT_IDamagable>();
+
+            if (damagable != null)
             {
-                continue;
+                ///
+                if (IsTargetValid(collider) == false)
+                {
+                    continue;
+                }
+
+                ///
+                GameObject rootEntity = collider.transform.root.gameObject;
+                if (uniqueEntities.Add(rootEntity) == false)
+                { continue; }
+
+                damagable?.TakeDamage(grenadeDamage);
             }
+            
 
-            ///
-            GameObject rootEntity = collider.transform.root.gameObject;
-            if (uniqueEntities.Add(rootEntity) == false)
-            { continue; }
-
-            ///
-            ApplyDamageTo(collider);
-
-            ///
+            /// Tất cả các Object trong phạm vi đều bị tác động lực 
             ApplyPhysicalForceTo(collider);
         }
     }
@@ -81,12 +88,6 @@ public class VT_Enemy_Grenade : MonoBehaviour
         }
     }
 
-    private static void ApplyDamageTo(Collider collider)
-    {
-        VT_IDamagable damagable = collider.GetComponent<VT_IDamagable>();
-        damagable?.TakeDamage();
-    }
-
     private void PlayExplosionFX()
     {
         GameObject newFX = VT_ObjectPool.instance.GetObject(explosionFX, transform);
@@ -95,8 +96,9 @@ public class VT_Enemy_Grenade : MonoBehaviour
         VT_ObjectPool.instance.ReturnObject(gameObject);
     }
 
-    public void SetupGrenade(LayerMask allyLayerMask, Vector3 target, float timeToTarget, float countdown, float impactPower)
+    public void SetupGrenade(LayerMask allyLayerMask, Vector3 target, float timeToTarget, float countdown, float impactPower, int grenadeDamage)
     {
+        this.grenadeDamage = grenadeDamage;
         this.allyLayerMask = allyLayerMask;
 
         rb.velocity = CalculateLaunchVelocity(target, timeToTarget);

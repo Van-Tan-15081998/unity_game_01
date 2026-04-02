@@ -26,6 +26,7 @@ public class VT_Weapon
 {
     public VT_WeaponType weaponType;
 
+    public int bulletDamage;
 
     #region Regular mode variables
     public VT_ShootType shootType;
@@ -74,6 +75,7 @@ public class VT_Weapon
 
     public VT_Weapon(VT_WeaponData weaponData)
     {
+        bulletDamage = weaponData.bulletDamage;
         bulletsInMagazine = weaponData.bulletsInMagazine;
         magazineCapacity = weaponData.magazineCapacity;
         totalReserveAmmo = weaponData.totalReserveAmmo;
@@ -120,7 +122,7 @@ public class VT_Weapon
         float randomizedValue = Random.Range(-currentSpread, currentSpread);
 
         /// Tạo một Quaternion đại diện cho sự xoay ngẫu nhiên dựa trên giá trị ngẫu nhiên đã tạo.
-        Quaternion spreadRotation = Quaternion.Euler(randomizedValue, randomizedValue, randomizedValue);
+        Quaternion spreadRotation = Quaternion.Euler(randomizedValue, randomizedValue / 2, randomizedValue);
 
         /// Áp dụng sự xoay ngẫu nhiên vào hướng ban đầu của viên đạn để tạo ra hiệu ứng giật.
         return spreadRotation * originalDirection;
