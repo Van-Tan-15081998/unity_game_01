@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VT_Enemy_Hitbox : VT_HitBox
+public class VT_Enemy_HitBox : VT_HitBox
 {
 
     private VT_Enemy enemy;

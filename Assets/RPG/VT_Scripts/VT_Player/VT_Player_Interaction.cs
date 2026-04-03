@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VT_PlayerInteraction : MonoBehaviour
+public class VT_Player_Interaction : MonoBehaviour
 {
     private List<VT_Interactable> interactables = new List<VT_Interactable>();
 

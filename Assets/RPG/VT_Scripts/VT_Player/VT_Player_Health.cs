@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VT_PlayerHealth : VT_HealthController
+public class VT_Player_Health : VT_HealthController
 {
     private VT_Player player;
 

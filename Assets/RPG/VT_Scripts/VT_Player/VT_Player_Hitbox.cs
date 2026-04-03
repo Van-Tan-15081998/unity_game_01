@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VT_PlayerHitbox : VT_HitBox
+public class VT_Player_Hitbox : VT_HitBox
 {
     private VT_Player player;
     protected override void Awake()
@@ -16,7 +16,7 @@ public class VT_PlayerHitbox : VT_HitBox
     {
         int newDamage = Mathf.RoundToInt(damage * damageMultiplier);
 
-        Debug.LogWarning("Sat thuong: " + newDamage);
+        //Debug.LogWarning("Sat thuong: " + newDamage);
 
         player.health.ReduceHealth(newDamage);
     }

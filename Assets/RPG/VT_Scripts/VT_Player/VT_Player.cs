@@ -4,17 +4,17 @@ public class VT_Player : MonoBehaviour
 {
     public Transform playerBody;
     public PlayerControls controls { get; private set; } // Read-Only
-    public VT_PlayerAim aim { get; private set; } // Read-Only
+    public VT_Player_AimController aim { get; private set; } // Read-Only
 
-    public VT_PlayerMovement movement { get; private set; } // Read-Only
+    public VT_Player_Movement movement { get; private set; } // Read-Only
 
-    public VT_PlayerWeaponController weapon { get; private set; } // Read-Only
+    public VT_Player_WeaponController weapon { get; private set; } // Read-Only
 
-    public VT_PlayerWeaponVisuals weaponVisuals { get; private set; } // Read-Only
+    public VT_Player_WeaponVisuals weaponVisuals { get; private set; } // Read-Only
 
-    public VT_PlayerInteraction interaction { get; private set; } // Read-Only
+    public VT_Player_Interaction interaction { get; private set; } // Read-Only
 
-    public VT_PlayerHealth health { get; private set; }
+    public VT_Player_Health health { get; private set; }
 
     public VT_Ragdoll ragdoll { get; private set; }
 
@@ -23,13 +23,13 @@ public class VT_Player : MonoBehaviour
     private void Awake()
     {
         controls = new PlayerControls();
-        aim = GetComponent<VT_PlayerAim>();
-        movement = GetComponent<VT_PlayerMovement>();   
-        weapon = GetComponent<VT_PlayerWeaponController>();
-        weaponVisuals = GetComponent<VT_PlayerWeaponVisuals>();
-        interaction = GetComponent<VT_PlayerInteraction>();
+        aim = GetComponent<VT_Player_AimController>();
+        movement = GetComponent<VT_Player_Movement>();   
+        weapon = GetComponent<VT_Player_WeaponController>();
+        weaponVisuals = GetComponent<VT_Player_WeaponVisuals>();
+        interaction = GetComponent<VT_Player_Interaction>();
 
-        health = GetComponent<VT_PlayerHealth>();
+        health = GetComponent<VT_Player_Health>();
         ragdoll = GetComponent<VT_Ragdoll>();
         anim = GetComponentInChildren<Animator>();
     }

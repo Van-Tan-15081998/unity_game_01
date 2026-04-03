@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VT_PlayerWeaponController : MonoBehaviour
+public class VT_Player_WeaponController : MonoBehaviour
 {
     [SerializeField] private LayerMask whatIsAlly;
 

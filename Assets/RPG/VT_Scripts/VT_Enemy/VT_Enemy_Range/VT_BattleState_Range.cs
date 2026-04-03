@@ -204,7 +204,7 @@ public class VT_BattleState_Range : VT_EnemyState
             //return hit.collider.gameObject.GetComponentInParent<VT_Player>();
             //return hit.transform.parent == enemy.player;
 
-            if (hit.transform == enemy.player || hit.transform.parent == enemy.player)
+            if (hit.transform.root == enemy.player.root) /// || hit.transform.parent == enemy.player)
             {
                 return true;
             }

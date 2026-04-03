@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class VT_Interactable : MonoBehaviour
 {
-    protected VT_PlayerWeaponController weaponController;
+    protected VT_Player_WeaponController weaponController;
 
     private MeshRenderer mesh;
     [SerializeField] private Material highlightMaterial;
@@ -53,10 +53,10 @@ public class VT_Interactable : MonoBehaviour
     {
         if (weaponController == null)
         {
-            weaponController = other.GetComponent<VT_PlayerWeaponController>();
+            weaponController = other.GetComponent<VT_Player_WeaponController>();
         }
 
-        VT_PlayerInteraction playerInteraction = other.GetComponent<VT_PlayerInteraction>();
+        VT_Player_Interaction playerInteraction = other.GetComponent<VT_Player_Interaction>();
 
         if (playerInteraction == null)
         {
@@ -69,7 +69,7 @@ public class VT_Interactable : MonoBehaviour
 
     protected virtual void OnTriggerExit(Collider other)
     {
-        VT_PlayerInteraction playerInteraction = other.GetComponent<VT_PlayerInteraction>();
+        VT_Player_Interaction playerInteraction = other.GetComponent<VT_Player_Interaction>();
 
         if (playerInteraction == null)
         {
