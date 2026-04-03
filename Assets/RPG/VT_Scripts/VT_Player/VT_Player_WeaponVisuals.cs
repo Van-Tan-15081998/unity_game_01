@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-public class VT_PlayerWeaponVisuals : MonoBehaviour
+public class VT_Player_WeaponVisuals : MonoBehaviour
 {
     private VT_Player player;
 

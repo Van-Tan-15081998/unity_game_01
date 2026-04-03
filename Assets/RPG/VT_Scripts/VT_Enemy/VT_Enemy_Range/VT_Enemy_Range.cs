@@ -361,7 +361,7 @@ public class VT_Enemy_Range : VT_Enemy
         if (Physics.Raycast(myPosition, directionToPlayer, out RaycastHit hit, Mathf.Infinity, ~whatToIgnore))
         {
             
-            if (hit.transform == player)
+            if (hit.transform.root == player.root)
             {
                 /// player chính là [VT_Player Component].transform
                 /// [VT_Player Component] có [Capsule Collider] <=> Nếu va chạm => hit = [VT_Player Component]

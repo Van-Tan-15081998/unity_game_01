@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class VT_PlayerAim : MonoBehaviour
+public class VT_Player_AimController : MonoBehaviour
 {
     private VT_Player player;
     private PlayerControls controls;

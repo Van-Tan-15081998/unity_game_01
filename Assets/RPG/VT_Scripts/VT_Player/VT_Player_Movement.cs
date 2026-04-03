@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class VT_PlayerMovement : MonoBehaviour
+public class VT_Player_Movement : MonoBehaviour
 {
 
     // Tham chiếu đến VT_Player để truy cập PlayerControls
