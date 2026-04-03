@@ -10860,6 +10860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e726a6c6a386ef4f95f8f6d9a60a410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &1754617868238752145
 GameObject:
   m_ObjectHideFlags: 0
@@ -11296,6 +11297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e726a6c6a386ef4f95f8f6d9a60a410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &2085670755885449484
 GameObject:
   m_ObjectHideFlags: 0
@@ -11539,6 +11541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e726a6c6a386ef4f95f8f6d9a60a410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &2505171583231397159
 GameObject:
   m_ObjectHideFlags: 0
@@ -11870,6 +11873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e726a6c6a386ef4f95f8f6d9a60a410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1.5
 --- !u!1 &3605839497793831803
 GameObject:
   m_ObjectHideFlags: 0
@@ -12540,6 +12544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e726a6c6a386ef4f95f8f6d9a60a410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &4932722119197926098
 GameObject:
   m_ObjectHideFlags: 0
@@ -12643,7 +12648,7 @@ GameObject:
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8247291844804601606
 Transform:
   m_ObjectHideFlags: 0
@@ -12707,7 +12712,7 @@ MonoBehaviour:
   idleTime: 3
   aggressionRange: 15
   walkSpeed: 1.25
-  runSpeed: 3
+  runSpeed: 4
   turnSpeed: 8
   patrolPoints:
   - {fileID: 7179540235719293911}
@@ -12716,22 +12721,27 @@ MonoBehaviour:
   bossWeaponType: 0
   actionCooldown: 1
   attackRange: 1.6
-  minAbilityDistance: 6
-  abilityCooldown: 15
-  flameDamageCooldown: 0.5
+  minAbilityDistance: 7
+  abilityCooldown: 10
+  flameDamage: 10
+  flameDamageCooldown: 0.25
   flamethrower: {fileID: 2015895619519892113}
   flameThrowDuration: 3
+  hummerActiveDamage: 0
   activationPrefab: {fileID: 0}
+  hummerCheckRadius: 1.25
+  jumpAttackDamage: 25
   jumpAttackCooldown: 5
-  travelTimeToTarget: 1
+  travelTimeToTarget: 0.6
   minJumpDistanceRequired: 5
   impactRadius: 2.5
-  impactPower: 5
+  impactPower: 7
   impactPoint: {fileID: 0}
-  upforceMultiplier: 10
+  upforceMultiplier: 5
   whatToIgnore:
     serializedVersion: 2
     m_Bits: 2048
+  meleeAttackDamage: 40
   damagePoints:
   - {fileID: 1781844614581627106}
   - {fileID: 3193172526393481145}
@@ -12770,7 +12780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba00d7418bd260544beb85bf9fafe1e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ragdollParent: {fileID: 0}
+  ragdollParent: {fileID: 2032622988912093026}
   ragdollColliders: []
   ragdollRigidbodies: []
 --- !u!114 &3809497489047574916
@@ -12785,7 +12795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90d1e64c339ba164b9ecff8b39360d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 2000
   currentHealth: 0
 --- !u!1 &4970296851775863761
 GameObject:
@@ -17938,6 +17948,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e726a6c6a386ef4f95f8f6d9a60a410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &6150663063724640735
 GameObject:
   m_ObjectHideFlags: 0
@@ -18082,6 +18093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e726a6c6a386ef4f95f8f6d9a60a410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &6357136380548057088
 GameObject:
   m_ObjectHideFlags: 0
@@ -18227,6 +18239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e726a6c6a386ef4f95f8f6d9a60a410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &6385723348310482856
 GameObject:
   m_ObjectHideFlags: 0
@@ -18404,6 +18417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e726a6c6a386ef4f95f8f6d9a60a410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &7341744494755121826
 GameObject:
   m_ObjectHideFlags: 0
@@ -18645,6 +18659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e726a6c6a386ef4f95f8f6d9a60a410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &8045596613801325015
 GameObject:
   m_ObjectHideFlags: 0
@@ -19375,6 +19390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e726a6c6a386ef4f95f8f6d9a60a410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &8968905881939782661
 GameObject:
   m_ObjectHideFlags: 0

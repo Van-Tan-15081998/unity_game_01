@@ -15,7 +15,9 @@ public class VT_Enemy_Hitbox : VT_HitBox
 
     public override void TakeDamage(int damage)
     {
-        enemy.GetHit(damage);
+        int newDamage = Mathf.RoundToInt(damage * damageMultiplier);
+
+        enemy.GetHit(newDamage);
     }
 
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class VT_HitBox : MonoBehaviour, VT_IDamagable
 {
+    [SerializeField] protected float damageMultiplier = 1f;
+
     protected virtual void Awake()
     {
 

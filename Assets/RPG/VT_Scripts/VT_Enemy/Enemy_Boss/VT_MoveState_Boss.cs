@@ -6,7 +6,7 @@ public class VT_MoveState_Boss : VT_EnemyState
     private Vector3 destination;
 
     private float actionTimer;
-    private float timeBeforeSpeedUp = 15;
+    private float timeBeforeSpeedUp = 5;
 
     private bool speedUpActivated;
 
@@ -31,9 +31,8 @@ public class VT_MoveState_Boss : VT_EnemyState
     private void SpeedReset()
     {
         speedUpActivated = false;
-
         enemy.anim.SetFloat("VT_MoveAnimIndex", 0);
-
+        enemy.anim.SetFloat("VT_MoveAnimSpeedMultiplier", 1);
         enemy.agent.speed = enemy.walkSpeed;
     }
 
@@ -41,6 +40,7 @@ public class VT_MoveState_Boss : VT_EnemyState
     {
         enemy.agent.speed = enemy.runSpeed;
         enemy.anim.SetFloat("VT_MoveAnimIndex", 1);
+        enemy.anim.SetFloat("VT_MoveAnimSpeedMultiplier", 1.5f);
         speedUpActivated = true;
     }
 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 119477687972042458}
   - component: {fileID: 3632395430529409828}
   - component: {fileID: 6372570780445365031}
-  - component: {fileID: 6559328999059460328}
+  - component: {fileID: -7109256703371067400}
   m_Layer: 12
   m_Name: VT_Enemy_Bullet
   m_TagString: Untagged
@@ -102,7 +102,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -248,7 +248,7 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!114 &6559328999059460328
+--- !u!114 &-7109256703371067400
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1170252947033688158}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9cc9cb3809d9084598403294d999c9d, type: 3}
+  m_Script: {fileID: 11500000, guid: 46e06e62b03c51844b417fe418622fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bulletImpactFX: {fileID: 2171257557523011143, guid: 922d99134487d0e478f71f96605890b0, type: 3}

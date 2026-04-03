@@ -14,6 +14,10 @@ public class VT_PlayerHitbox : VT_HitBox
 
     public override void TakeDamage(int damage)
     {
-        player.health.ReduceHealth(damage);
+        int newDamage = Mathf.RoundToInt(damage * damageMultiplier);
+
+        Debug.LogWarning("Sat thuong: " + newDamage);
+
+        player.health.ReduceHealth(newDamage);
     }
 }
